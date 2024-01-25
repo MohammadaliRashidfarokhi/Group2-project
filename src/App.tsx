@@ -6,7 +6,7 @@ export const App = () => {
     <div>
       Hello
       <Button>Button</Button>
-      <Input />
+      <Input value={'Hello'} />
     </div>
   )
 }
