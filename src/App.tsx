@@ -1,13 +1,13 @@
-import { Button } from '@/lib/shadcn-components/ui/button.tsx'
-import { Input } from '@/lib/shadcn-components/ui/input.tsx'
+import { QueryClientProvider } from '@tanstack/react-query'
+import { appQueryClient } from './config/reactQuery/queryClient'
+import { RouterProvider } from 'react-router-dom'
+import { router } from '@/config/router/router.tsx'
 
 export const App = () => {
   return (
-    <div>
-      Hello
-      <Button>Button</Button>
-      <Input value={'Hello'} />
-    </div>
+    <QueryClientProvider client={appQueryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
   )
 }
 
