@@ -4,6 +4,10 @@ import { Layout, LayoutWithHeader } from '@/components/layout/Layout.tsx'
 import { UserRedirect } from '@/config/router/UserRedirect.tsx'
 import { LoginPage } from '@/modules/auth/view/LoginPage/LoginPage.tsx'
 import { HomePage } from '@/modules/home/view/HomePage/HomePage.tsx'
+import { RegisterPage } from '@/modules/auth/view/RegisterPage/RegisterPage.tsx'
+import { NotFoundPage } from '@/modules/common/NotFoundPage/NotFoundPage.tsx'
+import { AccountConfirmPage } from '@/modules/common/AccountConfirmPage/AccountConfirmPage.tsx'
+import { WithAuth } from '@/config/router/WithAuth.tsx'
 
 export const router = createBrowserRouter([
   {
@@ -20,13 +24,21 @@ export const router = createBrowserRouter([
       },
       {
         path: APP_ROUTES.register,
-        element: <div />,
+        element: <RegisterPage />,
+      },
+      {
+        path: APP_ROUTES.accountConfirmation,
+        element: <AccountConfirmPage />,
       },
     ],
   },
   {
     path: '/',
-    element: <LayoutWithHeader />,
+    element: (
+      <WithAuth>
+        <LayoutWithHeader />
+      </WithAuth>
+    ),
     children: [
       {
         path: APP_ROUTES.home,
@@ -41,5 +53,9 @@ export const router = createBrowserRouter([
         element: <div />,
       },
     ],
+  },
+  {
+    path: '*',
+    element: <NotFoundPage />,
   },
 ])

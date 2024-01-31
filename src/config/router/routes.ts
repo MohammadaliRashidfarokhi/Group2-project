@@ -4,4 +4,5 @@ export const APP_ROUTES = {
   home: '/home',
   settings: '/settings',
   user: (id: string) => `/users/${id}`,
+  accountConfirmation: '/account-confirmation',
 } as const
