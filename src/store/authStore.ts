@@ -12,7 +12,7 @@ const initState: AuthStoreType = {
 const useStore = create(
   persist<AuthStoreType>(() => initState, {
     name: 'authStore',
-    storage: createJSONStorage(() => sessionStorage),
+    storage: createJSONStorage(() => localStorage),
   }),
 )
 
