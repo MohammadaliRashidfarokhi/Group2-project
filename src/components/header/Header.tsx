@@ -1,3 +1,13 @@
+import { supabase } from '@/config/supabase/supabaseClient.ts'
+
 export const Header = () => {
-  return <div className={'min-h-16 bg-amber-300'}>Header</div>
+  const handleLogout = () => {
+    supabase.auth.signOut()
+  }
+  return (
+    <div className={'min-h-16 bg-amber-300'}>
+      <span>Header</span>
+      <button onClick={handleLogout}>Logout</button>
+    </div>
+  )
 }
