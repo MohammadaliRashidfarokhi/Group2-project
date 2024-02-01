@@ -1,13 +1,15 @@
-import { supabase } from '@/config/supabase/supabaseClient.ts'
+import { Input } from '@/lib/shadcn-components/ui/input'
+import { socialLogo, profilePlaceholder } from '@/static/images'
 
 export const Header = () => {
-  const handleLogout = () => {
-    supabase.auth.signOut()
-  }
+ 
   return (
-    <div className={'min-h-16 bg-amber-300'}>
-      <span>Header</span>
-      <button onClick={handleLogout}>Logout</button>
+    <div className={'min-h-16 bg-amber-300 flex justify-between '}>
+      <img src={socialLogo} className='w-40'/>
+      <Input className='w-80'/>
+      <img src={profilePlaceholder} className=''/> 
+
+      
     </div>
   )
 }
