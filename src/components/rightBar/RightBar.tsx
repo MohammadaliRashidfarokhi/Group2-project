@@ -1,4 +1,4 @@
-import "./rightBar.css";
+import './rightBar.scss'
 import MaleAvatar from "../../assets/male_avatar.svg";
 export const RightBar = () => {
   return (
@@ -12,8 +12,8 @@ export const RightBar = () => {
               <span>Ediz Genc</span>
             </div>
             <div className="buttons">
-              <button>follow</button>
-              <button>dismiss</button>
+              <button>Follow</button>
+              <button>Dismiss</button>
             </div>
           </div>
           <div className="user">
@@ -22,8 +22,8 @@ export const RightBar = () => {
               <span>Ediz Genc</span>
             </div>
             <div className="buttons">
-              <button>follow</button>
-              <button>dismiss</button>
+              <button>Follow</button>
+              <button>Dismiss</button>
             </div>
           </div>
         </div>
@@ -32,36 +32,32 @@ export const RightBar = () => {
           <div className="user">
             <div className="userInfo">
               <img src={MaleAvatar} alt="" />
-              <p>
-                <span>Ediz Genc</span> Liked your post
-              </p>
+              <span>Ediz Genc</span>
+              <p>Liked your post</p>
             </div>
-            <span>2 minutes ago</span>
+            <span>2 min. ago</span>
           </div>
           <div className="user">
             <div className="userInfo">
               <img src={MaleAvatar} alt="" />
-              <p>
-                <span>M. Schumacher</span> posted a new photo
-              </p>
+              <span>M. Schumacher</span>
+              <p>posted a new photo</p>
             </div>
-            <span>10 minutes ago</span>
+            <span>10 min. ago</span>
           </div>
           <div className="user">
             <div className="userInfo">
               <img src={MaleAvatar} alt="" />
-              <p>
-                <span>S. O'Neill</span> posted new status
-              </p>
+              <span>S. O'Neill</span>
+              <p>posted new status</p>
             </div>
             <span>1 hour ago</span>
           </div>
           <div className="user">
             <div className="userInfo">
               <img src={MaleAvatar} alt="" />
-              <p>
-                <span>M. Jordan</span> Changed his profile picture
-              </p>
+              <span>M. Jordan</span>
+              <p> Changed his profile picture</p>
             </div>
             <span>5 hours ago</span>
           </div>

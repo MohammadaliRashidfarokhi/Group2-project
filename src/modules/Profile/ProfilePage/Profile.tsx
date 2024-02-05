@@ -1,54 +1,15 @@
-import "./profile.css"
+import './profile.scss'
+import { Stories } from '../../../components/stories/Stories.jsx'
+import { Posts } from '@/components/posts/Posts'
+
 
 export const Profile = () => {
 
 
   return (
-    <div className="Profile"> Profile
-      <h1>Profile</h1>
-      <h1>Profile</h1>
-      <h1>Profile</h1>
-      <h1>Profile</h1>
-      <h1>Profile</h1>
-      <h1>Profile</h1>
-      <h1>Profile</h1>
-      <h1>Profile</h1>
-      <h1>Profile</h1>
-      <h1>Profile</h1>
-      <h1>Profile</h1>
-      <h1>Profile</h1>
-      <h1>Profile</h1>
-      <h1>Profile</h1>
-      <h1>Profile</h1>
-      <h1>Profile</h1>
-      <h1>Profile</h1>
-      <h1>Profile</h1>
-      <h1>Profile</h1>
-      <h1>Profile</h1>
-      <h1>Profile</h1>
-      <h1>Profile</h1>
-      <h1>Profile</h1>
-      <h1>Profile</h1>
-      <h1>Profile</h1>
-      <h1>Profile</h1>
-      <h1>Profile</h1>
-      <h1>Profile</h1>
-      <h1>Profile</h1>
-      <h1>Profile</h1>
-      <h1>Profile</h1>
-      <h1>Profile</h1>
-      <h1>Profile</h1>
-      <h1>Profile</h1>
-      <h1>Profile</h1>
-      <h1>Profile</h1>
-      <h1>Profile</h1>
-      <h1>Profile</h1>
-      <h1>Profile</h1>
-      <h1>Profile</h1>
-      <h1>Profile</h1>
-      <h1>Profile</h1>
-      <h1>Profile</h1>
-      <h1>Profile</h1>
+    <div className="Profile">
+      <Stories />
+      <Posts />
     </div>
   )
 }
