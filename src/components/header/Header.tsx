@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Input } from '@/lib/shadcn-components/ui/input'
 import { socialLogo, profilePlaceholder, searchIcon } from '@/static/images'
+import { supabase } from '@/config/supabase/supabaseClient.ts'
 
 export const Header = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
@@ -10,39 +11,35 @@ export const Header = () => {
   }
 
   const handleLogout = () => {
-    // Implement logout logic
-    console.log('Logout clicked')
+    supabase.auth
+      .signOut()
+      .then(() => {
+        console.log('successfully logged out!')
+      })
+      .catch((error) => {
+        console.error('error logging out', error)
+      })
   }
 
   return (
-    <div className={'min-h-16 bg-black fixed w-full top-0'}>
-      <div className="container mx-auto px-4 flex justify-between items-center text-white">
-        <div className="flex items-center">
-          <img src={socialLogo} className="w-40" alt="Social Logo" />
-        </div>
+    <div className={'min-h-16 bg-black w-full px-4 py-2 flex justify-between items-center'}>
+      <img src={socialLogo} className="w-32" alt="Social Logo" />
 
-        <div className="flex items-center">
-          <img src={searchIcon} className="place-items-start" alt="Search Icon" />
-          <div className="flex flex-col items-center ml-2">
-            <Input className="w-80 mt-2" placeholder="Search for User" />
+      <div className="flex items-center w-80 gap-2.5">
+        <img src={searchIcon} alt="Search Icon" />
+        <Input placeholder="Search for User" />
+      </div>
+
+      <div className="relative">
+        <img src={profilePlaceholder} className="cursor-pointer" alt="Profile Placeholder" onClick={toggleDropdown} />
+        {isDropdownOpen && (
+          <div
+            className="absolute right-0 mt-2 bg-white text-black shadow-md py-2 px-4 cursor-pointer"
+            onClick={handleLogout}
+          >
+            Logout
           </div>
-        </div>
-
-        <div className="relative">
-          <img
-            src={profilePlaceholder}
-            className="w-16 cursor-pointer"
-            alt="Profile Placeholder"
-            onClick={toggleDropdown}
-          />
-          {isDropdownOpen && (
-            <div className="absolute right-0 mt-2 bg-white text-black shadow-md">
-              <div className="py-2 px-4 cursor-pointer" onClick={handleLogout}>
-                Logout
-              </div>
-            </div>
-          )}
-        </div>
+        )}
       </div>
     </div>
   )
