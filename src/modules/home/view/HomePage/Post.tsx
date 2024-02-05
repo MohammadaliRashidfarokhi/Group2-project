@@ -1,27 +1,26 @@
-import React from 'react';
-import Heart from '@/lib/shadcn-components/ui/heart-icon.svg';
+type Props = {
+  data: {
+    id: number
+    name: string
+    username: string
+    text: string
+  }
+}
 
-const posts = [
-  { id: 1, username: 'User1', text: 'This is the first post.' },
-  { id: 2, username: 'User2', text: 'Another text-only post here.' },
-  { id: 3, username: 'User3', text: 'Just some random text for the third post.' },
-];
+export const Post = (props: Props) => {
+  const { data } = props
 
-const Post = () => {
   return (
-    <div >
-      {posts.map((post) => (
-        <div key={post.id} >
-          <h3>{post.username}</h3>
-          <p>{post.text}</p>
-          <div >
-            <span>Heart</span>
-            <span></span>
-          </div>
-        </div>
-      ))}
+    <div className={'border'}>
+      <div className={'flex flex-col'}>
+        <div className={'font-bold text-white'}>{data.name}</div>
+        <div className={'text-gray-500'}>{data.username}</div>
+      </div>
+      <p className={'mt-1 text-white'}>{data.text}</p>
+      <div className={'mt-2 text-white'}>
+        <span>Heart</span>
+        <span>Comment</span>
+      </div>
     </div>
-  );
-};
-
-export default Post;
+  )
+}
