@@ -2,6 +2,12 @@ import { useState } from 'react'
 import { Input } from '@/lib/shadcn-components/ui/input'
 import { socialLogo, profilePlaceholder, searchIcon } from '@/static/images'
 import { supabase } from '@/config/supabase/supabaseClient.ts'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/lib/shadcn-components/ui/dropdown-menu.tsx'
 
 export const Header = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
@@ -22,7 +28,7 @@ export const Header = () => {
   }
 
   return (
-    <div className={'min-h-16 bg-black w-full px-4 py-2 flex justify-between items-center'}>
+    <div className={'min-h-16 bg-black w-full px-7 py-2 flex justify-between items-center'}>
       <img src={socialLogo} className="w-32" alt="Social Logo" />
 
       <div className="flex items-center w-80 gap-2.5">
@@ -30,17 +36,16 @@ export const Header = () => {
         <Input placeholder="Search for User" />
       </div>
 
-      <div className="relative">
-        <img src={profilePlaceholder} className="cursor-pointer" alt="Profile Placeholder" onClick={toggleDropdown} />
-        {isDropdownOpen && (
-          <div
-            className="absolute right-0 mt-2 bg-white text-black shadow-md py-2 px-4 cursor-pointer"
-            onClick={handleLogout}
-          >
+      <DropdownMenu>
+        <DropdownMenuTrigger>
+          <img src={profilePlaceholder} className="cursor-pointer" alt="Profile Placeholder" onClick={toggleDropdown} />
+        </DropdownMenuTrigger>
+        <DropdownMenuContent side={'bottom'} align={'start'} alignOffset={-80} sideOffset={10}>
+          <DropdownMenuItem className={'cursor-pointer'} onClick={handleLogout}>
             Logout
-          </div>
-        )}
-      </div>
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
     </div>
   )
 }
