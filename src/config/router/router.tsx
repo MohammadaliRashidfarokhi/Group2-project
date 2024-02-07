@@ -12,7 +12,7 @@ import { WithAuth } from '@/config/router/WithAuth.tsx'
 export const router = createBrowserRouter([
   {
     path: '/',
-    element: <Layout />,
+    element: <Layout variant={'compact'} />,
     children: [
       {
         index: true,
