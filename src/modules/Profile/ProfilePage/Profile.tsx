@@ -1,5 +1,5 @@
 import './profile.scss'
-import { Stories } from '../../../components/stories/Stories.jsx'
+import { Stories } from '@/components/stories/Stories'
 import { Posts } from '@/components/posts/Posts'
 
 

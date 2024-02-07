@@ -7,65 +7,22 @@ export const Posts = () => {
   const posts = [
     {
       id: 1,
-      name: "John Doe",
-      userId:1,
-      image: "../assets/post-office-1.png",
-      post: "This is a post office",
+      name: 'S. ONeill',
+      userId: 1,
+      profilePic: '../src/assets/male_avatar.svg',
+      desc: 'This is a post office',
+      img: '../src/assets/post-office-1.png',
     },
     {
       id: 2,
-      name: "Jane Doe",
-      userId:1,
-      image: "../assets/post-office-2.png",
-      desc: "Justice Secretary Alex Chalk has met with senior judges to " +
-        "discuss possible solutions to the Post Office IT scandal.",
-    },
-    {
-      id: 1,
-      name: "John Doe",
-      userId:1,
-      image: "../assets/post-office-1.png",
-      post: "This is a post office",
-    },
-    {
-      id: 2,
-      name: "Jane Doe",
-      userId:1,
-      image: "../assets/post-office-2.png",
-      post: "This is a post",
-    },
-    {
-      id: 3,
-      name: "John Doe",
-      userId:1,
-      image: "../assets/post-office-1.png",
-      post: "This is a post office",
-    },
-    {
-      id: 4,
-      name: "Jane Doe",
-      userId:1,
-      image: "../assets/post-office-2.png",
-      post: "This is a post",
-    },
-    {
-      id: 5,
-      name: "John Doe",
-      userId:1,
-      image: "../assets/post-office-1.png",
-      post: "This is a post office",
-    },
-    {
-      id: 6,
-      name: "Jane Doe",
-      userId:1,
-      image: "../assets/post-office-2.png",
-      post: "This is a post",
+      name: 'M. Jordan',
+      userId: 2,
+      profilePic: '../src/assets/male_avatar.svg',
+      desc:
+        'Justice Secretary Alex Chalk has met with senior judges to ' +
+        'discuss possible solutions to the Post Office IT scandal.',
     },
   ]
-
-
-
 
   return (
     <div className="posts">
