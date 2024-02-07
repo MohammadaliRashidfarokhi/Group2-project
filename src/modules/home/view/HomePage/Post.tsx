@@ -1,4 +1,5 @@
-import { Card, CardContent} from '@/lib/shadcn-components/ui/card.tsx';
+import { Card, CardContent } from '@/lib/shadcn-components/ui/card.tsx'
+import { commentIcon, dotsIcon, heartIcon, profilePlaceholder } from '@/static/images.ts'
 
 type Props = {
   data: {
@@ -16,28 +17,28 @@ export const Post = (props: Props) => {
 
   return (
     <Card>
-      <CardContent>
-        <div className={'flex justify-end items-start mt-4'}>
-          <img src="/dots-icon.svg" alt="More" />
-        </div>
-        <div className={'flex flex-row'}>
-          <img src="/user-icon.svg" alt="user" />
+      <CardContent className={'text-white relative px-7 py-5 flex flex-col gap-2'}>
+        <img src={dotsIcon} className={'top-6 right-6 absolute cursor-pointer'} alt="More" />
+
+        <div className={'flex flex-row gap-2'}>
+          <img src={profilePlaceholder} className={'w-10'} alt="user" />
           <div className={'flex flex-col'}>
-            <div className={'ml-2 font-bold text-white'}>{data.name}</div>
-            <div className={'ml-2 text-gray-500'}>{data.username}</div>
+            <div className={'font-bold'}>{data.name}</div>
+            <div className={'text-gray-500'}>{data.username}</div>
           </div>
         </div>
 
-        <p className={'mt-1 mr-1 text-white'}>{data.text}</p>
-        <div className={'mt-3 text-white flex flex-row gap-2'}>
-        <span className={'mt-2 text-white flex flex-row gap-1'}>
-          <img src="/heart-icon.svg" alt="Likes" />
-          <p className={'mb-1 text-white'}>{data.likes}</p>
-        </span>
-          <span className={'mt-2 text-white flex flex-row gap-1'}>
-          <img src="/comment-icon.svg" alt="Comments" />
-          <p className={'mb-1 text-white'}>{data.comments}</p>
-        </span>
+        <span>{data.text}</span>
+
+        <div className={'flex flex-row gap-2 mt-2'}>
+          <span className={'flex flex-row gap-1'}>
+            <img className={'cursor-pointer'} src={heartIcon} alt="Likes" />
+            <span>{data.likes}</span>
+          </span>
+          <span className={'flex flex-row gap-1'}>
+            <img className={'cursor-pointer'} src={commentIcon} alt="Comments" />
+            <span>{data.comments}</span>
+          </span>
         </div>
       </CardContent>
     </Card>
