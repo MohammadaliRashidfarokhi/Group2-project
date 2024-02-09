@@ -5,8 +5,12 @@ import TextsmsOutlinedIcon from '@mui/icons-material/TextsmsOutlined'
 import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined'
 import { MoreHorizOutlined } from '@mui/icons-material/'
 import { Link } from 'react-router-dom'
+import { Comments } from '@/components/comments/Comments.jsx'
+import { useState } from 'react'
 
 export const PostAct = ({post}) => {
+
+  const [commmentOpen, setCommentOpen] = useState(false)
   //TEMP
   const liked = false
 
@@ -17,7 +21,7 @@ export const PostAct = ({post}) => {
           <div className="userInfo">
             <img src={post.profilePic} alt="" />
             <div className="details">
-              <Link to={`./profile/${post.userId}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+              <Link to={`/profile/${post.userId}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                 <span className="name">{post.name}</span>
               </Link>
               <span className="date">1 min. ago</span>
@@ -33,7 +37,7 @@ export const PostAct = ({post}) => {
             {liked ? <FavoriteOutlinedIcon /> : <FavoriteBorderOutlinedIcon />}
             12
           </div>
-          <div className="item">
+          <div className="item" onClick={() => setCommentOpen(!commmentOpen)}>
             <TextsmsOutlinedIcon />
             12 comments
           </div>
@@ -42,6 +46,7 @@ export const PostAct = ({post}) => {
             12
           </div>
         </div>
+        {commmentOpen && <Comments />}
       </div>
     </div>
   )

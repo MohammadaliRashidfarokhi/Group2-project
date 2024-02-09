@@ -1,28 +1,23 @@
-@import "../../style.scss";
-
 .rightBar {
-  @include themify($themes) {
     flex: 3;
     position: sticky;
     top: 70px;
-    height: calc(100vh - 70px);
     overflow: scroll;
-    background-color: themed("bgsoft");
-    color: themed("textColor");
+  background-color: black;
+  color: grey;
 
-    &::-webkit-scrollbar {
+
+  &::-webkit-scrollbar {
       display: none;
     }
     .container {
       padding: 20px;
 
       .item {
-        -webkit-box-shadow: 1px -1px 10px -7px rgba(0, 0, 0, 1);
-        -moz-box-shadow: 1px -1px 10px -7px rgba(0, 0, 0, 1);
-        box-shadow: 1px -1px 10px -7px rgba(0, 0, 0, 1);
         padding: 20px;
         margin-bottom: 20px;
-        background-color: themed("bg");
+        background-color: black;
+        border: 1px solid #444;
 
         span {
           color: gray;
@@ -58,12 +53,12 @@
             }
 
             p {
-              color: themed("textColorSoft")
+              color: lightgrey;
             }
 
             span {
               font-weight: 500;
-              color: themed("textColor")
+              color: whitesmoke
             }
           }
 
@@ -90,5 +85,4 @@
         }
       }
     }
-  }
 }

@@ -13,15 +13,8 @@ import Messages from "../../assets/messages.png";
 import Tutorials from "../../assets/tutorials.png";
 import Courses from "../../assets/courses.png";
 import Funds from "../../assets/fundraiser.png";
-import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined'
-// import { Link } from 'react-router-dom'
-import { useContext } from 'react'
-import { DarkModeContext } from '@/context/darkModeContext.tsx'
-import { WbSunnyOutlined } from '@mui/icons-material'
 
 export const LeftBar = () => {
-
-  const { toggle, darkMode } = useContext(DarkModeContext)
 
 
   return (
@@ -31,8 +24,6 @@ export const LeftBar = () => {
           <div className={'user'}>
             <img src={MaleAvatar} alt={''} />
             <span>Username</span>
-            {/*<Link to={'/profile/:id'} style={{ textDecoration: 'none' }}></Link>*/}
-            {darkMode ? <WbSunnyOutlined onClick={toggle} /> : <DarkModeOutlinedIcon onClick={toggle} />}
           </div>
           <div className={'item'}>
             <img src={Friends} alt={''} />
