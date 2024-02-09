@@ -3,7 +3,7 @@ export const APP_ROUTES = {
   register: '/register',
   home: '/home',
   settings: '/settings',
-  profile: `/profile/:id`,
+  profile: `/profile`,
   user: (id: string) => `/users/${id}`,
   accountConfirmation: '/account-confirmation',
 } as const

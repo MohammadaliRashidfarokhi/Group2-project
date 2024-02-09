@@ -8,7 +8,7 @@ import PlaceIcon from '@mui/icons-material/Place'
 import LanguageIcon from '@mui/icons-material/Language'
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
-import { Posts } from '../../../components/posts/Posts'
+import { Posts } from '/src/components/posts/Posts'
 
 export const Profile = () => {
 
@@ -16,7 +16,7 @@ export const Profile = () => {
   return (
     <div className="Profile">
       <div className="images">
-        <img src="../src/assets/male_avatar.svg" className="profilePicture" alt="" />
+        <img src="../src/assets/male_avatar.png" className="profilePicture" alt="" />
       </div>
       <div className="profileContainer">
         <div className="userInfo">
@@ -56,7 +56,7 @@ export const Profile = () => {
           </div>
         </div>
         <div className="write">
-          <img src="../src/assets/male_avatar.svg" alt="" />
+          <img src="../src/assets/male_avatar.png" alt="" />
           <input type="text" placeholder="Write a comment..." />
           <button>Post</button>
         </div>
