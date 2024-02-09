@@ -1,6 +1,4 @@
 import './profile.scss'
-// import { Stories } from '../../../components/stories/Stories'
-// import { Posts } from '../../../components/posts/Posts'
 import FacebookTwoToneIcon from '@mui/icons-material/FacebookTwoTone'
 import LinkedInIcon from '@mui/icons-material/LinkedIn'
 import InstagramIcon from '@mui/icons-material/Instagram'
@@ -17,8 +15,6 @@ export const Profile = () => {
 
   return (
     <div className="Profile">
-      {/*<Stories />*/}
-      {/*<Posts />*/}
       <div className="images">
         <img src="../src/assets/male_avatar.svg" className="profilePicture" alt="" />
       </div>
@@ -58,6 +54,11 @@ export const Profile = () => {
             <EmailOutlinedIcon />
             <MoreVertIcon />
           </div>
+        </div>
+        <div className="write">
+          <img src="../src/assets/male_avatar.svg" alt="" />
+          <input type="text" placeholder="Write a comment..." />
+          <button>Post</button>
         </div>
       </div>
       <div className="posts">
