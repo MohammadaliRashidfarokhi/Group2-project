@@ -19,6 +19,7 @@ export const LoginPage = () => {
       .then(() => {
         navigate(APP_ROUTES.home)
       })
+      .catch((err) => console.error(err))
   })
 
   return (
