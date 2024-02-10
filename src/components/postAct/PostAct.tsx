@@ -1,11 +1,10 @@
-import './postAct.scss'
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined'
 import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined'
 import TextsmsOutlinedIcon from '@mui/icons-material/TextsmsOutlined'
 import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined'
 import { MoreHorizOutlined } from '@mui/icons-material/'
 import { Link } from 'react-router-dom'
-import { Comments } from '@/components/comments/Comments.jsx'
+import { Comments } from '@/components/comments/Comments.tsx'
 import { useState } from 'react'
 
 export const PostAct = ({post}) => {
@@ -15,33 +14,33 @@ export const PostAct = ({post}) => {
   const liked = false
 
   return (
-    <div className="post">
-      <div className="container">
-        <div className="user">
-          <div className="userInfo">
-            <img src={post.profilePic} alt="" />
-            <div className="details">
+    <div className="post border rounded-lg bg-black text-white border-solid border-1 border-gray-700">
+      <div className="container p-5">
+        <div className="user flex items-center justify-between">
+          <div className="userInfo flex">
+            <img className="w-10 h-10 rounded-full object-cover" src={post.profilePic} alt="User Avatar" />
+            <div className="details ml-3">
               <Link to={`/profile/${post.userId}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                <span className="name">{post.name}</span>
+                <span className="name font-semibold">{post.name}</span>
               </Link>
-              <span className="date">1 min. ago</span>
+              <span className="date text-xs ml-2 text-gray-500">1 min. ago</span>
             </div>
           </div>
           <MoreHorizOutlined />
         </div>
-        <div className="content"></div>
+        <div className="content mt-5"></div>
         <p>{post.describe}</p>
-        <img src={post.img} alt="" />
-        <div className="info">
-          <div className="item">
+        <img className="w-full max-h-96 object-cover mt-5" src={post.img} alt="Post Image" />
+        <div className="info flex items-center gap-5 mt-3">
+          <div className="item flex items-center cursor-pointer text-sm">
             {liked ? <FavoriteOutlinedIcon /> : <FavoriteBorderOutlinedIcon />}
             12
           </div>
-          <div className="item" onClick={() => setCommentOpen(!commmentOpen)}>
+          <div className="item flex items-center cursor-pointer text-sm" onClick={() => setCommentOpen(!commmentOpen)}>
             <TextsmsOutlinedIcon />
             12 comments
           </div>
-          <div className="item">
+          <div className="item flex items-center cursor-pointer text-sm">
             <ShareOutlinedIcon />
             12
           </div>

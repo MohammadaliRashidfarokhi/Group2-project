@@ -1,5 +1,3 @@
-import "./comments.scss"
-
 export const Comments = () => {
 
   const currentUser = [
@@ -29,20 +27,24 @@ export const Comments = () => {
 
 
   return (
-    <div className='comments'>
-      <div className="write">
-        <img src='../src/assets/male_avatar.svg' alt='' />
-        <input type="text" placeholder="Write a comment..." />
-        <button>Send</button>
+    <div className="comments">
+      <div className="write flex items-center justify-between gap-2 my-5">
+        <img src="/src/assets/male_avatar.svg" alt="" className="w-12 h-12 rounded-full object-cover" />
+        <input
+          type="text"
+          placeholder="Write a comment..."
+          className="flex-1 p-2 border-2 border-gray-500 bg-transparent"
+        />
+        <button className="p-2 px-8 border-none rounded-md bg-blue-500 text-white cursor-pointer">Send</button>
       </div>
       {comments.map((comment) => (
-        <div className="comment">
-          <img src={comment.profilePicture} alt='' />
+        <div className="comment flex justify-between text-truncate gap-10">
+          <img src={comment.profilePicture} alt="" className="w-10 h-10 rounded-full object-cover" />
           <div className="info">
-            <span>{comment.name}</span>
+            <span className="font-semibold self-start">{comment.name}</span>
             <p>{comment.desc}</p>
           </div>
-          <span className="date">5 minutes ago</span>
+          <span className="date flex-1 self-center text-gray-500 text-sm">5 min. ago</span>
         </div>
       ))}
     </div>

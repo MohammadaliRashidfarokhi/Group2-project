@@ -1,5 +1,4 @@
-import './posts.scss'
-import { PostAct } from '@/components/postAct/PostAct.jsx'
+import { PostAct } from '@/components/postAct/PostAct.tsx'
 
 export const Posts = () => {
 
@@ -25,9 +24,9 @@ export const Posts = () => {
   ]
 
   return (
-    <div className="posts">
-      {posts.map(post => (
-        <PostAct post={post} key={post.id}/>
+    <div className="flex flex-col gap-3 bg-black">
+      {posts.map((post) => (
+        <PostAct post={post} key={post.id} />
       ))}
     </div>
   )
