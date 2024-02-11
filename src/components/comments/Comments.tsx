@@ -38,13 +38,13 @@ export const Comments = () => {
         <button className="p-2 px-8 border-none rounded-md bg-blue-500 text-white cursor-pointer">Send</button>
       </div>
       {comments.map((comment) => (
-        <div className="comment flex justify-between text-truncate gap-10">
+        <div className="comment flex justify-between gap-4">
           <img src={comment.profilePicture} alt="" className="w-10 h-10 rounded-full object-cover" />
           <div className="info">
             <span className="font-semibold self-start">{comment.name}</span>
-            <p>{comment.desc}</p>
+            <p className="text-sm">{comment.desc}</p>
           </div>
-          <span className="date flex-1 self-center text-gray-500 text-sm">5 min. ago</span>
+          <span className="date self-baseline text-gray-500 text-sm whitespace-nowrap">5 min. ago</span>
         </div>
       ))}
     </div>

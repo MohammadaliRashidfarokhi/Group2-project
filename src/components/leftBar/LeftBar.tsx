@@ -1,4 +1,3 @@
-import './leftBar.scss'
 import MaleAvatar from "../../assets/male_avatar.svg";
 import Friends from "../../assets/friends.png";
 import Groups from "../../assets/group.png";
@@ -13,90 +12,105 @@ import Messages from "../../assets/messages.png";
 import Tutorials from "../../assets/tutorials.png";
 import Courses from "../../assets/courses.png";
 import Funds from "../../assets/fundraiser.png";
+import { Link } from 'react-router-dom'
 
 export const LeftBar = () => {
-
-
   return (
-    <div className={'leftBar'}>
-      <div className={'container'}>
-        <div className={'menu'}>
-          <div className={'user'}>
-            <img src={MaleAvatar} alt={''} />
-            <span>Username</span>
-          </div>
-          <div className={'item'}>
-            <img src={Friends} alt={''} />
-            <span>Friends</span>
-          </div>
-          <div className={'item'}>
-            <img src={Groups} alt={''} />
-            <span>Groups</span>
-          </div>
-          <div className={'item'}>
-            <img src={Market} alt={''} />
-            <span>Market</span>
-          </div>
-          <div className={'item'}>
-            <img src={Watch} alt={''} />
-            <span>Watch</span>
-          </div>
-          <div className={'item'}>
-            <img src={Memories} alt={''} />
-            <span>Memories</span>
-          </div>
+    <div className="leftBar flex-auto text-white">
+      <div className="container p-8">
+        <div className="menu flex flex-col gap-6">
+          <Link to={'/profile'}>
+            <div className="user flex items-center gap-2">
+              <img className="w-10 h-10 rounded-full object-cover" src={MaleAvatar} alt={''} />
+              <span className="hover:text-slate-400 font-semibold">Username</span>
+            </div>
+          </Link>
+          <Link to={'/'}>
+            <div className="item flex items-center gap-4">
+              <img className="w-7 h-7 rounded-full object-cover" src={Friends} alt={''} />
+              <span className="hover:text-slate-400 font-light">Friends</span>
+            </div>
+          </Link>
+          <Link to={'/'}>
+            <div className="item flex items-center gap-4">
+              <img className="w-7 h-7 rounded-full object-cover" src={Groups} alt={''} />
+              <span className="hover:text-slate-400 font-light">Groups</span>
+            </div>
+          </Link>
+          <Link to={'/'}>
+            <div className="item flex items-center gap-4">
+              <img className="w-7 h-7 rounded-full object-cover" src={Market} alt={''} />
+              <span className="hover:text-slate-400 font-light">Market</span>
+            </div>
+          </Link>
+          <Link to={'/'}>
+            <div className="item flex items-center gap-4">
+              <img className="w-7 h-7 rounded-full object-cover" src={Watch} alt={''} />
+              <span className="hover:text-slate-400 font-light">Watch</span>
+            </div>
+          </Link>
+          <Link to={'/'}>
+            <div className="item flex items-center gap-4">
+              <img className="w-7 h-7 rounded-full object-cover" src={Memories} alt={''} />
+              <span className="hover:text-slate-400 font-light">Memories</span>
+            </div>
+          </Link>
         </div>
-        <hr />
-        <div className={'menu'}>
-          <span>Shortcuts</span>
-          <div className={'item'}>
-            <img src={Events} alt={''} />
-            <span>Events</span>
-          </div>
-          <div className={'item'}>
-            <img src={Gaming} alt={''} />
-            <span>Gaming</span>
-          </div>
-          <div className={'item'}>
-            <img src={Gallery} alt={''} />
-            <span>Gallery</span>
-          </div>
-          <div className={'item'}>
-            <img src={Videos} alt={''} />
-            <span>Videos</span>
-          </div>
-          <div className={'item'}>
-            <img src={Messages} alt={''} />
-            <span>Messages</span>
-          </div>
+        <hr className="my-5 border-none h-px bg-gray-300" />
+        <div className="menu flex flex-col gap-6">
+          <span className="text-xl">Shortcuts</span>
+          <Link to={'/'}>
+            <div className="item flex items-center gap-4">
+              <img className="w-7 h-7 rounded-full object-cover" src={Events} alt={''} />
+              <span className="hover:text-slate-400 font-light">Events</span>
+            </div>
+          </Link>
+          <Link to={'/'}>
+            <div className="item flex items-center gap-4">
+              <img className="w-7 h-7 rounded-full object-cover" src={Gaming} alt={''} />
+              <span className="hover:text-slate-400 font-light">Gaming</span>
+            </div>
+          </Link>
+          <Link to={'/'}>
+            <div className="item flex items-center gap-4">
+              <img className="w-7 h-7 rounded-full object-cover" src={Gallery} alt={''} />
+              <span className="hover:text-slate-400 font-light">Gallery</span>
+            </div>
+          </Link>
+          <Link to={'/'}>
+            <div className="item flex items-center gap-4">
+              <img className="w-7 h-7 rounded-full object-cover" src={Videos} alt={''} />
+              <span className="hover:text-slate-400 font-light">Videos</span>
+            </div>
+          </Link>
+          <Link to={'/'}>
+            <div className="item flex items-center gap-4">
+              <img className="w-7 h-7 rounded-full object-cover" src={Messages} alt={''} />
+              <span className="hover:text-slate-400 font-light">Messages</span>
+            </div>
+          </Link>
         </div>
-        <hr />
-        <div className={'menu'}>
-          <span>Others</span>
-          <div className={'item'}>
-            <img src={Tutorials} alt={''} />
-            <span>Tutorials</span>
-          </div>
-          <div className={'item'}>
-            <img src={Courses} alt={''} />
-            <span>Courses</span>
-          </div>
-          <div className={'item'}>
-            <img src={Funds} alt={''} />
-            <span>Funds</span>
-          </div>
-          <div className={'item'}>
-            <img src={Funds} alt={''} />
-            <span>Funds</span>
-          </div>
-          <div className={'item'}>
-            <img src={Funds} alt={''} />
-            <span>Funds</span>
-          </div>
-          <div className={'item'}>
-            <img src={Funds} alt={''} />
-            <span>Funds</span>
-          </div>
+        <hr className="my-5 border-none h-px bg-gray-300" />
+        <div className="menu flex flex-col gap-6">
+          <span className="text-xl">Others</span>
+          <Link to={'/'}>
+            <div className="item flex items-center gap-4">
+              <img className="w-7 h-7 rounded-full object-cover" src={Tutorials} alt={''} />
+              <span className="hover:text-slate-400 font-light">Tutorials</span>
+            </div>
+          </Link>
+          <Link to={'/'}>
+            <div className="item flex items-center gap-4">
+              <img className="w-7 h-7 rounded-full object-cover" src={Courses} alt={''} />
+              <span className="hover:text-slate-400 font-light">Courses</span>
+            </div>
+          </Link>
+          <Link to={'/'}>
+            <div className="item flex items-center gap-4">
+              <img className="w-7 h-7 rounded-full object-cover" src={Funds} alt={''} />
+              <span className="hover:text-slate-400 font-light">Funds</span>
+            </div>
+          </Link>
         </div>
       </div>
     </div>

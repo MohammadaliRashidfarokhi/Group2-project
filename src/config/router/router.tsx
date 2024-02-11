@@ -9,6 +9,7 @@ import { NotFoundPage } from '@/modules/common/NotFoundPage/NotFoundPage.tsx'
 import { AccountConfirmPage } from '@/modules/common/AccountConfirmPage/AccountConfirmPage.tsx'
 import { WithAuth } from '@/config/router/WithAuth.tsx'
 import { Profile } from '@/modules/Profile/ProfilePage/Profile.tsx'
+import { Follow } from '@/modules/Profile/ProfileFollow/Follow.tsx'
 
 export const router = createBrowserRouter([
   {
@@ -50,6 +51,10 @@ export const router = createBrowserRouter([
         element: <Profile />,
       },
       {
+        path: APP_ROUTES.follow,
+        element: <Follow />,
+      },
+      {
         path: APP_ROUTES.settings,
         element: <div />,
       },
@@ -57,7 +62,6 @@ export const router = createBrowserRouter([
         path: APP_ROUTES.user(':'),
         element: <div />,
       },
-
     ],
   },
   {

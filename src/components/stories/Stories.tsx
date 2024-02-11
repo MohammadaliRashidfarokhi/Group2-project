@@ -1,4 +1,3 @@
-import './stories.scss'
 import ProfileImg from '../../assets/profile.png'
 
 
@@ -29,11 +28,13 @@ export const Stories = () =>{
   ]
 
   return (
-    <div className="stories">
-      <div className="story">
-        <img src={ProfileImg} alt="" />
-        <span>{stories.name}</span>
-        <button>+</button>
+    <div className="stories flex gap-2 h-250 mb-30 bg-black">
+      <div className="story relative">
+        <img className="" src={ProfileImg} alt="" />
+        <span className="absolute bottom-10 left-10 text-white font-bold">{stories.name}</span>
+        <button className="absolute bottom-8 left-2 text-white bg-blue-500 border-none rounded-full w-6 h-6 cursor-pointer text-20 font-bold flex items-center justify-center">
+          +
+        </button>
       </div>
       {stories.map((story) => (
         <div className="story">

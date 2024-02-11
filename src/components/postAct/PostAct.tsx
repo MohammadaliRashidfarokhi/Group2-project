@@ -20,10 +20,11 @@ export const PostAct = ({post}) => {
           <div className="userInfo flex">
             <img className="w-10 h-10 rounded-full object-cover" src={post.profilePic} alt="User Avatar" />
             <div className="details ml-3">
-              <Link to={`/profile/${post.userId}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+              <Link to={`/follow`} className="flex flex-col gap-1" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <span className="name font-semibold">{post.name}</span>
+                <span className="name text-stone-500 text-sm mt-1">{post.desc}</span>
+                <span className="date text-sm text-gray-500">1 min. ago</span>
               </Link>
-              <span className="date text-xs ml-2 text-gray-500">1 min. ago</span>
             </div>
           </div>
           <MoreHorizOutlined />

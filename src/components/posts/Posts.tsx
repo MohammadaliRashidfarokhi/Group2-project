@@ -20,13 +20,14 @@ export const Posts = () => {
       desc:
         'Justice Secretary Alex Chalk has met with senior judges to ' +
         'discuss possible solutions to the Post Office IT scandal.',
+      img: '../src/assets/post-office-2.png',
     },
   ]
 
   return (
     <div className="flex flex-col gap-3 bg-black">
       {posts.map((post) => (
-        <PostAct post={post} key={post.id} />
+        <PostAct key={post.id} post={post} />
       ))}
     </div>
   )
