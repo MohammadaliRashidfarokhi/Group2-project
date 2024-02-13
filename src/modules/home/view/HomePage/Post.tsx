@@ -1,5 +1,6 @@
 import { Card, CardContent } from '@/lib/shadcn-components/ui/card.tsx'
 import { commentIcon, dotsIcon, heartIcon, profilePlaceholder } from '@/static/images.ts'
+import { Link } from 'react-router-dom'
 
 type Props = {
   data: {
@@ -22,10 +23,12 @@ export const Post = (props: Props) => {
 
         <div className={'flex flex-row gap-2'}>
           <img src={profilePlaceholder} className={'w-10'} alt="user" />
-          <div className={'flex flex-col'}>
-            <div className={'font-bold'}>{data.name}</div>
-            <div className={'text-gray-500'}>{data.username}</div>
-          </div>
+          <Link to={`/follow`} className="flex flex-col gap-1" style={{ textDecoration: 'none', color: 'inherit' }}>
+            <div className={'flex flex-col'}>
+              <div className={'font-bold'}>{data.name}</div>
+              <div className={'text-gray-500'}>{data.username}</div>
+            </div>
+          </Link>
         </div>
 
         <span>{data.text}</span>

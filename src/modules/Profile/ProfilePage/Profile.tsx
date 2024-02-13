@@ -5,7 +5,6 @@ import PinterestIcon from '@mui/icons-material/Pinterest'
 import TwitterIcon from '@mui/icons-material/Twitter'
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
-import { Posts } from '@/components/posts/Posts.tsx'
 import { Button } from '@/lib/shadcn-components/ui/button.tsx'
 import {
   Dialog,
@@ -18,6 +17,7 @@ import {
 } from '@/lib/shadcn-components/ui/dialog.tsx'
 import { Input } from '@/lib/shadcn-components/ui/input.tsx'
 import { Settings } from 'lucide-react'
+
 export const Profile = () => {
 
   return (
@@ -82,9 +82,9 @@ export const Profile = () => {
             </a>
           </div>
           <div className="center flex-3 text-sm text-gray-500 ml-12">
-            <span className="text-2xl font-semibold text-white">Ediz Genc </span>
+            <span className="text-2xl font-semibold text-white">Full name </span>
             <div className="info">
-              <span className="text-sm text-gray-500">@ediz.genc</span>
+              <span className="text-sm text-gray-500">@username</span>
             </div>
           </div>
           <div className="right flex-1 flex items-center justify-end">
@@ -104,7 +104,6 @@ export const Profile = () => {
       </div>
       <div className="posts mt-14 flex flex-col gap-2 justify-between">
         <span className="text-2xl font-semibold text-white">Posts</span>
-        <Posts />
       </div>
     </div>
   )

@@ -5,26 +5,24 @@ import PinterestIcon from '@mui/icons-material/Pinterest'
 import TwitterIcon from '@mui/icons-material/Twitter'
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
-import { Posts } from '@/components/posts/Posts.tsx'
 import { Button } from '@/lib/shadcn-components/ui/button.tsx'
 import { PersonAddAltSharp } from '@mui/icons-material'
-import { toast } from 'sonner'
+import { toast, Toaster } from 'sonner'
 
 export const Follow = () => {
 
   return (
-
-    <div className="Profile">
+    <div className="Follow">
       <Button
         className="flex items-center bg-black text-white bg-contain transform translate-x-2.5 translate-y-12"
         variant="outline"
-        onClick={() =>{
-          const currentDateTime  = new Date().toLocaleString();
-          toast("You are following <the person/:id> now", {
-            description: `${currentDateTime }`,
+        onClick={() => {
+          const currentDateTime = new Date().toLocaleString()
+          toast('You are following <the person/:id> now', {
+            description: `${currentDateTime}`,
             action: {
-              label: "Undo",
-              onClick: () => console.log("Undo"),
+              label: 'Undo',
+              onClick: () => console.log('Undo'),
             },
           })
         }}
@@ -58,9 +56,9 @@ export const Follow = () => {
             </a>
           </div>
           <div className="center flex-3 text-sm text-gray-500 ml-12">
-            <span className="text-2xl font-semibold text-white">Ediz Genc </span>
+            <span className="text-2xl font-semibold text-white">Full name </span>
             <div className="info">
-              <span className="text-sm text-gray-500">@ediz.genc</span>
+              <span className="text-sm text-gray-500">@username</span>
             </div>
           </div>
           <div className="right flex-1 flex items-center justify-end">
@@ -68,20 +66,11 @@ export const Follow = () => {
             <MoreVertIcon />
           </div>
         </div>
-        {/*<div className="write flex mt-8 items-center justify-between gap-2 mb-5">*/}
-        {/*  <img className="w-12 h-12 rounded-full object-cover" src="../src/assets/male_avatar.png" alt="User Avatar" />*/}
-        {/*  <input*/}
-        {/*    className="flex-1 p-2 border border-solid border-gray-700 bg-transparent text-white"*/}
-        {/*    type="text"*/}
-        {/*    placeholder="Write a comment..."*/}
-        {/*  />*/}
-        {/*  <button className="p-2 px-8 border-none rounded-md bg-blue-500 text-white cursor-pointer">Post</button>*/}
-        {/*</div>*/}
       </div>
       <div className="posts mt-14 flex flex-col gap-2 justify-between">
         <span className="text-2xl font-semibold text-white">Posts</span>
-        <Posts />
       </div>
+      <Toaster />
     </div>
   )
 }
