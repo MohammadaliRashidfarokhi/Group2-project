@@ -1,5 +1,5 @@
-import { useMediaQuery } from '@/utils/hooks/useMediaQuery.ts'
-import { SCREEN_BREAKPOINTS } from '@/lib/theme/screenBreakpoints.ts'
+import { SCREEN_BREAKPOINTS } from '../../lib/theme/screenBreakpoints.ts'
+import { useMediaQuery } from '@app/utils/hooks/useMediaQuery.ts'
 
 const QueryType = {
   up: 'min-width',
