@@ -1,35 +1,27 @@
+import { profilePlaceholder } from '@/static/images.ts'
+
+const comments = [
+  {
+    id: 1,
+    desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla convallis libero in dui sollicitudin, nec aliquam libero tincidunt',
+    name: 'M.Plank',
+    userId: 1,
+    profilePicture: '../src/assets/male_avatar.svg',
+  },
+  {
+    id: 2,
+    desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla convallis libero in dui sollicitudin, nec aliquam libero tincidunt',
+    name: 'M.Plank',
+    userId: 2,
+    profilePicture: '../src/assets/male_avatar.svg',
+  },
+]
+
 export const Comments = () => {
-
-  const currentUser = [
-    //TEMP
-    {
-      id: 1,
-      profilePicture: '../src/assets/male_avatar.svg'
-    }
-  ]
-  //Template
-  const comments = [
-    {
-      id: 1,
-      desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla convallis libero in dui sollicitudin, nec aliquam libero tincidunt',
-      name: 'M.Plank',
-      userId: 1,
-      profilePicture: '../src/assets/male_avatar.svg'
-    },
-    {
-      id: 2,
-      desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla convallis libero in dui sollicitudin, nec aliquam libero tincidunt',
-      name: 'M.Plank',
-      userId: 2,
-      profilePicture: '../src/assets/male_avatar.svg'
-    }
-  ]
-
-
   return (
     <div className="comments">
       <div className="write flex items-center justify-between gap-2 my-5">
-        <img src="/src/assets/male_avatar.svg" alt="" className="w-12 h-12 rounded-full object-cover" />
+        <img src={profilePlaceholder} alt="" className="w-12 h-12 rounded-full object-cover" />
         <input
           type="text"
           placeholder="Write a comment..."

@@ -8,8 +8,8 @@ import { RegisterPage } from '@/modules/auth/view/RegisterPage/RegisterPage.tsx'
 import { NotFoundPage } from '@/modules/common/NotFoundPage/NotFoundPage.tsx'
 import { AccountConfirmPage } from '@/modules/common/AccountConfirmPage/AccountConfirmPage.tsx'
 import { WithAuth } from '@/config/router/WithAuth.tsx'
-import { Profile } from '@/modules/Profile/ProfilePage/Profile.tsx'
-import { Follow } from '@/modules/Profile/ProfileFollow/Follow.tsx'
+import { ProfilePage } from '@/modules/profile/ProfilePage/ProfilePage.tsx'
+import { ProfileFollow } from '@/modules/profile/ProfileFollow/ProfileFollow.tsx'
 
 export const router = createBrowserRouter([
   {
@@ -48,18 +48,14 @@ export const router = createBrowserRouter([
       },
       {
         path: APP_ROUTES.profile,
-        element: <Profile />,
+        element: <ProfilePage />,
       },
       {
-        path: APP_ROUTES.follow,
-        element: <Follow />,
+        path: APP_ROUTES.user(':id'),
+        element: <ProfileFollow />,
       },
       {
         path: APP_ROUTES.settings,
-        element: <div />,
-      },
-      {
-        path: APP_ROUTES.user(':'),
         element: <div />,
       },
     ],

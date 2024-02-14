@@ -18,7 +18,7 @@ export const Header = () => {
   }
 
   const handleProfile = () => {
-    // Navigate to the profile page when "Profile" is clicked
+    // Navigate to the profile page when "ProfilePage" is clicked
     navigate('/profile')
   }
 
