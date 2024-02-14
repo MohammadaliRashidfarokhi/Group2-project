@@ -10,10 +10,11 @@ import {
 } from '@/lib/shadcn-components/ui/dialog.tsx'
 import { Input } from '@/lib/shadcn-components/ui/input.tsx'
 import { Settings } from 'lucide-react'
+import { profilePlaceholder } from '@/static/images.ts'
 
 export const ProfilePage = () => {
   return (
-    <div className="Profile">
+    <div className={'w-full'}>
       <Dialog>
         <DialogTrigger asChild>
           <Button
@@ -41,40 +42,24 @@ export const ProfilePage = () => {
             </div>
           </div>
           <DialogFooter>
-            <Button type="submit" className=" bg-black text-red-300 border border-white">
+            <Button type="submit" className="bg-black text-red-300 border border-white">
               Save
             </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
-      <div className="images w-full h-50 bg-white flex items-end">
+
+      <div className="w-full  h-32 bg-white flex items-end rounded-md" />
+      <div className={'flex gap-3 px-5'}>
         <img
-          className="profilePicture w-40 h-40 rounded-full transform translate-x-1/3 translate-y-1/2"
-          src="src/assets/male_avatar.png"
-          alt=""
+          className="w-20 h-20 rounded-full relative top-[-30px] bg-black"
+          src={profilePlaceholder}
+          alt="user profile picture"
         />
-      </div>
-      <div className="profileContainer mt-10 border border-solid border-gray-700 p-5 text-white">
-        <div className="userInfo rounded-2xl p-1 bg-black text-whitesmoke flex items-center justify-between">
-          <div className="center flex-3 text-sm text-gray-500 ml-12">
-            <span className="text-2xl font-semibold text-white">Full name </span>
-            <div className="info">
-              <span className="text-sm text-gray-500">@username</span>
-            </div>
-          </div>
+        <div className="text-sm text-gray-500 flex flex-col">
+          <span className="text-xl font-semibold text-white">Full name</span>
+          <span className="text-sm text-gray-500">@username</span>
         </div>
-        <div className="write flex mt-8 items-center justify-between gap-2 mb-5">
-          <img className="w-12 h-12 rounded-full object-cover" src="../src/assets/male_avatar.png" alt="User Avatar" />
-          <input
-            className="flex-1 p-2 border border-solid border-gray-700 bg-transparent text-white"
-            type="text"
-            placeholder="Write a comment..."
-          />
-          <button className="p-2 px-8 border-none rounded-md bg-blue-500 text-white cursor-pointer">Post</button>
-        </div>
-      </div>
-      <div className="posts mt-14 flex flex-col gap-2 justify-between">
-        <span className="text-2xl font-semibold text-white">Posts</span>
       </div>
     </div>
   )
