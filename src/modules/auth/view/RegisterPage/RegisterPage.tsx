@@ -5,6 +5,7 @@ import { APP_ROUTES } from '@/config/router/routes.ts'
 import { FormInput } from '@/components/form/FormInput.tsx'
 import { useRegisterForm } from './utils/useRegisterForm'
 import { socialLogo } from '@/static/images.ts'
+import { Tables } from '@/model/database.types.ts'
 
 export const RegisterPage = () => {
   const { register, handleSubmit, errors } = useRegisterForm()
@@ -15,7 +16,18 @@ export const RegisterPage = () => {
         email: values.email,
         password: values.password,
       })
-      .then((res) => console.log(res))
+      .then((res) => {
+        if (!res.data.user?.id) return
+
+        const user: Tables<'USER'> = {
+          id: String(res.data.user.id),
+          USERNAME: String(values.username),
+          DISPLAY_NAME: String(res.data.user.email),
+          BACKGROUND_COLOR: 'white',
+        }
+
+        return supabase.from('USER').insert(user)
+      })
       .catch((err) => console.log(err))
   })
 

@@ -8,9 +8,9 @@ export const AuthHandler = () => {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
       if (session) {
-        userStore.setLogged(true)
+        userStore.setLogged(true, session)
       } else {
-        userStore.setLogged(false)
+        userStore.clearStore()
       }
     })
 
