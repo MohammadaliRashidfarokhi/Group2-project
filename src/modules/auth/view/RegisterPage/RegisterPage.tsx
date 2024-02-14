@@ -5,7 +5,7 @@ import { APP_ROUTES } from '@/config/router/routes.ts'
 import { FormInput } from '@/components/form/FormInput.tsx'
 import { useRegisterForm } from './utils/useRegisterForm'
 import { socialLogo } from '@/static/images.ts'
-import { Tables } from '@/model/database.types.ts'
+import { Tables } from '@/model/dbTypes.ts'
 
 export const RegisterPage = () => {
   const { register, handleSubmit, errors } = useRegisterForm()
@@ -22,7 +22,9 @@ export const RegisterPage = () => {
         const user: Tables<'USER'> = {
           id: String(res.data.user.id),
           USERNAME: String(values.username),
-          DISPLAY_NAME: String(res.data.user.email),
+          EMAIL: String(res.data.user.email),
+          FIRST_NAME: String(res.data.user.email),
+          LAST_NAME: String(res.data.user.email),
           BACKGROUND_COLOR: 'white',
         }
 

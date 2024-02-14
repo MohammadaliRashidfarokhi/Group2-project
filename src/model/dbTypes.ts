@@ -78,26 +78,53 @@ export type Database = {
           }
         ]
       }
+      LIKES: {
+        Row: {
+          liked: string
+          liker: string
+        }
+        Insert: {
+          liked?: string
+          liker: string
+        }
+        Update: {
+          liked?: string
+          liker?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "public_Likes_liked_fkey"
+            columns: ["liked"]
+            isOneToOne: false
+            referencedRelation: "POST"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "public_Likes_liker_fkey"
+            columns: ["liker"]
+            isOneToOne: false
+            referencedRelation: "USER"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
       POST: {
         Row: {
           author: string
           CONTENT: string
           id: string
-          LIKES: number
           PUBLISHED_AT: string
         }
         Insert: {
           author: string
           CONTENT: string
           id?: string
-          LIKES: number
           PUBLISHED_AT?: string
         }
         Update: {
           author?: string
           CONTENT?: string
           id?: string
-          LIKES?: number
           PUBLISHED_AT?: string
         }
         Relationships: [
@@ -113,25 +140,31 @@ export type Database = {
       USER: {
         Row: {
           BACKGROUND_COLOR: string
-          DISPLAY_NAME: string
+          EMAIL: string
+          FIRST_NAME: string
           id: string
+          LAST_NAME: string
           USERNAME: string
         }
         Insert: {
           BACKGROUND_COLOR: string
-          DISPLAY_NAME: string
+          EMAIL: string
+          FIRST_NAME: string
           id: string
+          LAST_NAME: string
           USERNAME: string
         }
         Update: {
           BACKGROUND_COLOR?: string
-          DISPLAY_NAME?: string
+          EMAIL?: string
+          FIRST_NAME?: string
           id?: string
+          LAST_NAME?: string
           USERNAME?: string
         }
         Relationships: [
           {
-            foreignKeyName: "USER_id_fkey"
+            foreignKeyName: "public_USER_id_fkey"
             columns: ["id"]
             isOneToOne: true
             referencedRelation: "users"
