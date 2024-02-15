@@ -13,7 +13,7 @@ const authFormSchema: yup.ObjectSchema<AuthFormProps> = yup.object({
 })
 
 export const useLoginForm = (defaultValues: AuthFormProps = { email: '', password: '' }) => {
-  const { register, control, handleSubmit, formState, setValue } = useForm<AuthFormProps>({
+  const { register, control, handleSubmit, setError, formState, setValue } = useForm<AuthFormProps>({
     defaultValues: defaultValues,
     resolver: yupResolver(authFormSchema),
   })
@@ -23,6 +23,7 @@ export const useLoginForm = (defaultValues: AuthFormProps = { email: '', passwor
     handleSubmit,
     control,
     setValue,
+    setError,
     errors: formState.errors,
     values: formState.defaultValues,
   }

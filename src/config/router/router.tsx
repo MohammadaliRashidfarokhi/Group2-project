@@ -6,10 +6,10 @@ import { LoginPage } from '@/modules/auth/view/LoginPage/LoginPage.tsx'
 import { HomePage } from '@/modules/home/view/HomePage/HomePage.tsx'
 import { RegisterPage } from '@/modules/auth/view/RegisterPage/RegisterPage.tsx'
 import { NotFoundPage } from '@/modules/common/NotFoundPage/NotFoundPage.tsx'
-import { AccountConfirmPage } from '@/modules/common/AccountConfirmPage/AccountConfirmPage.tsx'
 import { WithAuth } from '@/config/router/WithAuth.tsx'
 import { ProfilePage } from '@/modules/profile/ProfilePage/ProfilePage.tsx'
 import { ProfileFollow } from '@/modules/profile/ProfileFollow/ProfileFollow.tsx'
+import { AccountConfirmPage } from '@/modules/common/AccountConfirmPage/AccountConfirmPage.tsx'
 
 export const router = createBrowserRouter([
   {
@@ -55,8 +55,8 @@ export const router = createBrowserRouter([
         element: <ProfileFollow />,
       },
       {
-        path: APP_ROUTES.settings,
-        element: <div />,
+        path: APP_ROUTES.accountConfirmation,
+        element: <AccountConfirmPage />,
       },
     ],
   },
