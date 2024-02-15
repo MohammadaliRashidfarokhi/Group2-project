@@ -30,7 +30,7 @@ export const useHomePagePosts = (): PostDetail[] => {
 
       setPosts(mappedPosts || [])
     })
-  }, [])
+  }, [session?.user.id])
 
   return posts
 }
