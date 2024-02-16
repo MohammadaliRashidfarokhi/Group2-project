@@ -1,15 +1,9 @@
 import { Card, CardContent } from '@/lib/shadcn-components/ui/card.tsx'
 import { commentIcon, dotsIcon, heartIcon, profilePlaceholder } from '@/static/images.ts'
+import { PostDetail } from '@/model/post.ts'
 
 type Props = {
-  data: {
-    id: number
-    name: string
-    username: string
-    text: string
-    likes: number
-    comments: number
-  }
+  data: PostDetail
 }
 
 export const Post = (props: Props) => {
@@ -23,21 +17,21 @@ export const Post = (props: Props) => {
         <div className={'flex flex-row gap-2'}>
           <img src={profilePlaceholder} className={'w-10'} alt="user" />
           <div className={'flex flex-col'}>
-            <div className={'font-bold'}>{data.name}</div>
-            <div className={'text-gray-500'}>{data.username}</div>
+            <div className={'font-bold'}>{`${data.FIRST_NAME} ${data.LAST_NAME}`}</div>
+            <div className={'text-gray-500'}>@{data.USERNAME}</div>
           </div>
         </div>
 
-        <span>{data.text}</span>
+        <span>{data.CONTENT}</span>
 
         <div className={'flex flex-row gap-2 mt-2'}>
           <span className={'flex flex-row gap-1'}>
             <img className={'cursor-pointer'} src={heartIcon} alt="Likes" />
-            <span>{data.likes}</span>
+            <span>{0}</span>
           </span>
           <span className={'flex flex-row gap-1'}>
             <img className={'cursor-pointer'} src={commentIcon} alt="Comments" />
-            <span>{data.comments}</span>
+            <span>{0}</span>
           </span>
         </div>
       </CardContent>

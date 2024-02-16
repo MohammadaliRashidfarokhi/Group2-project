@@ -5,8 +5,11 @@ import { APP_ROUTES } from '@/config/router/routes.ts'
 import { FormInput } from '@/components/form/FormInput.tsx'
 import { useLoginForm } from '@/modules/auth/view/LoginPage/utils/useLoginForm.ts'
 import { socialLogo } from '@/static/images.ts'
+import { mapSupabaseAuthError } from '@/utils/supabaseErrorMappers.ts'
+import { useToast } from '@/lib/shadcn-components/ui/use-toast.ts'
 
 export const LoginPage = () => {
+  const { toast } = useToast()
   const navigate = useNavigate()
   const { handleSubmit, register, errors } = useLoginForm()
 
@@ -16,10 +19,20 @@ export const LoginPage = () => {
         email: values.email,
         password: values.password,
       })
-      .then(() => {
-        navigate(APP_ROUTES.home)
+      .then((res) => {
+        if (res.error) {
+          const error = mapSupabaseAuthError(res.error.message)
+
+          toast({
+            title: 'Error occurred',
+            description: error,
+            duration: 5000,
+            variant: 'destructive',
+          })
+        } else {
+          navigate(APP_ROUTES.home)
+        }
       })
-      .catch((err) => console.error(err))
   })
 
   return (
