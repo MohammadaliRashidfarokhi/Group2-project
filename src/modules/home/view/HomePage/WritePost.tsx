@@ -9,10 +9,13 @@ export const WritePost = () => {
   const [content, setContent] = useState<string>('')
   const { session } = userStore.useStore()
 
-  const handleSubmit = () => {
-    //TODO: Implement post creation
-    console.log(content)
-    //supabase.
+  const handleSubmit = async () => {
+    if (session != null && content != '') {
+      //TODO: Implement post creation
+      const { error } = await supabase
+        .from('POST')
+        .insert({ author: session.user.id, CONTENT: content })
+    }
   }
 
   return (

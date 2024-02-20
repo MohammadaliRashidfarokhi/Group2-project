@@ -1,9 +1,30 @@
 import { Post } from '@/modules/home/view/HomePage/Post.tsx'
 import { useHomePagePosts } from '@/modules/home/data/useHomePagePosts.ts'
 import { WritePost } from '@/modules/home/view/HomePage/WritePost.tsx'
+import { useEffect } from 'react'
+import { supabase } from '@/config/supabase/supabaseClient.ts'
 
 export const HomePage = () => {
   const posts = useHomePagePosts()
+
+  useEffect(() => {
+    const channel =
+      supabase.channel('realtime posts')
+        .on("postgres_changes",
+          {
+            event: "*",
+            schema: "public",
+            table: "POST",
+          }, () => {
+            location.reload();
+          }
+        ).subscribe();
+
+    return () =>  {
+      supabase.removeChannel(channel);
+    }
+  }, []);
+
 
   return (
     <div className={'w-full'}>
