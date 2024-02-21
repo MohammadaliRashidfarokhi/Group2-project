@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router-dom'
 import { Header } from '@/components/header/Header.tsx'
 import { cn } from '@/lib/shadcn-util.ts'
+import { useTranslation } from '@/locales/i18n.ts'
 
 type Props = {
   variant?: 'compact' | 'full'
@@ -27,6 +28,24 @@ export const LayoutWithHeader = () => {
     <>
       <Header />
       <Layout variant={'full'} />
+    </>
+  )
+}
+
+export const LayoutWithHeaderCompact = () => {
+  const { i18n } = useTranslation()
+
+  return (
+    <>
+      <span
+        className={'cursor-pointer text-white bg-black pl-5 pt-2'}
+        onClick={() => {
+          i18n.changeLanguage(i18n.language === 'en-US' ? 'sv-SE' : 'en-US')
+        }}
+      >
+        {i18n.language === 'en-US' ? 'SV' : 'EN'}
+      </span>
+      <Layout variant={'compact'} />
     </>
   )
 }

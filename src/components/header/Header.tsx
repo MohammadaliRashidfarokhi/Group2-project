@@ -9,8 +9,10 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/lib/shadcn-components/ui/dropdown-menu.tsx'
+import { useTranslation } from '@/locales/i18n.ts'
 
 export const Header = () => {
+  const { t, i18n } = useTranslation()
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const navigate = useNavigate()
   const toggleDropdown = () => {
@@ -40,7 +42,7 @@ export const Header = () => {
       </Link>
       <div className="flex items-center w-80 gap-2.5">
         <img src={searchIcon} alt="Search Icon" />
-        <Input placeholder="Search for User" />
+        <Input placeholder={t('search-user')} />
       </div>
 
       <DropdownMenu>
@@ -48,11 +50,19 @@ export const Header = () => {
           <img src={profilePlaceholder} className="cursor-pointer" alt="Profile Placeholder" onClick={toggleDropdown} />
         </DropdownMenuTrigger>
         <DropdownMenuContent side={'bottom'} align={'start'} alignOffset={-80} sideOffset={10}>
+          <DropdownMenuItem
+            className={'cursor-pointer'}
+            onClick={() => {
+              i18n.changeLanguage(i18n.language === 'en-US' ? 'sv-SE' : 'en-US')
+            }}
+          >
+            {i18n.language === 'en-US' ? 'Swedish' : 'English'}
+          </DropdownMenuItem>
           <DropdownMenuItem className={'cursor-pointer'} onClick={handleProfile}>
-            Profile
+            {i18n.t('profile')}
           </DropdownMenuItem>
           <DropdownMenuItem className={'cursor-pointer'} onClick={handleLogout}>
-            Logout
+            {i18n.t('logout')}
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

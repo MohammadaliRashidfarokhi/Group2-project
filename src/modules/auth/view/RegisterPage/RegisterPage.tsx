@@ -8,8 +8,10 @@ import { socialLogo } from '@/static/images.ts'
 import { Tables } from '@/model/dbTypes.ts'
 import { useToast } from '@/lib/shadcn-components/ui/use-toast.ts'
 import { mapSupabaseAuthError } from '@/utils/supabaseErrorMappers.ts'
+import { useTranslation } from '@/locales/i18n.ts'
 
 export const RegisterPage = () => {
+  const { t } = useTranslation('forms')
   const navigate = useNavigate()
   const { toast } = useToast()
   const { register, handleSubmit, errors } = useRegisterForm()
@@ -55,27 +57,32 @@ export const RegisterPage = () => {
     <form onSubmit={handleFormSubmit} className={'flex flex-col gap-7 self-center w-full'}>
       <img alt={'social logo'} src={socialLogo} className={'w-1/2 self-center'} />
       <div className={'flex flex-col gap-3.5'}>
-        <FormInput label="Email" placeholder="Enter email" {...register('EMAIL')} error={errors.EMAIL?.message} />
         <FormInput
-          label="Username"
-          placeholder="Enter username"
+          label={t('email')}
+          placeholder={t('enter-email-placeholder')}
+          {...register('EMAIL')}
+          error={errors.EMAIL?.message}
+        />
+        <FormInput
+          label={t('username')}
+          placeholder={t('enter-username-placeholder')}
           {...register('USERNAME')}
           error={errors.USERNAME?.message}
         />
         <FormInput
-          label="Name"
-          placeholder="Enter name"
+          label={t('name')}
+          placeholder={t('enter-name-placeholder')}
           {...register('FIRST_NAME')}
           error={errors.FIRST_NAME?.message}
         />
         <FormInput
-          label="Surname"
-          placeholder="Enter surname"
+          label={t('surname')}
+          placeholder={t('enter-surname-placeholder')}
           {...register('LAST_NAME')}
           error={errors.LAST_NAME?.message}
         />
         <FormInput
-          label="Password"
+          label={t('password')}
           placeholder="******"
           type="password"
           {...register('PASSWORD')}
@@ -85,11 +92,11 @@ export const RegisterPage = () => {
 
       <div className={'flex w-full gap-3.5 md:flex-row-reverse flex-col-reverse'}>
         <Button className={'md:flex-1'} type="submit">
-          Register
+          {t('sign-up')}
         </Button>
         <Link to={APP_ROUTES.login} className={'md:w-[75%]'}>
           <Button className={'w-full'} variant={'secondary'}>
-            Already have an account? Log in here
+            {t('already-have-account')}
           </Button>
         </Link>
       </div>
