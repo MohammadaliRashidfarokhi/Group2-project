@@ -2,20 +2,18 @@ import { Card, CardContent, CardHeader, CardFooter } from '@/lib/shadcn-componen
 import { Button } from '@/lib/shadcn-components/ui/button.tsx'
 import { Textarea } from '@/lib/shadcn-components/ui/textarea.tsx'
 import { useState } from 'react'
-import { userStore } from '@/store/authStore.ts'
-import { supabase } from '@/config/supabase/supabaseClient.ts'
 
-export const WritePost = () => {
+type Props = {
+  onSubmit: (content: string) => Promise<void>
+}
+
+export const WritePost = (props: Props) => {
   const [content, setContent] = useState<string>('')
-  const { session } = userStore.useStore()
 
-  const handleSubmit = async () => {
-    if (session != null && content != '') {
-      //TODO: Implement post creation
-      const { error } = await supabase
-        .from('POST')
-        .insert({ author: session.user.id, CONTENT: content })
-    }
+  const handleSubmit = () => {
+    props.onSubmit(content).then(() => {
+      setContent('')
+    })
   }
 
   return (
