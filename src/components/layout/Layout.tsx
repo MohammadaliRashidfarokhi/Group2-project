@@ -43,7 +43,7 @@ export const LayoutWithHeaderCompact = () => {
           i18n.changeLanguage(i18n.language === 'en-US' ? 'sv-SE' : 'en-US')
         }}
       >
-        {i18n.language === 'en-US' ? 'SV' : 'EN'}
+        {i18n.language === 'en-US' ? 'SE' : 'EN'}
       </span>
       <Layout variant={'compact'} />
     </>
