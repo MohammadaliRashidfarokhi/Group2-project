@@ -2,7 +2,7 @@ import { supabase } from "@/config/supabase/supabaseClient"
 import { useEffect, useState } from "react"
 import { PostDetail } from '@/model/post.ts'
 
-export const useDetailPosts = (postId: string): PostDetail | undefined => {
+export const useDetailPost = (postId: string): PostDetail | undefined => {
     const [post, setPost] = useState<PostDetail>()
 
     useEffect(() => {
