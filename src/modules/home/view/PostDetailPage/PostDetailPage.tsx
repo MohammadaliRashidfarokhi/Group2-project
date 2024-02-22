@@ -1,12 +1,24 @@
 import { backArrow } from '@/static/images'
-import { Link, useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 
 export const PostDetailPage = () => {
   const navigate = useNavigate()
+  const {postId} = useParams()
+  const [post, setPost] = useState({})
+  const [author, setAuthor] = useState({})
+  const [comments, setComments] = useState({})
+
 
   const handleBackArrow = () => {
-    navigate(`/posts/`)
+    navigate(-1)
   }
+
+  useEffect(() => {
+    // fetch post
+    // after post fetch author
+    // and fetch existing comments
+  })
 
   return (
     <div className="w-full px-7 flex flex-col items-center">
