@@ -1,0 +1,15 @@
+{
+  "email": "Email",
+  "enter-email-placeholder": "Enter your email",
+  "password": "Password",
+  "username": "Username",
+  "enter-username-placeholder": "Enter your username",
+  "name": "Name",
+  "enter-name-placeholder": "Enter your name",
+  "surname": "Surname",
+  "enter-surname-placeholder": "Enter your surname",
+  "login": "Login",
+  "already-have-account": "Already have an account? Log in",
+  "sign-up": "Sign up",
+  "dont-have-account": "Don't have an account yet? Create an account"
+}
