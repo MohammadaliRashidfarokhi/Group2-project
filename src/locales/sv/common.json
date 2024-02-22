@@ -6,5 +6,7 @@
   "profile": "Profil",
   "logout":"Logga ut",
 
-  "search-user": "Sök efter användare"
+  "search-user": "Sök efter användare",
+  "search": "Sök",
+  "home": "Hem"
 }

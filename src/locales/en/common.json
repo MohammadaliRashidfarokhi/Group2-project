@@ -6,5 +6,7 @@
   "profile": "Profile",
   "logout": "Logout",
 
-  "search-user": "Search for user"
+  "search-user": "Search for user",
+  "search": "Search",
+  "home": "Home"
 }
