@@ -73,9 +73,54 @@ export const useHomePagePosts = () => {
         })
       })
   }
+  const removePost = async (postId: string) => {
+    // Fetch the post from the database
+    const { data: post, error: authorError } = await supabase.from('POST').select('author').eq('id', postId).single()
+
+    if (authorError) {
+      toast({
+        variant: 'destructive',
+        title: 'Error',
+        description: 'An error occurred while fetching the post',
+      })
+      return
+    }
+
+    // Check if the current user is the author of the post
+    if (post.author !== userId) {
+      toast({
+        variant: 'destructive',
+        title: 'Error',
+        description: 'You are not the author of this post',
+      })
+      return
+    }
+
+    // If the current user is the author, delete the post
+    const { error: deletionError } = await supabase.from('POST').delete().eq('id', postId)
+
+    if (deletionError) {
+      toast({
+        variant: 'destructive',
+        title: 'Error',
+        description: 'An error occurred while removing the post',
+      })
+      return
+    }
+
+    // If the deletion is successful, update the state
+    setPosts((prevPosts) => prevPosts.filter((post) => post.id !== postId))
+
+    toast({
+      variant: 'success',
+      title: 'Success',
+      description: 'Post removed successfully',
+    })
+  }
 
   return {
     posts,
     handlePostCreation,
+    removePost,
   }
 }
