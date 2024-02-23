@@ -1,35 +1,24 @@
 import { backArrow } from '@/static/images'
-import { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useDetailPost } from '../../data/useDetailPost'
-import { PostDetail } from '@/model/post'
-import { CommentDetail } from '@/model/comment'
 import { usePostComments } from '../../data/usePostComments'
 import { Post } from '../HomePage/Post'
 import { Comment } from './Comment'
 
 export const PostDetailPage = () => {
   const navigate = useNavigate()
-  const {postId} = useParams()
-  const [post, setPost] = useState<PostDetail>()
-  const [comments, setComments] = useState<CommentDetail[]>()
+  const { id } = useParams()
+  if (id === undefined) {
+    navigate('/')
+    return
+  }
+  const post = useDetailPost(id)
+  const comments = usePostComments(id)
 
 
   const handleBackArrow = () => {
     navigate(-1)
   }
-
-  useEffect(() => {
-    if (postId === undefined) {
-      navigate('/404')
-    }
-    const Id = postId === undefined ? '' : postId
-    const post = useDetailPost(Id)
-    setPost(post)
-
-    const comments = usePostComments(Id)
-    setComments(comments)
-  })
 
   return (
     <div className="w-full px-7 flex flex-col items-center">
@@ -43,9 +32,13 @@ export const PostDetailPage = () => {
       </div>
 
       <div>
-        {comments?.map((comment) =>
-          <Comment key={comment.id} data={comment}></Comment>
-        )}
+        {comments?.length === 0 ?
+          <div className={'flex flex-col gap-3.5 text-white mt-10'}>
+            <span className={'text-center text-xl font-bold'}>No Comments found</span>
+            <p className={'text-center text'}>There are no comments for this post. Please write one</p>
+          </div> : comments?.map((comment) =>
+            <Comment key={comment.id} data={comment}></Comment>
+          )}
       </div>
 
       <div className="mt-4 w-full max-w-md flex flex-col">
