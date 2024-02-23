@@ -10,6 +10,7 @@ import { WithAuth } from '@/config/router/WithAuth.tsx'
 import { ProfilePage } from '@/modules/profile/ProfilePage/ProfilePage.tsx'
 import { ProfileFollow } from '@/modules/profile/ProfileFollow/ProfileFollow.tsx'
 import { AccountConfirmPage } from '@/modules/common/AccountConfirmPage/AccountConfirmPage.tsx'
+import { SearchPage } from '@/modules/search/view/SearchPage/SearchPage.tsx'
 
 export const router = createBrowserRouter([
   {
@@ -49,6 +50,10 @@ export const router = createBrowserRouter([
       {
         path: APP_ROUTES.profile,
         element: <ProfilePage />,
+      },
+      {
+        path: APP_ROUTES.search,
+        element: <SearchPage />,
       },
       {
         path: APP_ROUTES.user(':id'),

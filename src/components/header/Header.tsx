@@ -1,8 +1,6 @@
-import { useState } from 'react'
-import { Input } from '@/lib/shadcn-components/ui/input'
-import { socialLogo, profilePlaceholder, searchIcon } from '@/static/images'
+import { socialLogo } from '@/static/images'
 import { supabase } from '@/config/supabase/supabaseClient.ts'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,19 +8,13 @@ import {
   DropdownMenuTrigger,
 } from '@/lib/shadcn-components/ui/dropdown-menu.tsx'
 import { useTranslation } from '@/locales/i18n.ts'
+import { GearIcon, HomeIcon, MagnifyingGlassIcon, PersonIcon } from '@radix-ui/react-icons'
+import { APP_ROUTES } from '@/config/router/routes.ts'
+import { HeaderLink } from '@/components/header/HeaderLink.tsx'
 
 export const Header = () => {
   const { t, i18n } = useTranslation()
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false)
-  const navigate = useNavigate()
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen)
-  }
-
-  const handleProfile = () => {
-    // Navigate to the profile page when "ProfilePage" is clicked
-    navigate('/profile')
-  }
+  const { pathname } = useLocation()
 
   const handleLogout = () => {
     supabase.auth
@@ -36,36 +28,54 @@ export const Header = () => {
   }
 
   return (
-    <div className={'min-h-16 bg-black w-full px-7 py-2 flex justify-between items-center'}>
-      <Link to="/" className="cursor-pointer">
+    <div className={'container mx-auto min-h-16 bg-black w-full px-7 py-2 flex justify-between items-center'}>
+      <Link to={APP_ROUTES.home} className="cursor-pointer">
         <img src={socialLogo} className="w-32" alt="Social Logo" />
       </Link>
-      <div className="flex items-center w-80 gap-2.5">
-        <img src={searchIcon} alt="Search Icon" />
-        <Input placeholder={t('search-user')} />
+      <div className="w-full flex justify-evenly md:w-auto py-4 text-white md:gap-6">
+        <HeaderLink
+          isSelected={pathname === APP_ROUTES.home}
+          to={APP_ROUTES.home}
+          icon={<HomeIcon className="w-6 h-6" />}
+          label={t('home')}
+        />
+        <HeaderLink
+          isSelected={pathname === APP_ROUTES.search}
+          to={APP_ROUTES.search}
+          icon={<MagnifyingGlassIcon className="w-6 h-6" />}
+          label={t('search')}
+        />
+        <HeaderLink
+          isSelected={pathname === APP_ROUTES.profile}
+          to={APP_ROUTES.profile}
+          icon={<PersonIcon className="w-6 h-6" />}
+          label={t('profile')}
+        />
       </div>
 
-      <DropdownMenu>
-        <DropdownMenuTrigger>
-          <img src={profilePlaceholder} className="cursor-pointer" alt="Profile Placeholder" onClick={toggleDropdown} />
-        </DropdownMenuTrigger>
-        <DropdownMenuContent side={'bottom'} align={'start'} alignOffset={-80} sideOffset={10}>
-          <DropdownMenuItem
-            className={'cursor-pointer'}
-            onClick={() => {
-              i18n.changeLanguage(i18n.language === 'en-US' ? 'sv-SE' : 'en-US')
-            }}
-          >
-            {i18n.language === 'en-US' ? 'Swedish' : 'English'}
-          </DropdownMenuItem>
-          <DropdownMenuItem className={'cursor-pointer'} onClick={handleProfile}>
-            {i18n.t('profile')}
-          </DropdownMenuItem>
-          <DropdownMenuItem className={'cursor-pointer'} onClick={handleLogout}>
-            {i18n.t('logout')}
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
+      <div className="w-32 flex justify-end">
+        <DropdownMenu>
+          <DropdownMenuTrigger>
+            <GearIcon className="text-white w-6 h-6" />
+          </DropdownMenuTrigger>
+          <DropdownMenuContent side={'bottom'} align={'start'} alignOffset={-80} sideOffset={10}>
+            <DropdownMenuItem
+              className={'cursor-pointer'}
+              onClick={() => {
+                i18n.changeLanguage(i18n.language === 'en-US' ? 'sv-SE' : 'en-US')
+              }}
+            >
+              {i18n.language === 'en-US' ? 'Swedish' : 'English'}
+            </DropdownMenuItem>
+            <DropdownMenuItem className={'cursor-pointer'}>
+              <Link to={APP_ROUTES.profile}>{t('profile')}</Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem className={'cursor-pointer'} onClick={handleLogout}>
+              {t('logout')}
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
     </div>
   )
 }

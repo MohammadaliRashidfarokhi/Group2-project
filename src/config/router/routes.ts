@@ -6,4 +6,5 @@ export const APP_ROUTES = {
   profile: `/profile`,
   user: (id: string) => `/users/${id}`,
   accountConfirmation: '/account-confirmation',
+  search: '/search',
 } as const
