@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { supabase } from '@/config/supabase/supabaseClient.ts'
 import { CommentDetail } from '@/model/comment'
 
-export const usePostComments = (postId : string): CommentDetail[] => {
+export const usePostComments = (postId : string): [CommentDetail[], React.Dispatch<React.SetStateAction<CommentDetail[]>>] => {
   const { session } = userStore.useStore()
   const [comments, setComments] = useState<CommentDetail[]>([])
 
@@ -32,5 +32,5 @@ export const usePostComments = (postId : string): CommentDetail[] => {
     })
   }, [session?.user.id])
 
-  return comments
+  return [comments, setComments]
 }

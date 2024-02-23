@@ -4,20 +4,51 @@ import { useDetailPost } from '../../data/useDetailPost'
 import { usePostComments } from '../../data/usePostComments'
 import { Post } from '../HomePage/Post'
 import { Comment } from './Comment'
+import { useState } from 'react'
+import { useUser } from '../../data/useUser'
+import { CommentDetail } from '@/model/comment'
+import { supabase } from '@/config/supabase/supabaseClient'
 
 export const PostDetailPage = () => {
+  const user = useUser()
   const navigate = useNavigate()
   const { id } = useParams()
+  const [newComment, setNewComment] = useState<string>('')
   if (id === undefined) {
     navigate('/')
     return
   }
   const post = useDetailPost(id)
-  const comments = usePostComments(id)
+  const [comments, setComments] = usePostComments(id)
 
 
   const handleBackArrow = () => {
     navigate(-1)
+  }
+
+  const postComment = (text: string) => {
+    if (text === '') {
+      console.log("Empty comment")
+      return
+    }
+
+    let newCommentDetail: CommentDetail = {
+      id: '', // this is a bad idea need to figure out a better solution
+      CONTENT: text,
+      PUBLISHED_AT: new Date().getTime().toString(),
+      USERNAME: user.USERNAME,
+      FIRST_NAME: user.FIRST_NAME,
+      LAST_NAME: user.LAST_NAME,
+    }
+
+    let copyComments = comments
+    copyComments.push(newCommentDetail)
+
+    setComments(copyComments)
+
+    supabase.from("COMMENT").insert({ author: user.id, COMMENT_TO: id, CONTENT: text }).then(() => {
+      setNewComment('')
+    }) // add the new comment to database
   }
 
   return (
@@ -44,11 +75,15 @@ export const PostDetailPage = () => {
       <div className="mt-4 w-full max-w-md flex flex-col">
         <hr className="my-2 border-gray-300 w-full" />
         <input
+          value={newComment}
           className="w-full bg-black px-4 py-2 rounded-md text-white focus:outline-none"
-          placeholder="Reply to thread"
+          placeholder="Post a comment"
+          onChange={(event) => {
+            setNewComment(event.target.value === null ? '' : event.target.value)
+          }}
         />
 
-        <button className="bg-white text-black font-bold py-2 px-4 rounded mt-2 w-full">Send reply</button>
+        <button className="bg-white text-black font-bold py-2 px-4 rounded mt-2 w-full" onClick={() => postComment(newComment)}>Send reply</button>
       </div>
     </div>
   )
