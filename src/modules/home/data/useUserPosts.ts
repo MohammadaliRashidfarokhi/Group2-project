@@ -1,17 +1,13 @@
-import { userStore } from '@/store/authStore.ts'
 import { useEffect, useState } from 'react'
 import { supabase } from '@/config/supabase/supabaseClient.ts'
 import { PostDetail } from '@/model/post.ts'
 import { useUserData } from '@/data/useUserData.ts'
 import { useToast } from '@/lib/shadcn-components/ui/use-toast.ts'
 
-export const useHomePagePosts = () => {
+export const useUserPosts = (userId: string) => {
   const [posts, setPosts] = useState<PostDetail[]>([])
 
   const { toast } = useToast()
-
-  const { session } = userStore.useStore()
-  const userId = String(session?.user.id)
 
   const { user } = useUserData(userId)
 
@@ -31,6 +27,7 @@ export const useHomePagePosts = () => {
           USERNAME: post.USER?.USERNAME || '',
           FIRST_NAME: post.USER?.FIRST_NAME || '',
           LAST_NAME: post.USER?.LAST_NAME || '',
+          author: post.author,
         })) || []
 
       setPosts(mappedPosts || [])
@@ -62,6 +59,7 @@ export const useHomePagePosts = () => {
           USERNAME: user?.USERNAME || '',
           FIRST_NAME: user?.FIRST_NAME || '',
           LAST_NAME: user?.LAST_NAME || '',
+          author: userId,
         }
 
         setPosts([newPost, ...posts])
@@ -73,9 +71,32 @@ export const useHomePagePosts = () => {
         })
       })
   }
+  const removePost = (postId: string) => async () => {
+    // If the current user is the author, delete the post
+    const { error: deletionError } = await supabase.from('POST').delete().eq('id', postId)
+
+    if (deletionError) {
+      toast({
+        variant: 'destructive',
+        title: 'Error',
+        description: 'An error occurred while removing the post',
+      })
+      return
+    }
+
+    // If the deletion is successful, update the state
+    setPosts((prevPosts) => prevPosts.filter((post) => post.id !== postId))
+
+    toast({
+      variant: 'success',
+      title: 'Success',
+      description: 'Post removed successfully',
+    })
+  }
 
   return {
     posts,
     handlePostCreation,
+    removePost,
   }
 }
