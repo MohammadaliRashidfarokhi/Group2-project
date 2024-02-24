@@ -10,8 +10,8 @@ export const usePostComments = (postId : string): [CommentDetail[], React.Dispat
   useEffect(() => {
     async function fetchPosts() {
       const { data } = await supabase
-        .from('COMMENT')
-        .select('*, USER!COMMENT_author_fkey ( * )')
+        .from('post_comments')
+        .select('*')
           .eq('COMMENT_TO', postId)
 
       return data
@@ -20,15 +20,18 @@ export const usePostComments = (postId : string): [CommentDetail[], React.Dispat
     fetchPosts().then((data) => {
       const mappedComments: CommentDetail[] =
         data?.map((comment) => ({
-          id: comment.id,
-          CONTENT: comment.CONTENT,
-          PUBLISHED_AT: comment.PUBLISHED_AT,
-          USERNAME: comment.USER?.USERNAME || '',
-          FIRST_NAME: comment.USER?.FIRST_NAME || '',
-          LAST_NAME: comment.USER?.LAST_NAME || '',
+          id: comment.id || '',
+          CONTENT: comment.CONTENT || '',
+          PUBLISHED_AT: comment.PUBLISHED_AT || '',
+          USERNAME: comment.USERNAME || '',
+          FIRST_NAME: comment.FIRST_NAME || '',
+          LAST_NAME: comment.LAST_NAME || '',
+          likes: comment.likes || 0
         })) || []
 
       setComments(mappedComments || [])
+
+      return
     })
   }, [session?.user.id])
 

@@ -8,8 +8,8 @@ export const useDetailPost = (postId: string): PostDetail | undefined => {
     useEffect(() => {
         async function fetchPost(id: string) {
             const data = await supabase.
-                from('POST')
-                .select('*, USER!POST_author_fkey ( * )')
+                from('home_page_posts')
+                .select('*')
                 .eq('id', id)
 
             return data
@@ -21,9 +21,11 @@ export const useDetailPost = (postId: string): PostDetail | undefined => {
                 id: data?.data?.at(0)?.id || '',
                 CONTENT: data?.data?.at(0)?.CONTENT || '',
                 PUBLISHED_AT: data?.data?.at(0)?.PUBLISHED_AT || '',
-                USERNAME: data?.data?.at(0)?.USER?.USERNAME || '',
-                FIRST_NAME: data?.data?.at(0)?.USER?.FIRST_NAME || '',
-                LAST_NAME: data?.data?.at(0)?.USER?.LAST_NAME || '',
+                USERNAME: data?.data?.at(0)?.USERNAME || '',
+                FIRST_NAME: data?.data?.at(0)?.FIRST_NAME || '',
+                LAST_NAME: data?.data?.at(0)?.LAST_NAME || '',
+                likes: data?.data?.at(0)?.likes || 0,
+                comments: data?.data?.at(0)?.comments || 0
             }
 
             setPost(postDetail || undefined)

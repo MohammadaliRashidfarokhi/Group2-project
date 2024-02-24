@@ -77,6 +77,13 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
+            foreignKeyName: "public_COMMENT_LIKES_liked_fkey"
+            columns: ["liked"]
+            isOneToOne: false
+            referencedRelation: "post_comments"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "public_COMMENT_LIKES_liker_fkey"
             columns: ["liker"]
             isOneToOne: false
@@ -236,6 +243,42 @@ export type Database = {
             columns: ["author"]
             isOneToOne: false
             referencedRelation: "USER"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      post_comments: {
+        Row: {
+          author: string | null
+          COMMENT_TO: string | null
+          CONTENT: string | null
+          FIRST_NAME: string | null
+          id: string | null
+          LAST_NAME: string | null
+          likes: number | null
+          PUBLISHED_AT: string | null
+          USERNAME: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "COMMENT_author_fkey"
+            columns: ["author"]
+            isOneToOne: false
+            referencedRelation: "USER"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "COMMENT_COMMENT_TO_fkey"
+            columns: ["COMMENT_TO"]
+            isOneToOne: false
+            referencedRelation: "POST"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "COMMENT_COMMENT_TO_fkey"
+            columns: ["COMMENT_TO"]
+            isOneToOne: false
+            referencedRelation: "home_page_posts"
             referencedColumns: ["id"]
           }
         ]

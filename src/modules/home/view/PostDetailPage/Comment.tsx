@@ -1,6 +1,6 @@
 import { CommentDetail } from "@/model/comment"
 import { Card, CardContent } from '@/lib/shadcn-components/ui/card.tsx'
-import { commentIcon, dotsIcon, heartIcon, profilePlaceholder } from '@/static/images.ts'
+import { dotsIcon, heartIcon, profilePlaceholder } from '@/static/images.ts'
 
 type Props = {
     data: CommentDetail
@@ -26,7 +26,7 @@ export const Comment = (props: Props) => {
             <div className={'flex flex-row gap-2 mt-2'}>
                 <span className={'flex flex-row gap-1'}>
                     <img className={'cursor-pointer'} src={heartIcon} alt="Likes" />
-                    <span>{0}</span>
+                    <span>{data.likes}</span>
                 </span>
             </div>
         </CardContent>

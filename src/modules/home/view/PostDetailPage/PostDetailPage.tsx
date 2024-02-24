@@ -39,6 +39,7 @@ export const PostDetailPage = () => {
       USERNAME: user.USERNAME,
       FIRST_NAME: user.FIRST_NAME,
       LAST_NAME: user.LAST_NAME,
+      likes: 0
     }
 
     let copyComments = comments
