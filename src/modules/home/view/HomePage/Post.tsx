@@ -80,11 +80,11 @@ export const Post = (props: Props) => {
         <div className={'flex flex-row gap-2 mt-2'}>
           <span className={'flex flex-row gap-1'}>
             <img className={'cursor-pointer'} src={heartIcon} alt="Likes" />
-            <span>{0}</span>
+            <span>{data.likes}</span>
           </span>
           <span className={'flex flex-row gap-1'}>
             <img className={'cursor-pointer'} src={commentIcon} alt="Comments" />
-            <span>{0}</span>
+            <span>{data.comments}</span>
           </span>
         </div>
       </CardContent>
