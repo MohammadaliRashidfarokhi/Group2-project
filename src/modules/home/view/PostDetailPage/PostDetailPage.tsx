@@ -53,30 +53,34 @@ export const PostDetailPage = () => {
 
   return (
     <div className="w-full px-7 flex flex-col items-center">
-      <div className="w-full flex items-center justify-between">
+      <div className="w-full flex items-center justify-between mb-2">
         <Link to="/" className="cursor-pointer">
           <img src={backArrow} className="w-6" alt="back arrow" onClick={handleBackArrow} />
         </Link>
         <span className="text-white font-bold" style={{ marginLeft: 'auto', marginRight: 'auto' }}>
-          {post === undefined ? <p></p> : <Post data={post}></Post>}
+          POST
         </span>
       </div>
 
-      <div>
+      <span className="text-white font-bold w-full mb-1" style={{ marginLeft: 'auto', marginRight: 'auto' }}>
+          {post === undefined ? <p></p> : <Post data={post}></Post>}
+        </span>
+
+      <div className='flex-grow w-full gap-1'>
         {comments?.length === 0 ?
           <div className={'flex flex-col gap-3.5 text-white mt-10'}>
             <span className={'text-center text-xl font-bold'}>No Comments found</span>
             <p className={'text-center text'}>There are no comments for this post. Please write one</p>
           </div> : comments?.map((comment) =>
-            <Comment key={comment.id} data={comment}></Comment>
+            <span className='flex-grow'><Comment key={comment.id} data={comment}></Comment></span>
           )}
       </div>
 
-      <div className="mt-4 w-full max-w-md flex flex-col">
+      <div className="w-full flex flex-col">
         <hr className="my-2 border-gray-300 w-full" />
         <input
           value={newComment}
-          className="w-full bg-black px-4 py-2 rounded-md text-white focus:outline-none"
+          className="w-full bg-black py-2 rounded-md text-white focus:outline-none"
           placeholder="Post a comment"
           onChange={(event) => {
             setNewComment(event.target.value === null ? '' : event.target.value)

@@ -9,7 +9,7 @@ type Props = {
 export const Comment = (props: Props) => {
     const { data } = props
 
-    return <Card>
+    return <Card className="flex-grow bg-transparent" style={{background: "transparent", border: "none"}}>
         <CardContent className={'text-white relative px-7 py-5 flex flex-col gap-2'}>
             <img src={dotsIcon} className={'top-6 right-6 absolute cursor-pointer'} alt="More" />
 
@@ -26,10 +26,6 @@ export const Comment = (props: Props) => {
             <div className={'flex flex-row gap-2 mt-2'}>
                 <span className={'flex flex-row gap-1'}>
                     <img className={'cursor-pointer'} src={heartIcon} alt="Likes" />
-                    <span>{0}</span>
-                </span>
-                <span className={'flex flex-row gap-1'}>
-                    <img className={'cursor-pointer'} src={commentIcon} alt="Comments" />
                     <span>{0}</span>
                 </span>
             </div>
