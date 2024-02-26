@@ -85,18 +85,18 @@ export const usePostComments = (postId: string) => {
       toast({
         variant: 'destructive',
         title: 'Error',
-        description: 'An error occurred while removing the post',
+        description: 'An error occurred while removing the comment',
       })
       return
     }
 
     // If the deletion is successful, update the state
-    setComments((prevPosts) => prevPosts.filter((post) => post.id !== postId))
+    setComments((prevComment) => prevComment.filter((comment) => comment.id !== commentId))
 
     toast({
       variant: 'success',
       title: 'Success',
-      description: 'Post removed successfully',
+      description: 'Comment removed successfully',
     })
   }
 
