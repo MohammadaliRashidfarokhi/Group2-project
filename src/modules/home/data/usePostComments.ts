@@ -1,4 +1,3 @@
-import { userStore } from '@/store/authStore.ts'
 import { useEffect, useState } from 'react'
 import { supabase } from '@/config/supabase/supabaseClient.ts'
 import { CommentDetail } from '@/model/comment'
@@ -6,7 +5,6 @@ import { useToast } from '@/lib/shadcn-components/ui/use-toast.ts'
 import { User } from '@/model/user'
 
 export const usePostComments = (postId: string) => {
-  const { session } = userStore.useStore()
   const [comments, setComments] = useState<CommentDetail[]>([])
   const { toast } = useToast()
 
@@ -37,7 +35,7 @@ export const usePostComments = (postId: string) => {
 
       return
     })
-  }, [session?.user.id])
+  })
 
   const handleCommentCreation = async (content: string, user: User): Promise<void> => {
     supabase

@@ -12,12 +12,8 @@ export const PostDetailPage = () => {
   const navigate = useNavigate()
   const { id } = useParams()
   const [newComment, setNewComment] = useState<string>('')
-  if (id === undefined) {
-    navigate('/')
-    return
-  }
-  const post = useDetailPost(id)
-  const { comments, handleCommentCreation, removeComment } = usePostComments(id)
+  const post = useDetailPost(id === undefined? '':id)
+  const { comments, handleCommentCreation, removeComment } = usePostComments(id === undefined? '':id)
 
 
   const handleBackArrow = () => {
