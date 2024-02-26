@@ -10,7 +10,7 @@ export const HomePage = () => {
   const { posts, handlePostCreation, removePost } = useUserPosts(userId)
 
   return (
-    <div className={'w-full'}>
+    <div className={'container w-full'}>
       <div className={'flex flex-col gap-7'}>
         <WritePost onSubmit={handlePostCreation} />
         {posts.length > 0 &&
