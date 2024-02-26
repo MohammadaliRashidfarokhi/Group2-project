@@ -6,8 +6,6 @@ import { Post } from '../HomePage/Post'
 import { Comment } from './Comment'
 import { useState } from 'react'
 import { useUser } from '../../data/useUser'
-import { CommentDetail } from '@/model/comment'
-import { supabase } from '@/config/supabase/supabaseClient'
 
 export const PostDetailPage = () => {
   const user = useUser()
@@ -19,7 +17,7 @@ export const PostDetailPage = () => {
     return
   }
   const post = useDetailPost(id)
-  const [comments, setComments] = usePostComments(id)
+  const { comments, handleCommentCreation, removeComment } = usePostComments(id)
 
 
   const handleBackArrow = () => {
@@ -32,24 +30,9 @@ export const PostDetailPage = () => {
       return
     }
 
-    let newCommentDetail: CommentDetail = {
-      id: '', // this is a bad idea need to figure out a better solution
-      CONTENT: text,
-      PUBLISHED_AT: new Date().getTime().toString(),
-      USERNAME: user.USERNAME,
-      FIRST_NAME: user.FIRST_NAME,
-      LAST_NAME: user.LAST_NAME,
-      likes: 0
-    }
-
-    let copyComments = comments
-    copyComments.push(newCommentDetail)
-
-    setComments(copyComments)
-
-    supabase.from("COMMENT").insert({ author: user.id, COMMENT_TO: id, CONTENT: text }).then(() => {
+    handleCommentCreation(text, user).then(() => {
       setNewComment('')
-    }) // add the new comment to database
+    })
   }
 
   return (
@@ -73,7 +56,7 @@ export const PostDetailPage = () => {
             <span className={'text-center text-xl font-bold'}>No Comments found</span>
             <p className={'text-center text'}>There are no comments for this post. Please write one</p>
           </div> : comments?.map((comment) =>
-            <span className='flex-grow'><Comment key={comment.id} data={comment}></Comment></span>
+            <span className='flex-grow'><Comment key={comment.id} data={comment} onRemove={comment.author === user.id ? removeComment(comment.id) : undefined}></Comment></span>
           )}
       </div>
 
