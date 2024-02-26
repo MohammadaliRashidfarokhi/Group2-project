@@ -13,7 +13,7 @@ export const useUserPosts = (userId: string) => {
 
   useEffect(() => {
     async function fetchPosts() {
-      const { data } = await supabase.from('POST').select('*, USER!POST_author_fkey ( * )').eq('author', userId)
+      const { data } = await supabase.from('home_page_posts').select('*').eq('author', userId)
 
       return data
     }
@@ -21,16 +21,20 @@ export const useUserPosts = (userId: string) => {
     fetchPosts().then((data) => {
       const mappedPosts: PostDetail[] =
         data?.map((post) => ({
-          id: post.id,
-          CONTENT: post.CONTENT,
-          PUBLISHED_AT: post.PUBLISHED_AT,
-          USERNAME: post.USER?.USERNAME || '',
-          FIRST_NAME: post.USER?.FIRST_NAME || '',
-          LAST_NAME: post.USER?.LAST_NAME || '',
-          author: post.author,
+          id: post.id || '',
+          CONTENT: post.CONTENT || '',
+          PUBLISHED_AT: post.PUBLISHED_AT || '',
+          USERNAME: post.USERNAME || '',
+          FIRST_NAME: post.FIRST_NAME || '',
+          LAST_NAME: post.LAST_NAME || '',
+          likes: post.likes || 0,
+          comments: post.comments || 0,
+          author: post.author || ''
         })) || []
 
       setPosts(mappedPosts || [])
+
+      return
     })
   }, [userId])
 
