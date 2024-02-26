@@ -64,6 +64,8 @@ export const useUserPosts = (userId: string) => {
           FIRST_NAME: user?.FIRST_NAME || '',
           LAST_NAME: user?.LAST_NAME || '',
           author: userId,
+          likes: 0,
+          comments: 0
         }
 
         setPosts([newPost, ...posts])
