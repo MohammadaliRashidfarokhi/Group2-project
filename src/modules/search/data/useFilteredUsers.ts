@@ -26,7 +26,7 @@ export const useFilteredUsers = (searchValue: string) => {
 
       setUsers(data || [])
     })
-  }, [searchValue])
+  }, [searchValue, toast])
 
   return users
 }
