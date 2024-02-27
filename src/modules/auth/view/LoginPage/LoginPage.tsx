@@ -7,8 +7,10 @@ import { useLoginForm } from '@/modules/auth/view/LoginPage/utils/useLoginForm.t
 import { socialLogo } from '@/static/images.ts'
 import { mapSupabaseAuthError } from '@/utils/supabaseErrorMappers.ts'
 import { useToast } from '@/lib/shadcn-components/ui/use-toast.ts'
+import { useTranslation } from '@/locales/i18n.ts'
 
 export const LoginPage = () => {
+  const { t } = useTranslation('forms')
   const { toast } = useToast()
   const navigate = useNavigate()
   const { handleSubmit, register, errors } = useLoginForm()
@@ -39,9 +41,14 @@ export const LoginPage = () => {
     <form onSubmit={handleFormSubmit} className={'flex flex-col gap-7 self-center w-full'}>
       <img alt={'social logo'} src={socialLogo} className={'w-1/2 self-center'} />
       <div className={'flex flex-col gap-3.5'}>
-        <FormInput label="Email" placeholder="Enter email" {...register('email')} error={errors.email?.message} />
         <FormInput
-          label="Password"
+          label={t('email')}
+          placeholder={t('enter-email-placeholder')}
+          {...register('email')}
+          error={errors.email?.message}
+        />
+        <FormInput
+          label={t('password')}
           placeholder="******"
           type="password"
           {...register('password')}
@@ -51,11 +58,11 @@ export const LoginPage = () => {
 
       <div className={'flex w-full gap-3.5 md:flex-row-reverse flex-col-reverse'}>
         <Button className={'md:flex-1'} type="submit">
-          Login
+          {t('login')}
         </Button>
         <Link to={APP_ROUTES.register} className={'md:w-[75%]'}>
           <Button className={'w-full'} variant={'secondary'}>
-            Don't have an account yet? Create an account
+            {t('dont-have-account')}
           </Button>
         </Link>
       </div>

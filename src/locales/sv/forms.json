@@ -1,0 +1,15 @@
+{
+  "email": "E-post",
+  "enter-email-placeholder": "Skriv in din e-postadress",
+  "password": "Lösenord",
+  "username": "Användarnamn",
+  "enter-username-placeholder": "Skriv in ditt användarnamn",
+  "name": "Förnamn",
+  "enter-name-placeholder": "Skriv in ditt namn",
+  "surname": "Efternamn",
+  "enter-surname-placeholder": "Skriv in ditt efternamn",
+  "login": "Logga in",
+  "already-have-account": "Har du redan ett konto? Logga in",
+  "sign-up": "Skapa konto",
+  "dont-have-account": "Har du inget konto? Skapa ett"
+}

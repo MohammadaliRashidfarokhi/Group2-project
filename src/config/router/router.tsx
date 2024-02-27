@@ -1,6 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom'
 import { APP_ROUTES } from '@/config/router/routes.ts'
-import { Layout, LayoutWithHeader } from '@/components/layout/Layout.tsx'
+import { LayoutWithHeader, LayoutWithHeaderCompact } from '@/components/layout/Layout.tsx'
 import { UserRedirect } from '@/config/router/UserRedirect.tsx'
 import { LoginPage } from '@/modules/auth/view/LoginPage/LoginPage.tsx'
 import { HomePage } from '@/modules/home/view/HomePage/HomePage.tsx'
@@ -10,11 +10,13 @@ import { WithAuth } from '@/config/router/WithAuth.tsx'
 import { ProfilePage } from '@/modules/profile/ProfilePage/ProfilePage.tsx'
 import { ProfileFollow } from '@/modules/profile/ProfileFollow/ProfileFollow.tsx'
 import { AccountConfirmPage } from '@/modules/common/AccountConfirmPage/AccountConfirmPage.tsx'
+import { PostDetailPage } from '@/modules/home/view/PostDetailPage/PostDetailPage'
+import { SearchPage } from '@/modules/search/view/SearchPage/SearchPage.tsx'
 
 export const router = createBrowserRouter([
   {
     path: '/',
-    element: <Layout variant={'compact'} />,
+    element: <LayoutWithHeaderCompact />,
     children: [
       {
         index: true,
@@ -47,8 +49,16 @@ export const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
+        path: APP_ROUTES.comments(':id'),
+        element: <PostDetailPage />,
+      },
+      {
         path: APP_ROUTES.profile,
         element: <ProfilePage />,
+      },
+      {
+        path: APP_ROUTES.search,
+        element: <SearchPage />,
       },
       {
         path: APP_ROUTES.user(':id'),
