@@ -43,7 +43,51 @@ export type Database = {
             foreignKeyName: "COMMENT_COMMENT_TO_fkey"
             columns: ["COMMENT_TO"]
             isOneToOne: false
+            referencedRelation: "home_page_posts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "COMMENT_COMMENT_TO_fkey"
+            columns: ["COMMENT_TO"]
+            isOneToOne: false
             referencedRelation: "POST"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      COMMENT_LIKES: {
+        Row: {
+          liked: string
+          liker: string
+        }
+        Insert: {
+          liked?: string
+          liker?: string
+        }
+        Update: {
+          liked?: string
+          liker?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "public_COMMENT_LIKES_liked_fkey"
+            columns: ["liked"]
+            isOneToOne: false
+            referencedRelation: "COMMENT"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "public_COMMENT_LIKES_liked_fkey"
+            columns: ["liked"]
+            isOneToOne: false
+            referencedRelation: "post_comments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "public_COMMENT_LIKES_liker_fkey"
+            columns: ["liker"]
+            isOneToOne: false
+            referencedRelation: "USER"
             referencedColumns: ["id"]
           }
         ]
@@ -78,36 +122,6 @@ export type Database = {
           }
         ]
       }
-      LIKES: {
-        Row: {
-          liked: string
-          liker: string
-        }
-        Insert: {
-          liked?: string
-          liker: string
-        }
-        Update: {
-          liked?: string
-          liker?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "public_Likes_liked_fkey"
-            columns: ["liked"]
-            isOneToOne: false
-            referencedRelation: "POST"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "public_Likes_liker_fkey"
-            columns: ["liker"]
-            isOneToOne: false
-            referencedRelation: "USER"
-            referencedColumns: ["id"]
-          }
-        ]
-      }
       POST: {
         Row: {
           author: string
@@ -131,6 +145,43 @@ export type Database = {
           {
             foreignKeyName: "POST_author_fkey"
             columns: ["author"]
+            isOneToOne: false
+            referencedRelation: "USER"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      POST_LIKES: {
+        Row: {
+          liked: string
+          liker: string
+        }
+        Insert: {
+          liked?: string
+          liker: string
+        }
+        Update: {
+          liked?: string
+          liker?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "public_Likes_liked_fkey"
+            columns: ["liked"]
+            isOneToOne: false
+            referencedRelation: "home_page_posts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "public_Likes_liked_fkey"
+            columns: ["liked"]
+            isOneToOne: false
+            referencedRelation: "POST"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "public_Likes_liker_fkey"
+            columns: ["liker"]
             isOneToOne: false
             referencedRelation: "USER"
             referencedColumns: ["id"]
@@ -174,10 +225,70 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      home_page_posts: {
+        Row: {
+          author: string | null
+          comments: number | null
+          CONTENT: string | null
+          FIRST_NAME: string | null
+          id: string | null
+          LAST_NAME: string | null
+          likes: number | null
+          PUBLISHED_AT: string | null
+          USERNAME: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "POST_author_fkey"
+            columns: ["author"]
+            isOneToOne: false
+            referencedRelation: "USER"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      post_comments: {
+        Row: {
+          author: string | null
+          COMMENT_TO: string | null
+          CONTENT: string | null
+          FIRST_NAME: string | null
+          id: string | null
+          LAST_NAME: string | null
+          likes: number | null
+          PUBLISHED_AT: string | null
+          USERNAME: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "COMMENT_author_fkey"
+            columns: ["author"]
+            isOneToOne: false
+            referencedRelation: "USER"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "COMMENT_COMMENT_TO_fkey"
+            columns: ["COMMENT_TO"]
+            isOneToOne: false
+            referencedRelation: "POST"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "COMMENT_COMMENT_TO_fkey"
+            columns: ["COMMENT_TO"]
+            isOneToOne: false
+            referencedRelation: "home_page_posts"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
     }
     Functions: {
-      [_ in never]: never
+      home_page_posts: {
+        Args: Record<PropertyKey, never>
+        Returns: Record<string, unknown>
+      }
     }
     Enums: {
       [_ in never]: never

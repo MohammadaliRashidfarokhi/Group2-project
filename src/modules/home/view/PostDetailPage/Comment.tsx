@@ -1,6 +1,7 @@
+import { CommentDetail } from '@/model/comment'
+import { Button } from '@/lib/shadcn-components/ui/button.tsx'
 import { Card, CardContent } from '@/lib/shadcn-components/ui/card.tsx'
-import { commentIcon, dotsIcon, heartIcon, profilePlaceholder } from '@/static/images.ts'
-import { PostDetail } from '@/model/post.ts'
+import { dotsIcon, heartIcon, profilePlaceholder } from '@/static/images.ts'
 import { useState } from 'react'
 import {
   AlertDialog,
@@ -10,16 +11,13 @@ import {
   AlertDialogHeader,
   AlertDialogTrigger,
 } from '@/lib/shadcn-components/ui/alert-dialog.tsx'
-import { Button } from '@/lib/shadcn-components/ui/button.tsx'
-import { Link } from 'react-router-dom'
-import { APP_ROUTES } from '@/config/router/routes.ts'
 
 type Props = {
-  data: PostDetail
+  data: CommentDetail
   onRemove?: () => void
 }
 
-export const Post = (props: Props) => {
+export const Comment = (props: Props) => {
   const { data, onRemove } = props
   const [showConfirmation, setShowConfirmation] = useState(false)
 
@@ -40,7 +38,7 @@ export const Post = (props: Props) => {
   }
 
   return (
-    <Card>
+    <Card className="flex-grow bg-transparent" style={{ background: 'transparent', border: 'none' }}>
       <CardContent className={'text-white relative px-7 py-5 flex flex-col gap-2'}>
         {onRemove && (
           <AlertDialog open={showConfirmation}>
@@ -53,9 +51,9 @@ export const Post = (props: Props) => {
               />
             </AlertDialogTrigger>
             <AlertDialogContent>
-              <AlertDialogHeader>Do You Want to remove this post?</AlertDialogHeader>
+              <AlertDialogHeader>Do You Want to remove this comment?</AlertDialogHeader>
               <AlertDialogDescription>
-                This action cannot be undone. This will permanently delete your post.
+                This action cannot be undone. This will permanently delete your comment.
               </AlertDialogDescription>
               <AlertDialogFooter>
                 <Button onClick={cancelRemove} variant={'default'}>
@@ -79,18 +77,11 @@ export const Post = (props: Props) => {
 
         <span>{data.CONTENT}</span>
 
-        <div className={'flex flex-row gap-3.5 mt-2'}>
-          <span className={'flex flex-row gap-1 cursor-pointer'}>
-            <img className={'text-gray-500 hover:text-white'} src={heartIcon} alt="Likes" />
+        <div className={'flex flex-row gap-2 mt-2'}>
+          <span className={'flex flex-row gap-1'}>
+            <img className={'cursor-pointer'} src={heartIcon} alt="Likes" />
             <span>{data.likes}</span>
           </span>
-
-          <Link to={APP_ROUTES.comments(data.id)}>
-            <span className={'flex flex-row gap-1 cursor-pointer'}>
-              <img src={commentIcon} alt="Comments" />
-              <span>{data.comments}</span>
-            </span>
-          </Link>
         </div>
       </CardContent>
     </Card>
