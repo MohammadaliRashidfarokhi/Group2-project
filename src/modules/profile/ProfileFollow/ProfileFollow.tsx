@@ -1,39 +1,40 @@
-import { Button } from '@/lib/shadcn-components/ui/button.tsx'
 import { profilePlaceholder } from '@/static/images.ts'
+import { useUserData } from '@/data/useUserData.ts'
+import { useParams } from 'react-router-dom'
+import { useUserPosts } from '@/modules/home/data/useUserPosts.ts'
+import { Post } from '@/modules/home/view/HomePage/Post.tsx'
 
 export const ProfileFollow = () => {
-  const handleFollow = () => {
-    console.log('Followed')
-  }
+  const { id } = useParams<{
+    id: string
+  }>()
+  const { user } = useUserData(String(id))
+
+  const { posts } = useUserPosts(String(id))
 
   return (
-    <div className="Follow">
-      <Button
-        className="flex items-center bg-black text-white bg-contain transform translate-x-2.5 translate-y-12"
-        variant="outline"
-        onClick={handleFollow}
-      >
-        Follow
-      </Button>
-      <div className="images w-full h-50 bg-white flex items-end">
+    <div className={'w-full flex flex-col'}>
+      <div className="w-full min-h-32 bg-white flex items-end rounded-md" />
+      <div className={'flex gap-3 px-5'}>
         <img
-          className="profilePicture w-40 h-40 rounded-full transform translate-x-1/3 translate-y-1/2"
+          className="w-20 h-20 rounded-full relative top-[-30px] bg-black"
           src={profilePlaceholder}
           alt="user profile picture"
         />
-      </div>
-      <div className="profileContainer mt-10 border border-solid border-gray-700 p-5 text-white">
-        <div className="userInfo rounded-2xl p-1 bg-black text-whitesmoke flex items-center justify-between">
-          <div className="center flex-3 text-sm text-gray-500 ml-12">
-            <span className="text-2xl font-semibold text-white">Full name </span>
-            <div className="info">
-              <span className="text-sm text-gray-500">@username</span>
-            </div>
-          </div>
+        <div className="text-sm text-gray-500 flex flex-col mt-1.5">
+          <span className="text-xl font-semibold text-white">{`${user?.FIRST_NAME} ${user?.LAST_NAME}`}</span>
+          <span className="text-sm text-gray-500">{user?.USERNAME}</span>
         </div>
       </div>
-      <div className="posts mt-14 flex flex-col gap-2 justify-between">
-        <span className="text-2xl font-semibold text-white">Posts</span>
+
+      <div className={'flex flex-col gap-3.5 font-semibold mt-5'}>
+        <span className={'text-white'}>Posts</span>
+
+        <div className={'flex flex-col gap-3.5'}>
+          {posts.map((post) => (
+            <Post key={post.id} data={post} />
+          ))}
+        </div>
       </div>
     </div>
   )
