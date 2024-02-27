@@ -2,18 +2,20 @@ import { useEffect, useState } from 'react'
 import { supabase } from '@/config/supabase/supabaseClient.ts'
 import { CommentDetail } from '@/model/comment'
 import { useToast } from '@/lib/shadcn-components/ui/use-toast.ts'
-import { User } from '@/model/user'
+import { userStore } from '@/store/authStore.ts'
+import { useUserData } from '@/data/useUserData.ts'
 
 export const usePostComments = (postId: string) => {
-  const [comments, setComments] = useState<CommentDetail[]>([])
+  const { session } = userStore.useStore()
+  const userId = String(session?.user?.id)
+  const { user } = useUserData(userId)
   const { toast } = useToast()
+
+  const [comments, setComments] = useState<CommentDetail[]>([])
 
   useEffect(() => {
     async function fetchPosts() {
-      const { data } = await supabase
-        .from('post_comments')
-        .select('*')
-        .eq('COMMENT_TO', postId)
+      const { data } = await supabase.from('post_comments').select('*').eq('COMMENT_TO', postId)
 
       return data
     }
@@ -28,23 +30,27 @@ export const usePostComments = (postId: string) => {
           FIRST_NAME: comment.FIRST_NAME || '',
           LAST_NAME: comment.LAST_NAME || '',
           likes: comment.likes || 0,
-          author: comment.author || ''
+          author: comment.author || '',
         })) || []
 
       setComments(mappedComments || [])
 
       return
     })
-  })
+  }, [postId])
 
-  const handleCommentCreation = async (content: string, user: User): Promise<void> => {
+  const handleCommentCreation = async (content: string): Promise<void> => {
     supabase
       .from('COMMENT')
-      .insert({ author: user.id, CONTENT: content, PUBLISHED_AT: new Date().toISOString().toLocaleString(), COMMENT_TO: postId })
+      .insert({
+        author: userId,
+        CONTENT: content,
+        PUBLISHED_AT: new Date().toISOString().toLocaleString(),
+        COMMENT_TO: postId,
+      })
       .select('*')
       .then((response) => {
         const { data, error } = response
-        console.log(response)
 
         if (error) {
           toast({
@@ -62,8 +68,8 @@ export const usePostComments = (postId: string) => {
           USERNAME: user?.USERNAME || '',
           FIRST_NAME: user?.FIRST_NAME || '',
           LAST_NAME: user?.LAST_NAME || '',
-          author: user.id,
-          likes: 0
+          author: userId,
+          likes: 0,
         }
 
         setComments([newPost, ...comments])
@@ -98,5 +104,5 @@ export const usePostComments = (postId: string) => {
     })
   }
 
-  return {comments, handleCommentCreation, removeComment}
+  return { comments, handleCommentCreation, removeComment }
 }

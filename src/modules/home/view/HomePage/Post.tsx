@@ -11,6 +11,8 @@ import {
   AlertDialogTrigger,
 } from '@/lib/shadcn-components/ui/alert-dialog.tsx'
 import { Button } from '@/lib/shadcn-components/ui/button.tsx'
+import { Link } from 'react-router-dom'
+import { APP_ROUTES } from '@/config/router/routes.ts'
 
 type Props = {
   data: PostDetail
@@ -77,15 +79,18 @@ export const Post = (props: Props) => {
 
         <span>{data.CONTENT}</span>
 
-        <div className={'flex flex-row gap-2 mt-2'}>
-          <span className={'flex flex-row gap-1'}>
-            <img className={'cursor-pointer'} src={heartIcon} alt="Likes" />
+        <div className={'flex flex-row gap-3.5 mt-2'}>
+          <span className={'flex flex-row gap-1 cursor-pointer'}>
+            <img className={'text-gray-500 hover:text-white'} src={heartIcon} alt="Likes" />
             <span>{data.likes}</span>
           </span>
-          <span className={'flex flex-row gap-1'}>
-            <img className={'cursor-pointer'} src={commentIcon} alt="Comments" />
-            <span>{data.comments}</span>
-          </span>
+
+          <Link to={APP_ROUTES.comments(data.id)}>
+            <span className={'flex flex-row gap-1 cursor-pointer'}>
+              <img src={commentIcon} alt="Comments" />
+              <span>{data.comments}</span>
+            </span>
+          </Link>
         </div>
       </CardContent>
     </Card>

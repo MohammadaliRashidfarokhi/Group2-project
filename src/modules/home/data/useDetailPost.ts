@@ -1,36 +1,51 @@
-import { supabase } from "@/config/supabase/supabaseClient"
-import { useEffect, useState } from "react"
+import { supabase } from '@/config/supabase/supabaseClient'
+import { useEffect, useState } from 'react'
 import { PostDetail } from '@/model/post.ts'
+import { useToast } from '@/lib/shadcn-components/ui/use-toast.ts'
 
 export const useDetailPost = (postId: string): PostDetail | undefined => {
-    const [post, setPost] = useState<PostDetail>()
+  const [post, setPost] = useState<PostDetail>()
+  const { toast } = useToast()
 
-    useEffect(() => {
-        async function fetchPost(id: string) {
-            const data = await supabase.
-                from('home_page_posts')
-                .select('*')
-                .eq('id', id)
+  useEffect(() => {
+    async function fetchPost(id: string) {
+      const data = await supabase.from('home_page_posts').select('*').eq('id', id)
 
-            return data
-        }
+      return data
+    }
 
-        fetchPost(postId).then((data) => {
-            // add some checks for undefined somewhere
-            const postDetail: PostDetail = {
-                id: data?.data?.at(0)?.id || '',
-                CONTENT: data?.data?.at(0)?.CONTENT || '',
-                PUBLISHED_AT: data?.data?.at(0)?.PUBLISHED_AT || '',
-                USERNAME: data?.data?.at(0)?.USERNAME || '',
-                FIRST_NAME: data?.data?.at(0)?.FIRST_NAME || '',
-                LAST_NAME: data?.data?.at(0)?.LAST_NAME || '',
-                likes: data?.data?.at(0)?.likes || 0,
-                comments: data?.data?.at(0)?.comments || 0
-            }
+    fetchPost(postId).then((response) => {
+      const { data, error } = response
 
-            setPost(postDetail || undefined)
+      if (error) {
+        toast({
+          variant: 'destructive',
+          title: 'Error',
+          description: 'An error occurred while fetching the post',
         })
-    })
+        return
+      }
 
-    return post
+      if (!data?.[0].id) {
+        return
+      }
+
+      // add some checks for undefined somewhere
+      const postDetail: PostDetail = {
+        id: data?.at(0)?.id || '',
+        CONTENT: data?.at(0)?.CONTENT || '',
+        PUBLISHED_AT: data?.at(0)?.PUBLISHED_AT || '',
+        USERNAME: data?.at(0)?.USERNAME || '',
+        FIRST_NAME: data?.at(0)?.FIRST_NAME || '',
+        LAST_NAME: data?.at(0)?.LAST_NAME || '',
+        likes: data?.at(0)?.likes || 0,
+        comments: data?.at(0)?.comments || 0,
+        author: data?.at(0)?.author || '',
+      }
+
+      setPost(postDetail)
+    })
+  }, [postId])
+
+  return post
 }
