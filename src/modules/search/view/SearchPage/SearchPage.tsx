@@ -1,59 +1,24 @@
 import { Input } from '@/lib/shadcn-components/ui/input'
 import { MagnifyingGlassIcon } from '@radix-ui/react-icons'
-import React from 'react'
-import { User } from '@/model/user'
-import { profilePlaceholder } from '@/static/images.ts'
+import { UserCard } from '@/modules/search/view/SearchPage/UserCard.tsx'
+import { useFilteredUsers } from '@/modules/search/data/useFilteredUsers.ts'
+import { useState } from 'react'
 
 export const SearchPage = () => {
-  const users: User[] = [
-    {
-      BACKGROUND_COLOR: 'blue',
-      FIRST_NAME: 'Felix',
-      LAST_NAME: 'Brunnegård',
-      USERNAME: 'felixbrunnegard',
-      EMAIL: 'felix.brunnegard@gmail.com',
-      id: '1',
-    },
-    {
-      BACKGROUND_COLOR: 'blue',
-      FIRST_NAME: 'Felix',
-      LAST_NAME: 'Brunnegård',
-      USERNAME: 'felixbrunnegard',
-      EMAIL: 'felix.brunnegard@gmail.com',
-      id: '2',
-    },
-    {
-      BACKGROUND_COLOR: 'blue',
-      FIRST_NAME: 'Felix',
-      LAST_NAME: 'Brunnegård',
-      USERNAME: 'felixbrunnegard',
-      EMAIL: 'felix.brunnegard@gmail.com',
-      id: '3',
-    },
-  ]
+  const [searchValue, setSearchValue] = useState('')
+  const users = useFilteredUsers(searchValue)
 
-  const UserCard: React.FC<{ user: User; className?: string }> = ({ user, className }) => {
-    return (
-      <div className="flex gap-4 my-2">
-        <img className="w-10 h-10 rounded-full bg-black" src={profilePlaceholder} alt="user profile picture" />
-        <div>
-          <p>
-            {user.FIRST_NAME} {user.LAST_NAME}
-          </p>
-          <p className="text-gray-500">@{user.USERNAME}</p>
-        </div>
-      </div>
-    )
-  }
   return (
-    <div className="container mx-auto text-white">
-      <div className="flex gap-4 mb-4">
+    <div className="container mx-auto text-white flex flex-col gap-8">
+      <div className="flex gap-3">
         <MagnifyingGlassIcon className="w-10 h-10" />
-        <Input />
+        <Input placeholder={'Enter username...'} value={searchValue} onChange={(e) => setSearchValue(e.target.value)} />
       </div>
-      {users.map((user) => {
-        return <UserCard user={user} />
-      })}
+      <div className={'flex flex-col gap-4'}>
+        {users.map((user) => (
+          <UserCard key={user.id} user={user} />
+        ))}
+      </div>
     </div>
   )
 }

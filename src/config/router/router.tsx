@@ -68,10 +68,6 @@ export const router = createBrowserRouter([
         path: APP_ROUTES.accountConfirmation,
         element: <AccountConfirmPage />,
       },
-      {
-        path: APP_ROUTES.search,
-        element: <SearchPage/>
-      }
     ],
   },
   {
