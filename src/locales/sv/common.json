@@ -11,5 +11,8 @@
   "logout":"Logga ut",
 
   "search": "Sök",
-  "home": "Hem"
+  "home": "Hem",
+
+  "follow": "Follow",
+  "following": "Following"
 }
