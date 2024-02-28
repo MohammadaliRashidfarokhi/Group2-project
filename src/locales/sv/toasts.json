@@ -1,9 +1,9 @@
 {
-  "success": "Framgång",
+  "success": "Lyckad",
   "comment-create-success": "Kommentar skapad framgångsrikt",
   "comment-remove-success": "Kommentar borttagen framgångsrikt",
-  "post-create-success": "Inlägg skapat framgångsrikt",
-  "post-remove-success": "Inlägg borttaget framgångsrikt",
+  "post-create-success": "Inlägg skapat",
+  "post-remove-success": "Inlägg borttaget",
 
   "error": "Fel",
   "common-error": "Ett fel uppstod",
