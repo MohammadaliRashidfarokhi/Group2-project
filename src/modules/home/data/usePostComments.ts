@@ -4,8 +4,10 @@ import { CommentDetail } from '@/model/comment'
 import { useToast } from '@/lib/shadcn-components/ui/use-toast.ts'
 import { userStore } from '@/store/authStore.ts'
 import { useUserData } from '@/data/useUserData.ts'
+import { useTranslation } from '@/locales/i18n.ts'
 
 export const usePostComments = (postId: string) => {
+  const { t } = useTranslation('toasts')
   const { session } = userStore.useStore()
   const userId = String(session?.user?.id)
   const { user } = useUserData(userId)
@@ -15,12 +17,25 @@ export const usePostComments = (postId: string) => {
 
   useEffect(() => {
     async function fetchPosts() {
-      const { data } = await supabase.from('post_comments').select('*').eq('COMMENT_TO', postId)
-
-      return data
+      return supabase
+        .from('post_comments')
+        .select('*')
+        .eq('COMMENT_TO', postId)
+        .order('PUBLISHED_AT', { ascending: true })
     }
 
-    fetchPosts().then((data) => {
+    fetchPosts().then((response) => {
+      const { data, error } = response
+
+      if (error) {
+        toast({
+          variant: 'destructive',
+          title: t('error'),
+          description: t('comments-fetch-error'),
+        })
+        return
+      }
+
       const mappedComments: CommentDetail[] =
         data?.map((comment) => ({
           id: comment.id || '',
@@ -55,8 +70,8 @@ export const usePostComments = (postId: string) => {
         if (error) {
           toast({
             variant: 'destructive',
-            title: 'Error',
-            description: 'An error occurred while creating the post',
+            title: t('error'),
+            description: t('comment-create-error'),
           })
           return
         }
@@ -76,8 +91,8 @@ export const usePostComments = (postId: string) => {
 
         toast({
           variant: 'success',
-          title: 'Success',
-          description: 'Post created successfully',
+          title: t('success'),
+          description: t('comment-create-success'),
         })
       })
   }
@@ -88,8 +103,8 @@ export const usePostComments = (postId: string) => {
     if (deletionError) {
       toast({
         variant: 'destructive',
-        title: 'Error',
-        description: 'An error occurred while removing the comment',
+        title: t('error'),
+        description: t('comment-remove-error'),
       })
       return
     }
@@ -99,8 +114,8 @@ export const usePostComments = (postId: string) => {
 
     toast({
       variant: 'success',
-      title: 'Success',
-      description: 'Comment removed successfully',
+      title: t('success'),
+      description: t('comment-remove-success'),
     })
   }
 

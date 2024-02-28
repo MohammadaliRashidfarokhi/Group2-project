@@ -1,43 +1,50 @@
 import { Card, CardContent, CardHeader, CardFooter } from '@/lib/shadcn-components/ui/card.tsx'
 import { Button } from '@/lib/shadcn-components/ui/button.tsx'
-import { Textarea } from '@/lib/shadcn-components/ui/textarea.tsx'
-import { useState } from 'react'
 import { useTranslation } from '@/locales/i18n.ts'
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+
+import * as yup from 'yup'
+import { FormTextArea } from '@/components/form/FormTextArea.tsx'
+
+const schema = yup.object().shape({
+  content: yup.string().required('required-field'),
+})
 
 type Props = {
   onSubmit: (content: string) => Promise<void>
 }
 
 export const WritePost = (props: Props) => {
-  const { t } = useTranslation()
-  const [content, setContent] = useState<string>('')
+  const { t } = useTranslation(['common', 'forms'])
+  const { handleSubmit, register, formState } = useForm<{ content: string }>({
+    resolver: yupResolver(schema),
+  })
 
-  const handleSubmit = () => {
-    props.onSubmit(content).then(() => {
-      setContent('')
-    })
-  }
+  const handleSubmitForm = handleSubmit((data) => {
+    props.onSubmit(data.content)
+  })
 
   return (
     <Card>
-      <CardHeader className={'py-3'}>
-        <h3 className={'text-white text-2xl font-bold'}>{t('write-post')}</h3>
-      </CardHeader>
-      <CardContent className={'text-white pb-2.5'}>
-        <Textarea
-          className={'bg-black min-h-12 text-md p-0 border-none ring-offset-black'}
-          placeholder={t('write-post-placeholder')}
-          value={content}
-          onChange={(event) => {
-            setContent(event.target.value)
-          }}
-        />
-      </CardContent>
-      <CardFooter>
-        <Button className={'w-full'} onClick={handleSubmit}>
-          Post
-        </Button>
-      </CardFooter>
+      <form onSubmit={handleSubmitForm}>
+        <CardHeader className={'py-3'}>
+          <h3 className={'text-white text-2xl font-bold'}>{t('write-post')}</h3>
+        </CardHeader>
+        <CardContent className={'text-white pb-2.5'}>
+          <FormTextArea
+            className={'bg-black min-h-12 text-md p-0 border-none ring-offset-black'}
+            placeholder={t('write-post-placeholder')}
+            {...register('content')}
+            error={formState.errors.content?.message}
+          />
+        </CardContent>
+        <CardFooter>
+          <Button className={'w-full'} type={'submit'}>
+            {t('send')}
+          </Button>
+        </CardFooter>
+      </form>
     </Card>
   )
 }

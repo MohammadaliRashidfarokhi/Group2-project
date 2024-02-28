@@ -2,8 +2,10 @@ import { supabase } from '@/config/supabase/supabaseClient'
 import { useEffect, useState } from 'react'
 import { PostDetail } from '@/model/post.ts'
 import { useToast } from '@/lib/shadcn-components/ui/use-toast.ts'
+import { useTranslation } from '@/locales/i18n.ts'
 
 export const useDetailPost = (postId: string): PostDetail | undefined => {
+  const { t } = useTranslation('toasts')
   const [post, setPost] = useState<PostDetail>()
   const { toast } = useToast()
 
@@ -20,8 +22,8 @@ export const useDetailPost = (postId: string): PostDetail | undefined => {
       if (error) {
         toast({
           variant: 'destructive',
-          title: 'Error',
-          description: 'An error occurred while fetching the post',
+          title: t('error'),
+          description: t('post-fetch-error'),
         })
         return
       }

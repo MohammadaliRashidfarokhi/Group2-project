@@ -1,12 +1,15 @@
 {
   "post": "Post",
-  "write-post": "Write a post",
-  "write-post-placeholder": "What's popping...",
+  "posts": "Posts",
+  "no-posts-found": "No posts found",
+  "no-posts-found-message": "There are no posts available at the moment. Please check back later or write a post yourself.",
+
+  "registration-success": "Registration successful",
+  "registration-success-message": "We have sent you an email to verify your account. Please check your inbox and click on the link to verify your account.",
 
   "profile": "Profile",
   "logout": "Logout",
 
-  "search-user": "Search for user",
   "search": "Search",
   "home": "Home"
 }

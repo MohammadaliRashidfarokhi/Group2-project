@@ -9,7 +9,7 @@ export enum SupportedAppLanguage {
   SWEDISH = 'SWEDISH',
 }
 
-export type ResourceLangType = 'common' | 'forms'
+export type ResourceLangType = 'common' | 'forms' | 'toasts'
 
 export type AppLanguages = 'en-US' | 'sv-SE'
 

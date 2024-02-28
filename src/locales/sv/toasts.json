@@ -1,0 +1,19 @@
+{
+  "success": "Framgång",
+  "comment-create-success": "Kommentar skapad framgångsrikt",
+  "comment-remove-success": "Kommentar borttagen framgångsrikt",
+  "post-create-success": "Inlägg skapat framgångsrikt",
+  "post-remove-success": "Inlägg borttaget framgångsrikt",
+
+  "error": "Fel",
+  "common-error": "Ett fel uppstod",
+  "post-fetch-error": "Ett fel uppstod vid hämtning av inlägget",
+  "posts-fetch-error": "Ett fel uppstod vid hämtning av inläggen",
+  "post-create-error": "Ett fel uppstod vid skapandet av inlägget",
+  "user-fetch-error": "Ett fel uppstod vid hämtning av användaren",
+  "users-fetch-error": "Ett fel uppstod vid hämtning av användarna",
+  "comments-fetch-error": "Ett fel uppstod vid hämtning av kommentarerna",
+  "comment-create-error": "Ett fel uppstod vid skapandet av kommentaren",
+  "comment-remove-error": "Ett fel uppstod vid borttagning av kommentaren",
+  "invalid-password-or-email": "Ogiltig e-post eller lösenord"
+}

@@ -4,6 +4,7 @@
   "password": "Lösenord",
   "username": "Användarnamn",
   "enter-username-placeholder": "Skriv in ditt användarnamn",
+  "enter-username-search-placeholder": "Skriv in användarnamn...",
   "name": "Förnamn",
   "enter-name-placeholder": "Skriv in ditt namn",
   "surname": "Efternamn",
@@ -11,5 +12,18 @@
   "login": "Logga in",
   "already-have-account": "Har du redan ett konto? Logga in",
   "sign-up": "Skapa konto",
-  "dont-have-account": "Har du inget konto? Skapa ett"
+  "dont-have-account": "Har du inget konto? Skapa ett",
+  "reply-to-thread": "Svara på tråd",
+  "write-post": "Skriva ett inlägg",
+  "write-post-placeholder": "Vad händer...",
+  "send": "Skicka",
+
+  "required-field": "Detta fält är obligatoriskt",
+  "invalid-email": "Ogiltig e-postadress",
+  "invalid-password": "Ogiltigt lösenord",
+  "invalid-username": "Ogiltigt användarnamn",
+  "invalid-name": "Ogiltigt förnamn",
+  "invalid-surname": "Ogiltigt efternamn",
+  "field-too-short": "Detta fält är för kort",
+  "field-too-long": "Detta fält är för långt"
 }

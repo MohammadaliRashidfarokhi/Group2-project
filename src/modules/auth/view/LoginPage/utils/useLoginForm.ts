@@ -8,8 +8,8 @@ export type AuthFormProps = {
 }
 
 const authFormSchema: yup.ObjectSchema<AuthFormProps> = yup.object({
-  email: yup.string().required('Email is required').email('This is not a valid email'),
-  password: yup.string().required('Password is required'),
+  email: yup.string().required('required-field').email('invalid-email'),
+  password: yup.string().required('required-field'),
 })
 
 export const useLoginForm = (defaultValues: AuthFormProps = { email: '', password: '' }) => {
