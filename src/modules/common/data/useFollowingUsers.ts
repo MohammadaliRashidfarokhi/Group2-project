@@ -1,8 +1,12 @@
 import { supabase } from "@/config/supabase/supabaseClient"
+import { useToast } from "@/lib/shadcn-components/ui/use-toast"
+import { useTranslation } from "@/locales/i18n"
 import { userStore } from "@/store/authStore"
 import { useEffect, useState } from "react"
 
 export const useFollowingUsers = () => {
+    const { toast } = useToast()
+    const {t} = useTranslation('toasts')
     const { session } = userStore.useStore()
     const [following, setFollowing] = useState<string[]>([])
 
@@ -27,6 +31,11 @@ export const useFollowingUsers = () => {
             setFollowing([...following, followingId])
         }, (err) => {
             console.log(err)    // add a toast error
+            toast({
+                variant: 'destructive',
+                title: t('error'),
+                description: t('unable-to-follow')
+            })
         })
     }
 
@@ -35,6 +44,11 @@ export const useFollowingUsers = () => {
             setFollowing(following.filter((elem) => elem !== unfollowingId))
         }, (err) => {
             console.log(err)    // add a toast error
+            toast({
+                variant: 'destructive',
+                title: t('error'),
+                description: t('unable-to-unfollow')
+            })
         })
     }
 

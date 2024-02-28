@@ -11,7 +11,7 @@ export const ProfileFollow = () => {
   const { id } = useParams<{
     id: string
   }>()
-  const { t } = useTranslation()
+  const { t } = useTranslation('common')
   const { user } = useUserData(String(id))
   const {following, startFollow, unFollow} = useFollowingUsers()
 
