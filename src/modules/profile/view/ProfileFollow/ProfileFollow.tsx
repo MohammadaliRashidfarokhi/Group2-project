@@ -5,6 +5,7 @@ import { useUserPosts } from '@/modules/home/data/useUserPosts.ts'
 import { Post } from '@/modules/home/view/HomePage/Post.tsx'
 import { useTranslation } from '@/locales/i18n.ts'
 import { useFollowingUsers } from '@/modules/common/data/useFollowingUsers'
+import { Button } from '@/lib/shadcn-components/ui/button.tsx'
 
 export const ProfileFollow = () => {
   const { id } = useParams<{
@@ -25,9 +26,18 @@ export const ProfileFollow = () => {
           src={profilePlaceholder}
           alt="user profile picture"
         />
-        <div className="text-sm text-gray-500 flex flex-col mt-1.5">
+        <div className="grow text-sm text-gray-500 flex flex-col mt-1.5">
           <span className="text-xl font-semibold text-white">{`${user?.FIRST_NAME} ${user?.LAST_NAME}`}</span>
           <span className="text-sm text-gray-500">{user?.USERNAME}</span>
+        </div>
+        <div className="items-center flex">
+          <Button className='border-white border bg-transparent text-white hover:bg-white hover:text-black' onClick={() =>{
+            if (following.find((elem) => elem === user?.id) === undefined)
+              startFollow(user?.id || '')
+            else
+              unFollow(user?.id || '')
+          }
+          }>{following.find((elem) => elem === user?.id) === undefined ? t("follow") : t("following")}</Button>
         </div>
       </div>
 
