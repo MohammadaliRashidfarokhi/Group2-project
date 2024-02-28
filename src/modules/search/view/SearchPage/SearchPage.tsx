@@ -4,8 +4,10 @@ import { UserCard } from '@/modules/search/view/SearchPage/UserCard.tsx'
 import { useFilteredUsers } from '@/modules/search/data/useFilteredUsers.ts'
 import { useState } from 'react'
 import { useTranslation } from '@/locales/i18n.ts'
+import { userStore } from '@/store/authStore'
 
 export const SearchPage = () => {
+  const id = userStore.useStore().session?.user?.id || ''
   const { t } = useTranslation('forms')
   const [searchValue, setSearchValue] = useState('')
   const users = useFilteredUsers(searchValue)
@@ -21,7 +23,7 @@ export const SearchPage = () => {
         />
       </div>
       <div className={'flex flex-col gap-4'}>
-        {users.map((user) => (
+        {users.filter((user) => user.id != id).map((user) => (
           <UserCard key={user.id} user={user} />
         ))}
       </div>

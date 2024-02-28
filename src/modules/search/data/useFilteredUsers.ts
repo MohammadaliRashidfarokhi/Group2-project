@@ -11,7 +11,7 @@ export const useFilteredUsers = (searchValue: string) => {
 
   useEffect(() => {
     async function fetchUsers() {
-      return supabase.from('USER').select('*').ilike('USERNAME', `%${searchValue}%`)
+      return supabase.from('USER').select('*').ilike('USERNAME', `%${searchValue}%`).limit(10)
     }
 
     fetchUsers().then((response) => {
