@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom'
 import { useUserPosts } from '@/modules/home/data/useUserPosts.ts'
 import { Post } from '@/modules/home/view/HomePage/Post.tsx'
 import { useTranslation } from '@/locales/i18n.ts'
+import { useFollowingUsers } from '@/modules/common/data/useFollowingUsers'
 
 export const ProfileFollow = () => {
   const { id } = useParams<{
@@ -11,8 +12,9 @@ export const ProfileFollow = () => {
   }>()
   const { t } = useTranslation()
   const { user } = useUserData(String(id))
+  const {following, startFollow, unFollow} = useFollowingUsers()
 
-  const { posts } = useUserPosts(String(id))
+  const { posts } = useUserPosts([String(id)])
 
   return (
     <div className={'w-full flex flex-col'}>

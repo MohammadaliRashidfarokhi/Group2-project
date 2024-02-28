@@ -4,12 +4,14 @@ import { PostDetail } from '@/model/post.ts'
 import { useUserData } from '@/data/useUserData.ts'
 import { useToast } from '@/lib/shadcn-components/ui/use-toast.ts'
 import { useTranslation } from '@/locales/i18n.ts'
+import { userStore } from '@/store/authStore'
 
-export const useUserPosts = (userId: string) => {
+export const useUserPosts = (userIds: string[]) => {
   const { t } = useTranslation('toasts')
   const [posts, setPosts] = useState<PostDetail[]>([])
-
+  const {session} = userStore.useStore()
   const { toast } = useToast()
+  const userId = session?.user?.id || ''
 
   const { user } = useUserData(userId)
 
@@ -18,7 +20,7 @@ export const useUserPosts = (userId: string) => {
       return supabase
         .from('home_page_posts')
         .select('*')
-        .eq('author', userId)
+        .in('author', userIds)
         .order('PUBLISHED_AT', { ascending: false })
     }
 
@@ -49,7 +51,7 @@ export const useUserPosts = (userId: string) => {
 
       setPosts(mappedPosts || [])
     })
-  }, [t, toast, userId])
+  }, [t, toast, userIds])
 
   const handlePostCreation = async (content: string) => {
     supabase
