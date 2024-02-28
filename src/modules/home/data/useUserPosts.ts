@@ -3,8 +3,10 @@ import { supabase } from '@/config/supabase/supabaseClient.ts'
 import { PostDetail } from '@/model/post.ts'
 import { useUserData } from '@/data/useUserData.ts'
 import { useToast } from '@/lib/shadcn-components/ui/use-toast.ts'
+import { useTranslation } from '@/locales/i18n.ts'
 
 export const useUserPosts = (userId: string) => {
+  const { t } = useTranslation('toasts')
   const [posts, setPosts] = useState<PostDetail[]>([])
 
   const { toast } = useToast()
@@ -13,12 +15,25 @@ export const useUserPosts = (userId: string) => {
 
   useEffect(() => {
     async function fetchPosts() {
-      const { data } = await supabase.from('home_page_posts').select('*').eq('author', userId)
-
-      return data
+      return supabase
+        .from('home_page_posts')
+        .select('*')
+        .eq('author', userId)
+        .order('PUBLISHED_AT', { ascending: false })
     }
 
-    fetchPosts().then((data) => {
+    fetchPosts().then((response) => {
+      const { data, error } = response
+
+      if (error) {
+        toast({
+          variant: 'destructive',
+          title: t('error'),
+          description: t('posts-fetch-error'),
+        })
+        return
+      }
+
       const mappedPosts: PostDetail[] =
         data?.map((post) => ({
           id: post.id || '',
@@ -29,14 +44,12 @@ export const useUserPosts = (userId: string) => {
           LAST_NAME: post.LAST_NAME || '',
           likes: post.likes || 0,
           comments: post.comments || 0,
-          author: post.author || ''
+          author: post.author || '',
         })) || []
 
       setPosts(mappedPosts || [])
-
-      return
     })
-  }, [userId])
+  }, [t, toast, userId])
 
   const handlePostCreation = async (content: string) => {
     supabase
@@ -50,8 +63,8 @@ export const useUserPosts = (userId: string) => {
         if (error) {
           toast({
             variant: 'destructive',
-            title: 'Error',
-            description: 'An error occurred while creating the post',
+            title: t('error'),
+            description: t('post-creation-error'),
           })
           return
         }
@@ -65,15 +78,15 @@ export const useUserPosts = (userId: string) => {
           LAST_NAME: user?.LAST_NAME || '',
           author: userId,
           likes: 0,
-          comments: 0
+          comments: 0,
         }
 
         setPosts([newPost, ...posts])
 
         toast({
           variant: 'success',
-          title: 'Success',
-          description: 'Post created successfully',
+          title: t('success'),
+          description: t('post-creation-success'),
         })
       })
   }
@@ -84,8 +97,8 @@ export const useUserPosts = (userId: string) => {
     if (deletionError) {
       toast({
         variant: 'destructive',
-        title: 'Error',
-        description: 'An error occurred while removing the post',
+        title: t('error'),
+        description: t('post-remove-error'),
       })
       return
     }
@@ -95,8 +108,8 @@ export const useUserPosts = (userId: string) => {
 
     toast({
       variant: 'success',
-      title: 'Success',
-      description: 'Post removed successfully',
+      title: t('success'),
+      description: t('post-remove-success'),
     })
   }
 

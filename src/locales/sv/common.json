@@ -1,12 +1,15 @@
 {
   "post": "Posta",
-  "write-post": "Skriva ett inlägg",
-  "write-post-placeholder": "Vad händer...",
+  "posts": "Inlägg",
+  "no-posts-found": "Inga inlägg hittades",
+  "no-posts-found-message": "Det finns inga inlägg att visa. Varför inte skapa ett nytt inlägg?",
+
+  "registration-success": "Registrering lyckades",
+  "registration-success-message": "Du har nu registrerat dig. Du kan nu logga in med ditt användarnamn och lösenord.",
 
   "profile": "Profil",
   "logout":"Logga ut",
 
-  "search-user": "Sök efter användare",
   "search": "Sök",
   "home": "Hem"
 }

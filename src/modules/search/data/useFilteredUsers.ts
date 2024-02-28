@@ -2,8 +2,10 @@ import { User } from '@/model/user.ts'
 import { useEffect, useState } from 'react'
 import { supabase } from '@/config/supabase/supabaseClient.ts'
 import { useToast } from '@/lib/shadcn-components/ui/use-toast.ts'
+import { useTranslation } from '@/locales/i18n.ts'
 
 export const useFilteredUsers = (searchValue: string) => {
+  const { t } = useTranslation('toasts')
   const [users, setUsers] = useState<User[]>([])
   const { toast } = useToast()
 
@@ -18,15 +20,15 @@ export const useFilteredUsers = (searchValue: string) => {
       if (error) {
         toast({
           variant: 'destructive',
-          title: 'Error',
-          description: 'An error occurred while fetching users',
+          title: t('error'),
+          description: t('users-fetch-error'),
         })
         return
       }
 
       setUsers(data || [])
     })
-  }, [searchValue, toast])
+  }, [searchValue, t, toast])
 
   return users
 }

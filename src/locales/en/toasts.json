@@ -1,0 +1,19 @@
+{
+  "success": "Success",
+  "comment-create-success": "Comment created successfully",
+  "comment-remove-success": "Comment removed successfully",
+  "post-create-success": "Post created successfully",
+  "post-remove-success": "Post removed successfully",
+
+  "error": "Error",
+  "common-error": "An error occurred",
+  "post-fetch-error": "An error occurred while fetching the post",
+  "posts-fetch-error": "An error occurred while fetching the posts",
+  "post-create-error": "An error occurred while creating the post",
+  "user-fetch-error": "An error occurred while fetching the user",
+  "users-fetch-error": "An error occurred while fetching the users",
+  "comments-fetch-error": "An error occurred while fetching the comments",
+  "comment-create-error": "An error occurred while creating the comment",
+  "comment-remove-error": "An error occurred while removing the comment",
+  "invalid-password-or-email": "Invalid email or password"
+}

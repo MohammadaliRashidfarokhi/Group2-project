@@ -4,6 +4,7 @@
   "password": "Password",
   "username": "Username",
   "enter-username-placeholder": "Enter your username",
+  "enter-username-search-placeholder": "Enter username...",
   "name": "Name",
   "enter-name-placeholder": "Enter your name",
   "surname": "Surname",
@@ -11,5 +12,17 @@
   "login": "Login",
   "already-have-account": "Already have an account? Log in",
   "sign-up": "Sign up",
-  "dont-have-account": "Don't have an account yet? Create an account"
+  "dont-have-account": "Don't have an account yet? Create an account",
+  "reply-to-thread": "Reply to thread",
+  "write-post": "Write a post",
+  "write-post-placeholder": "What's popping...",
+
+  "required-field": "This field is required",
+  "invalid-email": "Invalid email",
+  "invalid-password": "Invalid password",
+  "invalid-username": "Invalid username",
+  "invalid-name": "Invalid name",
+  "invalid-surname": "Invalid surname",
+  "field-too-short": "This field is too short",
+  "field-too-long": "This field is too long"
 }

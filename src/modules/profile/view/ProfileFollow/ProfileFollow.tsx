@@ -3,11 +3,13 @@ import { useUserData } from '@/data/useUserData.ts'
 import { useParams } from 'react-router-dom'
 import { useUserPosts } from '@/modules/home/data/useUserPosts.ts'
 import { Post } from '@/modules/home/view/HomePage/Post.tsx'
+import { useTranslation } from '@/locales/i18n.ts'
 
 export const ProfileFollow = () => {
   const { id } = useParams<{
     id: string
   }>()
+  const { t } = useTranslation()
   const { user } = useUserData(String(id))
 
   const { posts } = useUserPosts(String(id))
@@ -28,7 +30,7 @@ export const ProfileFollow = () => {
       </div>
 
       <div className={'flex flex-col gap-3.5 font-semibold mt-5'}>
-        <span className={'text-white'}>Posts</span>
+        <span className={'text-white'}>{t('posts')}</span>
 
         <div className={'flex flex-col gap-3.5'}>
           {posts.map((post) => (

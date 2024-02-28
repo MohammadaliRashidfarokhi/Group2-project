@@ -11,7 +11,7 @@ import { mapSupabaseAuthError } from '@/utils/supabaseErrorMappers.ts'
 import { useTranslation } from '@/locales/i18n.ts'
 
 export const RegisterPage = () => {
-  const { t } = useTranslation('forms')
+  const { t } = useTranslation(['forms', 'toasts'])
   const navigate = useNavigate()
   const { toast } = useToast()
   const { register, handleSubmit, errors } = useRegisterForm()
@@ -42,8 +42,8 @@ export const RegisterPage = () => {
           const error = mapSupabaseAuthError(res.error.message)
 
           toast({
-            title: 'Error occurred',
-            description: error,
+            title: t('error'),
+            description: t(error),
             duration: 5000,
             variant: 'destructive',
           })

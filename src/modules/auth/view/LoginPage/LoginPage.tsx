@@ -10,7 +10,7 @@ import { useToast } from '@/lib/shadcn-components/ui/use-toast.ts'
 import { useTranslation } from '@/locales/i18n.ts'
 
 export const LoginPage = () => {
-  const { t } = useTranslation('forms')
+  const { t } = useTranslation(['forms', 'toasts'])
   const { toast } = useToast()
   const navigate = useNavigate()
   const { handleSubmit, register, errors } = useLoginForm()
@@ -26,8 +26,8 @@ export const LoginPage = () => {
           const error = mapSupabaseAuthError(res.error.message)
 
           toast({
-            title: 'Error occurred',
-            description: error,
+            title: t('error'),
+            description: t(error),
             duration: 5000,
             variant: 'destructive',
           })
