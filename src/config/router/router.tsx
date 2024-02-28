@@ -7,11 +7,11 @@ import { HomePage } from '@/modules/home/view/HomePage/HomePage.tsx'
 import { RegisterPage } from '@/modules/auth/view/RegisterPage/RegisterPage.tsx'
 import { NotFoundPage } from '@/modules/common/NotFoundPage/NotFoundPage.tsx'
 import { WithAuth } from '@/config/router/WithAuth.tsx'
-import { ProfilePage } from '@/modules/profile/ProfilePage/ProfilePage.tsx'
-import { ProfileFollow } from '@/modules/profile/ProfileFollow/ProfileFollow.tsx'
 import { AccountConfirmPage } from '@/modules/common/AccountConfirmPage/AccountConfirmPage.tsx'
 import { PostDetailPage } from '@/modules/home/view/PostDetailPage/PostDetailPage'
 import { SearchPage } from '@/modules/search/view/SearchPage/SearchPage.tsx'
+import { ProfilePage } from '@/modules/profile/view/ProfilePage/ProfilePage.tsx'
+import { ProfileFollow } from '@/modules/profile/view/ProfileFollow/ProfileFollow.tsx'
 
 export const router = createBrowserRouter([
   {

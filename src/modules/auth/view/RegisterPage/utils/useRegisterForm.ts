@@ -8,11 +8,11 @@ export type AuthFormProps = Pick<Tables<'USER'>, 'FIRST_NAME' | 'LAST_NAME' | 'E
 }
 
 const authFormSchema: yup.ObjectSchema<AuthFormProps> = yup.object({
-  FIRST_NAME: yup.string().required('First name is required'),
-  LAST_NAME: yup.string().required('Last name is required'),
-  EMAIL: yup.string().required('Email is required').email('This is not a valid email'),
-  USERNAME: yup.string().required('Username is required'),
-  PASSWORD: yup.string().required('Password is required'),
+  FIRST_NAME: yup.string().required('required-field'),
+  LAST_NAME: yup.string().required('required-field'),
+  EMAIL: yup.string().required('required-field').email('invalid-email'),
+  USERNAME: yup.string().required('required-field'),
+  PASSWORD: yup.string().required('required-field'),
 })
 
 const defaults: AuthFormProps = {

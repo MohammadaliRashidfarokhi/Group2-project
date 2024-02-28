@@ -5,8 +5,8 @@ enum SupabaseErrorMessageType {
 export const mapSupabaseAuthError = (message: string) => {
   switch (message) {
     case SupabaseErrorMessageType.InvalidCredentials:
-      return 'Invalid email or password'
+      return 'invalid-password-or-email'
     default:
-      return 'An error occurred'
+      return 'common-error'
   }
 }
