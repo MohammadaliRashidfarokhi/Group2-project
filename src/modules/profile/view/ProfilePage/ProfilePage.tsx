@@ -24,41 +24,41 @@ export const ProfilePage = () => {
             <Settings className="mr-2 h-4 w-4" /> Edit Profile
           </Button>
         </DialogTrigger>
-        <DialogContent className="sm:max-w-[600px] bg-black text-white">
+        <DialogContent className="sm:max-w-[600px] bg-zinc-950 text-white">
           <DialogHeader>
             <DialogTitle className="text-white">Edit profile</DialogTitle>
-            <DialogDescription className="text-white">
+            <DialogDescription>
               Make changes to your profile here. Click save when you're done.
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4 ">
             <div className="grid grid-cols-4 items-center gap-4">
               <p className="text-white">Name</p>
-              <Input id="name" value="" className="col-span-3 bg-black text-white" />
+              <Input id="name" value="" className="col-span-3" />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
               <p className="text-white">Username</p>
-              <Input id="username" value="" className="col-span-3 bg-black text-white" />
+              <Input id="username" value="" className="col-span-3" />
             </div>
           </div>
           <DialogFooter>
-            <Button type="submit" className="bg-black text-red-300 border border-white">
+            <Button type="submit">
               Save
             </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
 
-      <div className="w-full  h-32 bg-white flex items-end rounded-md" />
+      <div className="w-full h-32 bg-white flex items-end rounded-md" />
       <div className={'flex gap-3 px-5'}>
         <img
-          className="w-20 h-20 rounded-full relative top-[-30px] bg-black"
+          className="w-20 h-20 rounded-full relative top-[-30px] bg-zinc-950"
           src={profilePlaceholder}
           alt="user profile picture"
         />
         <div className="text-sm text-gray-500 flex flex-col">
           <span className="text-xl font-semibold text-white">Full name</span>
-          <span className="text-sm text-gray-500">@username</span>
+          <span className="text-sm text-muted-foreground">@username</span>
         </div>
       </div>
     </div>
