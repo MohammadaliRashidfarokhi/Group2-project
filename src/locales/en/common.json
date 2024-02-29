@@ -11,5 +11,8 @@
   "logout": "Logout",
 
   "search": "Search",
-  "home": "Home"
+  "home": "Home",
+
+  "follow": "Follow",
+  "following": "Following"
 }

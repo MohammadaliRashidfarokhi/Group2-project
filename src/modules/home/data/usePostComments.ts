@@ -52,7 +52,7 @@ export const usePostComments = (postId: string) => {
 
       return
     })
-  }, [postId])
+  }, [postId, t])
 
   const handleCommentCreation = async (content: string): Promise<void> => {
     supabase
@@ -90,7 +90,6 @@ export const usePostComments = (postId: string) => {
         setComments([newPost, ...comments])
 
         toast({
-          variant: 'success',
           title: t('success'),
           description: t('comment-create-success'),
         })

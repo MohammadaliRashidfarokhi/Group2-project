@@ -3,13 +3,16 @@ import { useUserPosts } from '@/modules/home/data/useUserPosts.ts'
 import { WritePost } from '@/modules/home/view/HomePage/WritePost.tsx'
 import { userStore } from '@/store/authStore.ts'
 import { useTranslation } from '@/locales/i18n.ts'
+import { useFollowingUsers } from '@/modules/common/data/useFollowingUsers'
 
 export const HomePage = () => {
   const { t } = useTranslation()
   const { session } = userStore.useStore()
-  const userId = String(session?.user.id)
+  const userId = session?.user?.id || ''
 
-  const { posts, handlePostCreation, removePost } = useUserPosts(userId)
+  const { following } = useFollowingUsers()
+
+  const { posts, handlePostCreation, removePost } = useUserPosts(userId, following)
 
   return (
     <div className={'container w-full'}>

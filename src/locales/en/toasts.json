@@ -15,5 +15,9 @@
   "comments-fetch-error": "An error occurred while fetching the comments",
   "comment-create-error": "An error occurred while creating the comment",
   "comment-remove-error": "An error occurred while removing the comment",
-  "invalid-password-or-email": "Invalid email or password"
+  "invalid-password-or-email": "Invalid email or password",
+  "followers-fetch-error": "An error occurred while fetching the followers",
+
+  "unable-to-follow": "An error occurred while trying to follow the user",
+  "unable-to-unfollow": "An error occurred while trying to unfollow the user"
 }

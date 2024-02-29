@@ -6,6 +6,12 @@ export default {
   theme: {
     extend: {
       screens: SCREEN_BREAKPOINTS,
+      colors: {
+        'muted': {
+          DEFAULT: '#f4f4f5',
+          foreground: '#71717a',
+        },
+      },
     },
   },
   plugins: [],

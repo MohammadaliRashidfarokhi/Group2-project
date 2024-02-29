@@ -11,9 +11,7 @@ export const useDetailPost = (postId: string): PostDetail | undefined => {
 
   useEffect(() => {
     async function fetchPost(id: string) {
-      const data = await supabase.from('home_page_posts').select('*').eq('id', id)
-
-      return data
+      return supabase.from('home_page_posts').select('*').eq('id', id)
     }
 
     fetchPost(postId).then((response) => {
@@ -47,7 +45,7 @@ export const useDetailPost = (postId: string): PostDetail | undefined => {
 
       setPost(postDetail)
     })
-  }, [postId])
+  }, [postId, t])
 
   return post
 }
