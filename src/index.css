@@ -16,5 +16,5 @@ html {
 body {
   margin: 0;
   display: flex;
-  @apply bg-black
+  @apply bg-zinc-950;
 }
