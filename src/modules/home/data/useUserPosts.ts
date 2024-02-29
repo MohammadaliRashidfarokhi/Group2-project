@@ -84,9 +84,8 @@ export const useUserPosts = (userId: string) => {
         setPosts([newPost, ...posts])
 
         toast({
-          variant: 'success',
           title: t('success'),
-          description: t('post-creation-success'),
+          description: t('post-create-success'),
         })
       })
   }
