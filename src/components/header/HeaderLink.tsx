@@ -12,7 +12,7 @@ export const HeaderLink = (props: Props) => {
   return (
     <Link
       to={props.to}
-      className={cn('flex items-center gap-2 text-gray-500 hover:text-white font-semibold', {
+      className={cn('flex items-center gap-2 text-muted-foreground hover:text-white font-semibold', {
         'text-white': props.isSelected,
       })}
     >
