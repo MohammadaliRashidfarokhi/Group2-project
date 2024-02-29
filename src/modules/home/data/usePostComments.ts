@@ -52,7 +52,7 @@ export const usePostComments = (postId: string) => {
 
       return
     })
-  }, [postId])
+  }, [postId, t])
 
   const handleCommentCreation = async (content: string): Promise<void> => {
     supabase
