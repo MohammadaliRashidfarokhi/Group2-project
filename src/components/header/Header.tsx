@@ -1,6 +1,7 @@
 import { socialLogo } from '@/static/images'
 import { supabase } from '@/config/supabase/supabaseClient.ts'
 import { Link, useLocation } from 'react-router-dom'
+import ReactCountryFlag from "react-country-flag"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -60,15 +61,13 @@ export const Header = () => {
           </DropdownMenuTrigger>
           <DropdownMenuContent side={'bottom'} align={'start'} alignOffset={-80} sideOffset={10}>
             <DropdownMenuItem
-              className={'cursor-pointer'}
+              className={'cursor-pointer flex justify-between'}
               onClick={() => {
                 i18n.changeLanguage(i18n.language === 'en-US' ? 'sv-SE' : 'en-US')
               }}
             >
               {i18n.language === 'en-US' ? 'Swedish' : 'English'}
-            </DropdownMenuItem>
-            <DropdownMenuItem className={'cursor-pointer'}>
-              <Link to={APP_ROUTES.profile}>{t('profile')}</Link>
+              <ReactCountryFlag svg title={i18n.language === 'en-US' ? 'Swedish' : 'English'} countryCode={i18n.language === 'en-US' ? 'SE' : 'GB'} />
             </DropdownMenuItem>
             <DropdownMenuItem className={'cursor-pointer'} onClick={handleLogout}>
               {t('logout')}
