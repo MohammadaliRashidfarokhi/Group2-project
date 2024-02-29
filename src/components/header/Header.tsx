@@ -28,7 +28,7 @@ export const Header = () => {
   }
 
   return (
-    <div className={'container mx-auto min-h-16 bg-black w-full px-7 py-2 flex justify-between items-center'}>
+    <div className={'container mx-auto min-h-16 bg-zinc-950 w-full px-7 py-2 flex justify-between items-center'}>
       <Link to={APP_ROUTES.home} className="cursor-pointer">
         <img src={socialLogo} className="w-32" alt="Social Logo" />
       </Link>
