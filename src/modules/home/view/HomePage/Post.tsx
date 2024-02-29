@@ -58,10 +58,10 @@ export const Post = (props: Props) => {
                 This action cannot be undone. This will permanently delete your post.
               </AlertDialogDescription>
               <AlertDialogFooter>
-                <Button onClick={cancelRemove} variant={'default'}>
+                <Button onClick={cancelRemove} variant={'secondary'}>
                   Cancel
                 </Button>
-                <Button onClick={confirmRemove} variant={'secondary'}>
+                <Button onClick={confirmRemove} variant={'destructive'}>
                   Remove
                 </Button>
               </AlertDialogFooter>
@@ -73,7 +73,7 @@ export const Post = (props: Props) => {
           <img src={profilePlaceholder} className={'w-10'} alt="user" />
           <div className={'flex flex-col'}>
             <div className={'font-bold'}>{`${data.FIRST_NAME} ${data.LAST_NAME}`}</div>
-            <div className={'text-gray-500'}>@{data.USERNAME}</div>
+            <div className={'text-muted-foreground'}>@{data.USERNAME}</div>
           </div>
         </div>
 
