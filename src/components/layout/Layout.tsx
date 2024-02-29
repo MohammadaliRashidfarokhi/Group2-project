@@ -2,6 +2,7 @@ import { Outlet } from 'react-router-dom'
 import { Header } from '@/components/header/Header.tsx'
 import { cn } from '@/lib/shadcn-util.ts'
 import { useTranslation } from '@/locales/i18n.ts'
+import ReactCountryFlag from "react-country-flag"
 
 type Props = {
   variant?: 'compact' | 'full'
@@ -38,12 +39,20 @@ export const LayoutWithHeaderCompact = () => {
   return (
     <>
       <span
-        className={'cursor-pointer text-white bg-black pl-5 pt-2'}
+        className={'cursor-pointer text-white bg-zinc-950 pl-5 pt-2'}
         onClick={() => {
           i18n.changeLanguage(i18n.language === 'en-US' ? 'sv-SE' : 'en-US')
         }}
       >
-        {i18n.language === 'en-US' ? 'SE' : 'EN'}
+        <ReactCountryFlag
+          style={{
+            width: '2em',
+            height: '2em',
+          }}
+          svg
+          title={i18n.language === 'en-US' ? 'Swedish' : 'English'}
+          countryCode={i18n.language === 'en-US' ? 'SE' : 'GB'}/>
+        {/*<{i18n.language === 'en-US' ? 'SE' : 'EN'}*/}
       </span>
       <Layout variant={'compact'} />
     </>
