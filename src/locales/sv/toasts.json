@@ -17,6 +17,6 @@
   "comment-remove-error": "Ett fel uppstod vid borttagning av kommentaren",
   "invalid-password-or-email": "Ogiltig e-post eller lösenord",
 
-  "unable-to-follow": "Unable to follow",
-  "unable-to-unfollow": "Unable to unfollow"
+  "unable-to-follow": "Ett fel uppstod vid försöket att följa användaren",
+  "unable-to-unfollow": "Ett fel uppstod vid försöket att sluta följa användaren"
 }

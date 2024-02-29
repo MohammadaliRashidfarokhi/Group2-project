@@ -8,14 +8,21 @@ import { useFollowingUsers } from '@/modules/common/data/useFollowingUsers'
 import { Button } from '@/lib/shadcn-components/ui/button.tsx'
 
 export const ProfileFollow = () => {
-  const { id } = useParams<{
-    id: string
-  }>()
-  const { t } = useTranslation('common')
+  const { id } = useParams()
+  const { t } = useTranslation()
   const { user } = useUserData(String(id))
-  const {following, startFollow, unFollow} = useFollowingUsers()
+  const { following, startFollow, unFollow } = useFollowingUsers()
 
-  const { posts } = useUserPosts([String(id)])
+  const { posts } = useUserPosts(String(id))
+
+  const handleFollowButtonClick = () => {
+    if (following.find((elem) => elem === user?.id) === undefined) {
+      startFollow(String(user?.id))
+      return
+    }
+
+    unFollow(String(user?.id))
+  }
 
   return (
     <div className={'w-full flex flex-col'}>
@@ -31,13 +38,12 @@ export const ProfileFollow = () => {
           <span className="text-sm text-gray-500">{user?.USERNAME}</span>
         </div>
         <div className="items-center flex">
-          <Button className='border-white border bg-transparent text-white hover:bg-white hover:text-black' onClick={() =>{
-            if (following.find((elem) => elem === user?.id) === undefined)
-              startFollow(user?.id || '')
-            else
-              unFollow(user?.id || '')
-          }
-          }>{following.find((elem) => elem === user?.id) === undefined ? t("follow") : t("following")}</Button>
+          <Button
+            className="border-white border bg-transparent text-white hover:bg-white hover:text-black"
+            onClick={handleFollowButtonClick}
+          >
+            {following.find((elem) => elem === user?.id) === undefined ? t('follow') : t('following')}
+          </Button>
         </div>
       </div>
 

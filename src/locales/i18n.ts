@@ -3,6 +3,7 @@ import { useTranslation as i18UseTranslation, initReactI18next } from 'react-i18
 
 import * as EN_TRANSLATIONS from './en'
 import * as SV_TRANSLATIONS from './sv'
+import { useCallback } from 'react'
 
 export enum SupportedAppLanguage {
   ENGLISH = 'ENGLISH',
@@ -49,9 +50,12 @@ export default i18n
 export const useTranslation = (ns?: ResourceLangType | ResourceLangType[]) => {
   const { t: translate, i18n } = i18UseTranslation()
 
-  const t = (i18nKey: string, options?: TOptions): string => {
-    return translate(i18nKey, { ...options, ns })
-  }
+  const t = useCallback(
+    (i18nKey: string, options?: TOptions): string => {
+      return translate(i18nKey, { ...options, ns })
+    },
+    [ns, translate],
+  )
 
   return { t, i18n }
 }

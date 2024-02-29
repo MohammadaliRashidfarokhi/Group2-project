@@ -4,23 +4,22 @@ import { PostDetail } from '@/model/post.ts'
 import { useUserData } from '@/data/useUserData.ts'
 import { useToast } from '@/lib/shadcn-components/ui/use-toast.ts'
 import { useTranslation } from '@/locales/i18n.ts'
-import { userStore } from '@/store/authStore'
 
-export const useUserPosts = (userIds: string[]) => {
+export const useUserPosts = (currentUserId: string, followerIds?: string[]) => {
   const { t } = useTranslation('toasts')
   const [posts, setPosts] = useState<PostDetail[]>([])
-  const {session} = userStore.useStore()
   const { toast } = useToast()
-  const userId = session?.user?.id || ''
 
-  const { user } = useUserData(userId)
+  const { user } = useUserData(currentUserId)
 
   useEffect(() => {
+    const userIdsInput = [currentUserId, ...(followerIds || [])]
+
     async function fetchPosts() {
       return supabase
         .from('home_page_posts')
         .select('*')
-        .in('author', userIds)
+        .in('author', userIdsInput)
         .order('PUBLISHED_AT', { ascending: false })
     }
 
@@ -51,12 +50,12 @@ export const useUserPosts = (userIds: string[]) => {
 
       setPosts(mappedPosts || [])
     })
-  }, [t, toast, userIds])
+  }, [currentUserId, followerIds, t, toast])
 
   const handlePostCreation = async (content: string) => {
     supabase
       .from('POST')
-      .insert({ author: userId, CONTENT: content, PUBLISHED_AT: new Date().toISOString().toLocaleString() })
+      .insert({ author: currentUserId, CONTENT: content, PUBLISHED_AT: new Date().toISOString().toLocaleString() })
       .select('*')
       .then((response) => {
         const { data, error } = response
@@ -78,7 +77,7 @@ export const useUserPosts = (userIds: string[]) => {
           USERNAME: user?.USERNAME || '',
           FIRST_NAME: user?.FIRST_NAME || '',
           LAST_NAME: user?.LAST_NAME || '',
-          author: userId,
+          author: currentUserId,
           likes: 0,
           comments: 0,
         }

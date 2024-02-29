@@ -8,11 +8,11 @@ import { useFollowingUsers } from '@/modules/common/data/useFollowingUsers'
 export const HomePage = () => {
   const { t } = useTranslation()
   const { session } = userStore.useStore()
-  const {following} = useFollowingUsers()
-
   const userId = session?.user?.id || ''
 
-  const { posts, handlePostCreation, removePost } = useUserPosts([...following, userId])
+  const { following } = useFollowingUsers()
+
+  const { posts, handlePostCreation, removePost } = useUserPosts(userId, following)
 
   return (
     <div className={'container w-full'}>

@@ -1,56 +1,87 @@
-import { supabase } from "@/config/supabase/supabaseClient"
-import { useToast } from "@/lib/shadcn-components/ui/use-toast"
-import { useTranslation } from "@/locales/i18n"
-import { userStore } from "@/store/authStore"
-import { useEffect, useState } from "react"
+import { supabase } from '@/config/supabase/supabaseClient'
+import { useToast } from '@/lib/shadcn-components/ui/use-toast'
+import { useTranslation } from '@/locales/i18n'
+import { useEffect, useState } from 'react'
+import { userStore } from '@/store/authStore.ts'
 
 export const useFollowingUsers = () => {
-    const { toast } = useToast()
-    const {t} = useTranslation('toasts')
-    const { session } = userStore.useStore()
-    const [following, setFollowing] = useState<string[]>([])
+  const { toast } = useToast()
+  const { t } = useTranslation('toasts')
 
-    const userId = session?.user?.id || ''
+  const { session } = userStore.useStore()
+  const userId = String(session?.user?.id)
 
-    useEffect(() => {
-        async function fetchFollowing() {
-            const data = await supabase.from("FOLLOWER").select("FOLLOWING").eq("follower", userId)
+  const [following, setFollowing] = useState<string[]>([])
 
-            return data
-        }
+  useEffect(() => {
+    async function fetchFollowing() {
+      return supabase.from('FOLLOWER').select('FOLLOWING').eq('follower', userId)
+    }
 
-        fetchFollowing().then((data) => {
-            const fetchedFollowing: string[] = data?.data?.map((elem) => elem.FOLLOWING) || []
-            
-            setFollowing([...fetchedFollowing, userId])
+    fetchFollowing().then((response) => {
+      const { data, error } = response
+
+      if (error) {
+        toast({
+          variant: 'destructive',
+          title: t('error'),
+          description: t('followers-fetch-error'),
         })
+        return
+      }
+
+      const following = data?.map((res) => res.FOLLOWING) || []
+
+      setFollowing(following)
     })
-    
-    const startFollow = (followingId: string) => {
-        supabase.from("FOLLOWER").insert({ follower: userId, FOLLOWING: followingId }).then(() => {
-            setFollowing([...following, followingId])
-        }, (err) => {
-            console.log(err)    // add a toast error
-            toast({
-                variant: 'destructive',
-                title: t('error'),
-                description: t('unable-to-follow')
-            })
-        })
-    }
+  }, [userId, t])
 
-    const unFollow = (unfollowingId: string) => {
-        supabase.from("FOLLOWER").delete().eq("follower", userId).eq("FOLLOWING", unfollowingId).then(() => {
-            setFollowing(following.filter((elem) => elem !== unfollowingId))
-        }, (err) => {
-            console.log(err)    // add a toast error
+  const startFollow = (followingId: string) => {
+    supabase
+      .from('FOLLOWER')
+      .insert({ follower: userId, FOLLOWING: followingId })
+      .then(
+        (response) => {
+          if (response.error) {
             toast({
-                variant: 'destructive',
-                title: t('error'),
-                description: t('unable-to-unfollow')
+              variant: 'destructive',
+              title: t('error'),
+              description: t('unable-to-follow'),
             })
-        })
-    }
+            return
+          }
 
-    return {following, startFollow, unFollow}
+          setFollowing([...following, followingId])
+        },
+        () => {
+          toast({
+            variant: 'destructive',
+            title: t('error'),
+            description: t('unable-to-follow'),
+          })
+        },
+      )
+  }
+
+  const unFollow = (unfollowingId: string) => {
+    supabase
+      .from('FOLLOWER')
+      .delete()
+      .eq('follower', userId)
+      .eq('FOLLOWING', unfollowingId)
+      .then(
+        () => {
+          setFollowing(following.filter((elem) => elem !== unfollowingId))
+        },
+        () => {
+          toast({
+            variant: 'destructive',
+            title: t('error'),
+            description: t('unable-to-unfollow'),
+          })
+        },
+      )
+  }
+
+  return { following, startFollow, unFollow }
 }
