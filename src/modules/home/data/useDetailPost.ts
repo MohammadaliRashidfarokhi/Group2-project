@@ -11,7 +11,11 @@ export const useDetailPost = (postId: string): PostDetail | undefined => {
 
   useEffect(() => {
     async function fetchPost(id: string) {
-      return supabase.from('home_page_posts').select('*').eq('id', id)
+      return supabase
+        .from('POST')
+        .select('*, POST_LIKES (liker, liked ), COMMENT (id), USER!POST_author_fkey( USERNAME, FIRST_NAME, LAST_NAME)')
+        .eq('id', id)
+        .single()
     }
 
     fetchPost(postId).then((response) => {
@@ -26,21 +30,16 @@ export const useDetailPost = (postId: string): PostDetail | undefined => {
         return
       }
 
-      if (!data?.[0].id) {
-        return
-      }
-
-      // add some checks for undefined somewhere
       const postDetail: PostDetail = {
-        id: data?.at(0)?.id || '',
-        CONTENT: data?.at(0)?.CONTENT || '',
-        PUBLISHED_AT: data?.at(0)?.PUBLISHED_AT || '',
-        USERNAME: data?.at(0)?.USERNAME || '',
-        FIRST_NAME: data?.at(0)?.FIRST_NAME || '',
-        LAST_NAME: data?.at(0)?.LAST_NAME || '',
-        likes: data?.at(0)?.likes || 0,
-        comments: data?.at(0)?.comments || 0,
-        author: data?.at(0)?.author || '',
+        id: data?.id || '',
+        CONTENT: data?.CONTENT || '',
+        PUBLISHED_AT: data?.PUBLISHED_AT || '',
+        USERNAME: data?.USER?.USERNAME || '',
+        FIRST_NAME: data?.USER?.FIRST_NAME || '',
+        LAST_NAME: data?.USER?.LAST_NAME || '',
+        likes: data?.POST_LIKES?.map((like) => like.liker) || [],
+        comments: data?.COMMENT?.length || 0,
+        author: data?.author || '',
       }
 
       setPost(postDetail)
