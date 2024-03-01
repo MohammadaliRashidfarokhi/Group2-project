@@ -13,6 +13,8 @@ import {
 import { Button } from '@/lib/shadcn-components/ui/button.tsx'
 import { Link } from 'react-router-dom'
 import { APP_ROUTES } from '@/config/router/routes.ts'
+import { userStore } from '@/store/authStore'
+import { usePostLike } from '../../data/usePostLike'
 
 type Props = {
   data: PostDetail
@@ -22,6 +24,19 @@ type Props = {
 export const Post = (props: Props) => {
   const { data, onRemove } = props
   const [showConfirmation, setShowConfirmation] = useState(false)
+  const { session } = userStore.useStore()
+  const userId = String(session?.user.id)
+  const { liked, LikeCreation, removeLike } = usePostLike(userId, data.id)
+
+  const handleLikeClick = () => {
+    if (liked) {
+      removeLike()
+
+      return
+    }
+    LikeCreation()
+    
+  }
 
   const handleRemove = () => {
     // Show the confirmation dialog
@@ -81,7 +96,13 @@ export const Post = (props: Props) => {
 
         <div className={'flex flex-row gap-3.5 mt-2'}>
           <span className={'flex flex-row gap-1 cursor-pointer'}>
-            <img className={'text-gray-500 hover:text-white'} src={heartIcon} alt="Likes" />
+            <img
+              onClick={() => handleLikeClick()}
+              className={'text-gray-500 hover:text-white'}
+              src={heartIcon}
+              alt="Likes"
+            />
+
             <span>{data.likes}</span>
           </span>
 
