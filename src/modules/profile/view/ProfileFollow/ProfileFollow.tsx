@@ -16,15 +16,19 @@ export const ProfileFollow = () => {
 
   const { posts } = useUserPosts(String(id))
 
+
+  const {userFollowersCount, increaseFollowers, decreaseFollowers} = useUserFollowerCount(id || '')
+
   const handleFollowButtonClick = () => {
     if (following.find((elem) => elem === user?.id) === undefined) {
       startFollow(String(user?.id))
+      increaseFollowers()
       return
     }
 
     unFollow(String(user?.id))
+    decreaseFollowers()
   }
-  const {userFolloersCount} = useUserFollowerCount(id || '')
 
   return (
     <div className={'w-full flex flex-col'}>
@@ -38,6 +42,14 @@ export const ProfileFollow = () => {
         <div className="grow text-sm text-gray-500 flex flex-col mt-1.5">
           <span className="text-xl font-semibold text-white">{`${user?.FIRST_NAME} ${user?.LAST_NAME}`}</span>
           <span className="text-sm text-gray-500">{user?.USERNAME}</span>
+        </div>
+        <div className='flex flex-col text-gray-500 items-center justify-items-center justify-center'>
+          <span className='text-xl font-semibold text-white'>{userFollowersCount.tot_followers}</span>
+          <span className='text-sm text-gray-500'>{t('followers')}</span>
+        </div>
+        <div className='flex flex-col text-gray-500 items-center justify-items-center justify-center'>
+          <span className='text-xl font-semibold text-white'>{userFollowersCount.tot_following}</span>
+          <span className='text-sm text-gray-500'>{t('following')}</span>
         </div>
         <div className="items-center flex">
           <Button
