@@ -31,7 +31,13 @@ export const ProfileFollow = () => {
   }
 
   return (
-    <div className={'w-full flex flex-col'}>
+    <div className={'w-full flex-col'}>
+      <Button
+        variant="outline"
+        className="flex items-center bg-black text-white bg-contain transform translate-x-2.5 translate-y-12"
+        onClick={handleFollowButtonClick}>
+            {following.find((elem) => elem === user?.id) === undefined ? t('follow') : t('following')}
+          </Button>
       <div className="w-full min-h-32 bg-white flex items-end rounded-md" />
       <div className={'flex gap-3 px-5'}>
         <img
@@ -39,25 +45,13 @@ export const ProfileFollow = () => {
           src={profilePlaceholder}
           alt="user profile picture"
         />
-        <div className="grow text-sm text-gray-500 flex flex-col mt-1.5">
+        <div className="text-sm text-gray-500 flex flex-col mt-1.5">
           <span className="text-xl font-semibold text-white">{`${user?.FIRST_NAME} ${user?.LAST_NAME}`}</span>
           <span className="text-sm text-gray-500">{user?.USERNAME}</span>
         </div>
-        <div className='flex flex-col text-gray-500 items-center justify-items-center justify-center'>
-          <span className='text-xl font-semibold text-white'>{userFollowersCount.tot_followers}</span>
-          <span className='text-sm text-gray-500'>{t('followers')}</span>
-        </div>
-        <div className='flex flex-col text-gray-500 items-center justify-items-center justify-center'>
-          <span className='text-xl font-semibold text-white'>{userFollowersCount.tot_following}</span>
-          <span className='text-sm text-gray-500'>{t('following')}</span>
-        </div>
-        <div className="items-center flex">
-          <Button
-            className="border-white border bg-transparent text-white hover:bg-white hover:text-black"
-            onClick={handleFollowButtonClick}
-          >
-            {following.find((elem) => elem === user?.id) === undefined ? t('follow') : t('following')}
-          </Button>
+        <div className='flex flex-col text-gray-500 items-end grow justify-items-center justify-center'>
+          <span className='text-sm text-gray-500 content-end'>{t('followers')}: {userFollowersCount.tot_followers}</span>
+          <span className='text-sm text-gray-500 content-end'>{t('following')}: {userFollowersCount.tot_following}</span>
         </div>
       </div>
 

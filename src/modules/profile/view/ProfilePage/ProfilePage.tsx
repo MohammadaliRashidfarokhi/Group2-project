@@ -65,17 +65,13 @@ export const ProfilePage = () => {
           src={profilePlaceholder}
           alt="user profile picture"
         />
-        <div className="text-sm text-gray-500 flex flex-col grow">
+        <div className="text-sm text-gray-500 flex flex-col">
           <span className="text-xl font-semibold text-white">Full name</span>
           <span className="text-sm text-muted-foreground">@username</span>
         </div>
-        <div className='flex flex-col text-gray-500 items-center justify-items-center justify-center'>
-          <span className='text-xl font-semibold text-white'>{userFollowersCount.tot_followers}</span>
-          <span className='text-sm text-gray-500'>{t('followers')}</span>
-        </div>
-        <div className='flex flex-col text-gray-500 items-center justify-items-center justify-center'>
-          <span className='text-xl font-semibold text-white'>{userFollowersCount.tot_following}</span>
-          <span className='text-sm text-gray-500'>{t('following')}</span>
+        <div className='flex flex-col text-gray-500 items-end grow justify-items-center justify-center'>
+          <span className='text-sm text-gray-500 content-end'>{t('followers')}: {userFollowersCount.tot_followers}</span>
+          <span className='text-sm text-gray-500 content-end'>{t('following')}: {userFollowersCount.tot_following}</span>
         </div>
       </div>
     </div>
