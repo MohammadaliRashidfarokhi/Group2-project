@@ -3,7 +3,11 @@ import { FollowersCount } from "@/model/followersCount"
 import { useEffect, useState } from "react"
 
 export const useUserFollowerCount = (userId: string) => {
-    const [userFollowerCount, setUserFollowerCount] = useState<FollowersCount>()
+    const [userFollowersCount, setUserFollowersCount] = useState<FollowersCount>({
+        id: userId,
+        tot_followers: 0,
+        tot_following: 0
+    })
 
     useEffect(() => {
         function fetchCounter() {
@@ -12,16 +16,32 @@ export const useUserFollowerCount = (userId: string) => {
 
         fetchCounter().then((response) => {
             if (response.error) {
-                setUserFollowerCount({id: userId, tot_followers: 0, tot_following: 0})
+                setUserFollowersCount({id: userId, tot_followers: 0, tot_following: 0})
             } else {
-                setUserFollowerCount({
+                setUserFollowersCount({
                     id: userId,
-                    tot_followers: response.data?.at(0)?.tot_followers || 0,
+                    tot_followers: response?.data?.at(0)?.tot_followers || 0,
                     tot_following: response?.data?.at(0)?.tot_following || 0
                 })
             }
         })
     }, [userId])
 
-    return {userFollowerCount}
+    const increaseFollowers = () => {
+        setUserFollowersCount({
+            id: userId,
+            tot_followers: userFollowersCount.tot_followers + 1,
+            tot_following: userFollowersCount.tot_following
+        })
+    }
+
+    const decreaseFollowers = () => {
+        setUserFollowersCount({
+            id: userId,
+            tot_followers: userFollowersCount.tot_followers - 1,
+            tot_following: userFollowersCount.tot_following
+        })
+    }
+
+    return {userFollowersCount, increaseFollowers, decreaseFollowers}
 }

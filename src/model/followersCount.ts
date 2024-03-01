@@ -1,3 +1,1 @@
-import { Tables } from "./dbTypes";
-
-export type FollowersCount = Tables<'followers_count'>
+export type FollowersCount = { id: string; tot_followers: number; tot_following: number}
