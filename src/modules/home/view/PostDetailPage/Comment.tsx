@@ -15,10 +15,11 @@ import {
 type Props = {
   data: CommentDetail
   onRemove?: () => void
+  onLikeClick?: () => void
 }
 
 export const Comment = (props: Props) => {
-  const { data, onRemove } = props
+  const { data, onRemove, onLikeClick } = props
   const [showConfirmation, setShowConfirmation] = useState(false)
 
   const handleRemove = () => {
@@ -79,8 +80,8 @@ export const Comment = (props: Props) => {
 
         <div className={'flex flex-row gap-2 mt-2'}>
           <span className={'flex flex-row gap-1'}>
-            <img className={'cursor-pointer'} src={heartIcon} alt="Likes" />
-            <span>{data.likes}</span>
+            <img className={'cursor-pointer'} src={heartIcon} alt="Likes" onClick={onLikeClick} />
+            <span>{data.likes.length}</span>
           </span>
         </div>
       </CardContent>

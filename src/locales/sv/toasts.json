@@ -18,5 +18,7 @@
   "invalid-password-or-email": "Ogiltig e-post eller lösenord",
 
   "unable-to-follow": "Ett fel uppstod vid försöket att följa användaren",
-  "unable-to-unfollow": "Ett fel uppstod vid försöket att sluta följa användaren"
+  "unable-to-unfollow": "Ett fel uppstod vid försöket att sluta följa användaren",
+
+  "counts-fetch-error": "Ett fel uppstod när antalet följare skulle hämtas"
 }

@@ -36,6 +36,13 @@ export type Database = {
             foreignKeyName: "COMMENT_author_fkey"
             columns: ["author"]
             isOneToOne: false
+            referencedRelation: "followers_count"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "COMMENT_author_fkey"
+            columns: ["author"]
+            isOneToOne: false
             referencedRelation: "USER"
             referencedColumns: ["id"]
           },
@@ -87,6 +94,13 @@ export type Database = {
             foreignKeyName: "public_COMMENT_LIKES_liker_fkey"
             columns: ["liker"]
             isOneToOne: false
+            referencedRelation: "followers_count"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "public_COMMENT_LIKES_liker_fkey"
+            columns: ["liker"]
+            isOneToOne: false
             referencedRelation: "USER"
             referencedColumns: ["id"]
           }
@@ -110,7 +124,21 @@ export type Database = {
             foreignKeyName: "FOLLOWER_follower_fkey"
             columns: ["follower"]
             isOneToOne: false
+            referencedRelation: "followers_count"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "FOLLOWER_follower_fkey"
+            columns: ["follower"]
+            isOneToOne: false
             referencedRelation: "USER"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "FOLLOWER_FOLLOWING_fkey"
+            columns: ["FOLLOWING"]
+            isOneToOne: false
+            referencedRelation: "followers_count"
             referencedColumns: ["id"]
           },
           {
@@ -146,6 +174,13 @@ export type Database = {
             foreignKeyName: "POST_author_fkey"
             columns: ["author"]
             isOneToOne: false
+            referencedRelation: "followers_count"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "POST_author_fkey"
+            columns: ["author"]
+            isOneToOne: false
             referencedRelation: "USER"
             referencedColumns: ["id"]
           }
@@ -177,6 +212,13 @@ export type Database = {
             columns: ["liked"]
             isOneToOne: false
             referencedRelation: "POST"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "public_Likes_liker_fkey"
+            columns: ["liker"]
+            isOneToOne: false
+            referencedRelation: "followers_count"
             referencedColumns: ["id"]
           },
           {
@@ -225,6 +267,22 @@ export type Database = {
       }
     }
     Views: {
+      followers_count: {
+        Row: {
+          id: string | null
+          tot_followers: number | null
+          tot_following: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "public_USER_id_fkey"
+            columns: ["id"]
+            isOneToOne: true
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
       home_page_posts: {
         Row: {
           author: string | null
@@ -243,6 +301,13 @@ export type Database = {
             columns: ["author"]
             isOneToOne: false
             referencedRelation: "USER"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "POST_author_fkey"
+            columns: ["author"]
+            isOneToOne: false
+            referencedRelation: "followers_count"
             referencedColumns: ["id"]
           }
         ]
@@ -265,6 +330,13 @@ export type Database = {
             columns: ["author"]
             isOneToOne: false
             referencedRelation: "USER"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "COMMENT_author_fkey"
+            columns: ["author"]
+            isOneToOne: false
+            referencedRelation: "followers_count"
             referencedColumns: ["id"]
           },
           {

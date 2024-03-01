@@ -2,20 +2,17 @@ import { supabase } from '@/config/supabase/supabaseClient'
 import { useToast } from '@/lib/shadcn-components/ui/use-toast'
 import { useTranslation } from '@/locales/i18n'
 import { useEffect, useState } from 'react'
-import { userStore } from '@/store/authStore.ts'
+import { FollowersMap } from '@/model/follower.ts'
 
-export const useFollowingUsers = () => {
+export const useUserFollowers = (userId: string, currentUserId: string) => {
   const { toast } = useToast()
   const { t } = useTranslation('toasts')
 
-  const { session } = userStore.useStore()
-  const userId = String(session?.user?.id)
-
-  const [following, setFollowing] = useState<string[]>([])
+  const [followersMap, setFollowersMap] = useState<FollowersMap>()
 
   useEffect(() => {
     async function fetchFollowing() {
-      return supabase.from('FOLLOWER').select('FOLLOWING').eq('follower', userId)
+      return supabase.from('FOLLOWER').select('*').or(`follower.eq.${userId},FOLLOWING.eq.${userId}`)
     }
 
     fetchFollowing().then((response) => {
@@ -30,16 +27,17 @@ export const useFollowingUsers = () => {
         return
       }
 
-      const following = data?.map((res) => res.FOLLOWING) || []
-
-      setFollowing(following)
+      setFollowersMap({
+        followers: data.filter((elem) => elem.FOLLOWING === userId),
+        following: data.filter((elem) => elem.follower === userId),
+      })
     })
   }, [userId, t])
 
   const startFollow = (followingId: string) => {
     supabase
       .from('FOLLOWER')
-      .insert({ follower: userId, FOLLOWING: followingId })
+      .insert({ follower: currentUserId, FOLLOWING: followingId })
       .then(
         (response) => {
           if (response.error) {
@@ -51,7 +49,10 @@ export const useFollowingUsers = () => {
             return
           }
 
-          setFollowing([...following, followingId])
+          setFollowersMap({
+            followers: [...(followersMap?.followers || []), { follower: currentUserId, FOLLOWING: followingId }],
+            following: followersMap?.following || [],
+          })
         },
         () => {
           toast({
@@ -67,11 +68,23 @@ export const useFollowingUsers = () => {
     supabase
       .from('FOLLOWER')
       .delete()
-      .eq('follower', userId)
+      .eq('follower', currentUserId)
       .eq('FOLLOWING', unfollowingId)
       .then(
-        () => {
-          setFollowing(following.filter((elem) => elem !== unfollowingId))
+        (response) => {
+          if (response.error) {
+            toast({
+              variant: 'destructive',
+              title: t('error'),
+              description: t('unable-to-unfollow'),
+            })
+            return
+          }
+
+          setFollowersMap({
+            followers: followersMap?.followers.filter((elem) => elem.follower !== currentUserId) || [],
+            following: followersMap?.following || [],
+          })
         },
         () => {
           toast({
@@ -83,5 +96,14 @@ export const useFollowingUsers = () => {
       )
   }
 
-  return { following, startFollow, unFollow }
+  const handleFollowButtonClick = () => {
+    if (!followersMap?.followers.find((elem) => elem.follower === currentUserId)) {
+      startFollow(userId)
+      return
+    }
+
+    unFollow(userId)
+  }
+
+  return { followersMap, handleFollowButtonClick }
 }
