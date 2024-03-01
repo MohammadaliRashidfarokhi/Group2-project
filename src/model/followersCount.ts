@@ -1,1 +1,0 @@
-export type FollowersCount = { id: string; tot_followers: number; tot_following: number}

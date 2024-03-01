@@ -18,8 +18,8 @@ export const usePostComments = (postId: string) => {
   useEffect(() => {
     async function fetchPosts() {
       return supabase
-        .from('post_comments')
-        .select('*')
+        .from('COMMENT')
+        .select('*, COMMENT_LIKES (liker, liked), USER!COMMENT_author_fkey(USERNAME, FIRST_NAME, LAST_NAME)')
         .eq('COMMENT_TO', postId)
         .order('PUBLISHED_AT', { ascending: true })
     }
@@ -41,10 +41,10 @@ export const usePostComments = (postId: string) => {
           id: comment.id || '',
           CONTENT: comment.CONTENT || '',
           PUBLISHED_AT: comment.PUBLISHED_AT || '',
-          USERNAME: comment.USERNAME || '',
-          FIRST_NAME: comment.FIRST_NAME || '',
-          LAST_NAME: comment.LAST_NAME || '',
-          likes: comment.likes || 0,
+          USERNAME: comment.USER?.USERNAME || '',
+          FIRST_NAME: comment.USER?.FIRST_NAME || '',
+          LAST_NAME: comment.USER?.LAST_NAME || '',
+          likes: comment.COMMENT_LIKES.map((like) => like.liker) || [],
           author: comment.author || '',
         })) || []
 
@@ -84,7 +84,7 @@ export const usePostComments = (postId: string) => {
           FIRST_NAME: user?.FIRST_NAME || '',
           LAST_NAME: user?.LAST_NAME || '',
           author: userId,
-          likes: 0,
+          likes: [],
         }
 
         setComments([newPost, ...comments])
@@ -118,5 +118,77 @@ export const usePostComments = (postId: string) => {
     })
   }
 
-  return { comments, handleCommentCreation, removeComment }
+  const likeComment = (commentId: string) => {
+    supabase
+      .from('COMMENT_LIKES')
+      .insert({ liked: commentId, liker: userId })
+      .then((response) => {
+        const { error } = response
+
+        if (error) {
+          toast({
+            variant: 'destructive',
+            title: t('error'),
+            description: t('like-comment-error'),
+          })
+          return
+        }
+
+        setComments((prevComments) =>
+          prevComments.map((comment) => {
+            if (comment.id === commentId) {
+              return {
+                ...comment,
+                likes: [...comment.likes, userId],
+              }
+            }
+            return comment
+          }),
+        )
+      })
+  }
+
+  const unLikeComment = (commentId: string) => {
+    supabase
+      .from('COMMENT_LIKES')
+      .delete()
+      .eq('liked', commentId)
+      .eq('liker', userId)
+      .then((response) => {
+        const { error } = response
+        if (error) {
+          toast({
+            variant: 'destructive',
+            title: t('error'),
+            description: t('unlike-comment-error'),
+          })
+          return
+        }
+
+        setComments((prevComments) =>
+          prevComments.map((comment) => {
+            if (comment.id === commentId) {
+              return {
+                ...comment,
+                likes: comment.likes.filter((like) => like !== userId),
+              }
+            }
+            return comment
+          }),
+        )
+      })
+  }
+
+  const handleLikeClick = (commentId: string) => () => {
+    const isLiked = comments.find((comment) => comment.id === commentId)?.likes.includes(userId)
+
+    if (isLiked) {
+      unLikeComment(commentId)
+      return
+    }
+
+    return likeComment(commentId)
+  }
+
+  return { comments, handleCommentCreation, removeComment, handleLikeClick }
 }

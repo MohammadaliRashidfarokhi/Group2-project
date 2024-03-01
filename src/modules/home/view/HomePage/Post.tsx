@@ -17,10 +17,11 @@ import { APP_ROUTES } from '@/config/router/routes.ts'
 type Props = {
   data: PostDetail
   onRemove?: () => void
+  onLikeClick?: () => void
 }
 
 export const Post = (props: Props) => {
-  const { data, onRemove } = props
+  const { data, onRemove, onLikeClick } = props
   const [showConfirmation, setShowConfirmation] = useState(false)
 
   const handleRemove = () => {
@@ -80,9 +81,9 @@ export const Post = (props: Props) => {
         <span>{data.CONTENT}</span>
 
         <div className={'flex flex-row gap-3.5 mt-2'}>
-          <span className={'flex flex-row gap-1 cursor-pointer'}>
+          <span className={'flex flex-row gap-1 cursor-pointer'} onClick={onLikeClick}>
             <img className={'text-gray-500 hover:text-white'} src={heartIcon} alt="Likes" />
-            <span>{data.likes}</span>
+            <span>{data.likes.length}</span>
           </span>
 
           <Link to={APP_ROUTES.comments(data.id)}>
