@@ -6,6 +6,7 @@ import { Post } from '@/modules/home/view/HomePage/Post.tsx'
 import { useTranslation } from '@/locales/i18n.ts'
 import { useFollowingUsers } from '@/modules/common/data/useFollowingUsers'
 import { Button } from '@/lib/shadcn-components/ui/button.tsx'
+import { useUserFollowerCount } from '../../data/useUserFollowersCount'
 
 export const ProfileFollow = () => {
   const { id } = useParams()
@@ -23,6 +24,7 @@ export const ProfileFollow = () => {
 
     unFollow(String(user?.id))
   }
+  const {userFolloersCount} = useUserFollowerCount(id || '')
 
   return (
     <div className={'w-full flex flex-col'}>
