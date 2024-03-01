@@ -17,8 +17,8 @@ export const useUserPosts = (currentUserId: string, followerIds?: string[]) => {
 
     async function fetchPosts() {
       return supabase
-        .from('home_page_posts')
-        .select('*')
+        .from('POST')
+        .select('*, POST_LIKES (liker, liked ), COMMENT (id), USER!POST_author_fkey( USERNAME, FIRST_NAME, LAST_NAME)')
         .in('author', userIdsInput)
         .order('PUBLISHED_AT', { ascending: false })
     }
@@ -40,11 +40,11 @@ export const useUserPosts = (currentUserId: string, followerIds?: string[]) => {
           id: post.id || '',
           CONTENT: post.CONTENT || '',
           PUBLISHED_AT: post.PUBLISHED_AT || '',
-          USERNAME: post.USERNAME || '',
-          FIRST_NAME: post.FIRST_NAME || '',
-          LAST_NAME: post.LAST_NAME || '',
-          likes: post.likes || 0,
-          comments: post.comments || 0,
+          USERNAME: post?.USER?.USERNAME || '',
+          FIRST_NAME: post?.USER?.FIRST_NAME || '',
+          LAST_NAME: post?.USER?.LAST_NAME || '',
+          likes: post.POST_LIKES?.map((like) => like.liker) || [],
+          comments: post.COMMENT?.length || 0,
           author: post.author || '',
         })) || []
 
@@ -78,7 +78,7 @@ export const useUserPosts = (currentUserId: string, followerIds?: string[]) => {
           FIRST_NAME: user?.FIRST_NAME || '',
           LAST_NAME: user?.LAST_NAME || '',
           author: currentUserId,
-          likes: 0,
+          likes: [],
           comments: 0,
         }
 
@@ -113,9 +113,81 @@ export const useUserPosts = (currentUserId: string, followerIds?: string[]) => {
     })
   }
 
+  const handlePostLike = (postId: string) => {
+    supabase
+      .from('POST_LIKES')
+      .insert({ liker: currentUserId, liked: postId })
+      .then((response) => {
+        const { error } = response
+        if (error) {
+          toast({
+            variant: 'destructive',
+            title: t('error'),
+            description: t('unable-to-like'),
+          })
+          return
+        }
+
+        setPosts((prevPosts) =>
+          prevPosts.map((post) => {
+            if (post.id === postId) {
+              return {
+                ...post,
+                likes: [...post.likes, currentUserId],
+              }
+            }
+
+            return post
+          }),
+        )
+      })
+  }
+
+  const handlePostUnlike = (postId: string) => {
+    supabase
+      .from('POST_LIKES')
+      .delete()
+      .eq('liker', currentUserId)
+      .eq('liked', postId)
+      .then((response) => {
+        const { error } = response
+        if (error) {
+          toast({
+            variant: 'destructive',
+            title: t('error'),
+            description: t('unable-to-unlike'),
+          })
+          return
+        }
+
+        setPosts((prevPosts) =>
+          prevPosts.map((post) => {
+            if (post.id === postId) {
+              return {
+                ...post,
+                likes: post.likes.filter((like) => like !== currentUserId),
+              }
+            }
+
+            return post
+          }),
+        )
+      })
+  }
+
+  const handleLikeClick = (post: PostDetail) => () => {
+    if (post.likes.includes(currentUserId)) {
+      handlePostUnlike(post.id)
+      return
+    }
+
+    handlePostLike(post.id)
+  }
+
   return {
     posts,
     handlePostCreation,
     removePost,
+    handleLikeClick,
   }
 }

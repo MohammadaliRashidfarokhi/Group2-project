@@ -23,7 +23,7 @@ export const PostDetailPage = () => {
   const { t } = useTranslation(['common', 'forms'])
   const { session } = userStore.useStore()
   const post = useDetailPost(id || '')
-  const { comments, handleCommentCreation, removeComment } = usePostComments(id || '')
+  const { comments, handleCommentCreation, removeComment, handleLikeClick } = usePostComments(id || '')
   const { handleSubmit, register, formState } = useForm<{ content: string }>({
     resolver: yupResolver(schema),
   })
@@ -53,6 +53,7 @@ export const PostDetailPage = () => {
             key={comment.id}
             data={comment}
             onRemove={comment.author === session?.user.id ? removeComment(comment.id) : undefined}
+            onLikeClick={handleLikeClick(comment.id)}
           />
         ))}
       </div>
