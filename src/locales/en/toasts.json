@@ -19,5 +19,7 @@
   "followers-fetch-error": "An error occurred while fetching the followers",
 
   "unable-to-follow": "An error occurred while trying to follow the user",
-  "unable-to-unfollow": "An error occurred while trying to unfollow the user"
+  "unable-to-unfollow": "An error occurred while trying to unfollow the user",
+
+  "counts-fetch-error": "An error occurred while fetching the followers counts"
 }
