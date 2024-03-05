@@ -1,6 +1,7 @@
 import { Card, CardContent } from '@/lib/shadcn-components/ui/card.tsx'
-import { commentIcon, dotsIcon, heartIcon, profilePlaceholder } from '@/static/images.ts'
+import { commentIcon, heartIcon, profilePlaceholder } from '@/static/images.ts'
 import { PostDetail } from '@/model/post.ts'
+import { TrashIcon } from '@radix-ui/react-icons'
 import { useState } from 'react'
 import {
   AlertDialog,
@@ -13,6 +14,7 @@ import {
 import { Button } from '@/lib/shadcn-components/ui/button.tsx'
 import { Link } from 'react-router-dom'
 import { APP_ROUTES } from '@/config/router/routes.ts'
+import { useTranslation } from '@/locales/i18n.ts'
 
 type Props = {
   data: PostDetail
@@ -23,6 +25,7 @@ type Props = {
 export const Post = (props: Props) => {
   const { data, onRemove, onLikeClick } = props
   const [showConfirmation, setShowConfirmation] = useState(false)
+  const { t } = useTranslation();
 
   const handleRemove = () => {
     // Show the confirmation dialog
@@ -41,29 +44,24 @@ export const Post = (props: Props) => {
   }
 
   return (
-    <Card className={'w-full'}>
-      <CardContent className={'text-white relative px-7 py-5 flex flex-col gap-2'}>
+    <Card>
+      <CardContent className={'text-white relative px-6 py-4 flex flex-col gap-2'}>
         {onRemove && (
           <AlertDialog open={showConfirmation}>
             <AlertDialogTrigger>
-              <img
-                src={dotsIcon}
-                className={'top-6 right-6 absolute cursor-pointer p-2'}
-                alt="More"
-                onClick={handleRemove}
-              />
+              <TrashIcon className={'top-7 right-5 absolute w-5 h-5'} onClick={handleRemove}/>
             </AlertDialogTrigger>
             <AlertDialogContent>
-              <AlertDialogHeader>Do You Want to remove this post?</AlertDialogHeader>
+              <AlertDialogHeader>{t('delete-post')}</AlertDialogHeader>
               <AlertDialogDescription>
-                This action cannot be undone. This will permanently delete your post.
+                {t('delete-post-description')}
               </AlertDialogDescription>
               <AlertDialogFooter>
                 <Button onClick={cancelRemove} variant={'secondary'}>
-                  Cancel
+                  {t('cancel')}
                 </Button>
                 <Button onClick={confirmRemove} variant={'destructive'}>
-                  Remove
+                  {t('delete')}
                 </Button>
               </AlertDialogFooter>
             </AlertDialogContent>
