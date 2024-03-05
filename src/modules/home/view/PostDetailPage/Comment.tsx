@@ -16,7 +16,7 @@ import { HeartFilledIcon, TrashIcon } from '@radix-ui/react-icons'
 import { Link } from 'react-router-dom'
 import { APP_ROUTES } from '@/config/router/routes.ts'
 import { cx } from 'class-variance-authority'
-import dayjs from 'dayjs'
+import * as dayjs from 'dayjs'
 
 type Props = {
   isLikedByCurrentUser?: boolean

@@ -10,6 +10,7 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { useTranslation } from '@/locales/i18n.ts'
+import { useDetailPost } from '@/modules/common/data/useDetailPost.ts'
 import { usePostComments } from '@/modules/common/data/usePostComments.ts'
 import { FormTextArea } from '@/modules/common/components/form/FormTextArea.tsx'
 
@@ -21,7 +22,8 @@ export const PostDetailPage = () => {
   const { id } = useParams()
   const { t } = useTranslation(['common', 'forms'])
   const { session } = userStore.useStore()
-  const { postDetail, handleCommentCreation, removeComment, handleLikeClick } = usePostComments(id || '')
+  const post = useDetailPost(id || '')
+  const { comments, handleCommentCreation, removeComment, handleLikeClick } = usePostComments(id || '')
   const { handleSubmit, register, formState } = useForm<{ content: string }>({
     resolver: yupResolver(schema),
   })
@@ -30,7 +32,7 @@ export const PostDetailPage = () => {
     handleCommentCreation(data.content)
   })
 
-  if (!postDetail) {
+  if (!post) {
     return <div className={'text-white'}>Loading...</div>
   }
 
@@ -43,9 +45,9 @@ export const PostDetailPage = () => {
         <span className="text-white font-bold ml-auto mr-auto">{t('post')}</span>
       </div>
 
-      <Post data={postDetail} />
+      <Post data={post} />
 
-      {postDetail?.comments?.map((comment) => (
+      {comments?.map((comment) => (
         <Comment
           key={comment.id}
           data={comment}

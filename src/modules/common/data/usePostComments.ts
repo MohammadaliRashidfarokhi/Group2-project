@@ -5,7 +5,6 @@ import { useToast } from '@/lib/shadcn-components/ui/use-toast.ts'
 import { userStore } from '@/store/authStore.ts'
 import { useTranslation } from '@/locales/i18n.ts'
 import { useUserData } from '@/modules/common/data/useUserData.ts'
-import { PostDetail } from '@/model/post.ts'
 
 export const usePostComments = (postId: string) => {
   const { t } = useTranslation('toasts')
@@ -14,18 +13,10 @@ export const usePostComments = (postId: string) => {
   const { user } = useUserData(userId)
   const { toast } = useToast()
 
-  const [postDetail, setPostDetail] = useState<PostDetail>()
+  const [comments, setComments] = useState<CommentDetail[]>([])
 
   useEffect(() => {
-    async function fetchPostDetail(id: string) {
-      return supabase
-        .from('POST')
-        .select('*, POST_LIKES (liker, liked ), COMMENT (id), USER!POST_author_fkey( USERNAME, FIRST_NAME, LAST_NAME)')
-        .eq('id', id)
-        .single()
-    }
-
-    async function fetchComments() {
+    async function fetchPosts() {
       return supabase
         .from('COMMENT')
         .select('*, COMMENT_LIKES (liker, liked), USER!COMMENT_author_fkey(USERNAME, FIRST_NAME, LAST_NAME)')
@@ -33,70 +24,34 @@ export const usePostComments = (postId: string) => {
         .order('PUBLISHED_AT', { ascending: true })
     }
 
-    fetchPostDetail(postId)
-      .then((res) => {
-        const { data, error } = res
+    fetchPosts().then((response) => {
+      const { data, error } = response
 
-        if (error) {
-          toast({
-            variant: 'destructive',
-            title: t('error'),
-            description: t('post-fetch-error'),
-          })
-        } else {
-          const post: PostDetail = {
-            id: data?.id || '',
-            CONTENT: data?.CONTENT || '',
-            PUBLISHED_AT: data?.PUBLISHED_AT || '',
-            USERNAME: data?.USER?.USERNAME || '',
-            FIRST_NAME: data?.USER?.FIRST_NAME || '',
-            LAST_NAME: data?.USER?.LAST_NAME || '',
-            likes: data?.POST_LIKES?.map((like) => like.liker) || [],
-            comments: [],
-            author: data?.author || '',
-          }
-
-          setPostDetail(post)
-        }
-
-        return fetchComments()
-      })
-      .then((response) => {
-        const { data, error } = response
-
-        if (error) {
-          toast({
-            variant: 'destructive',
-            title: t('error'),
-            description: t('comments-fetch-error'),
-          })
-          return
-        }
-
-        const mappedComments: CommentDetail[] =
-          data?.map((comment) => ({
-            id: comment.id || '',
-            CONTENT: comment.CONTENT || '',
-            PUBLISHED_AT: comment.PUBLISHED_AT || '',
-            USERNAME: comment.USER?.USERNAME || '',
-            FIRST_NAME: comment.USER?.FIRST_NAME || '',
-            LAST_NAME: comment.USER?.LAST_NAME || '',
-            likes: comment.COMMENT_LIKES.map((like) => like.liker) || [],
-            author: comment.author || '',
-          })) || []
-
-        setPostDetail((prevPost) => {
-          if (prevPost) {
-            return {
-              ...prevPost,
-              comments: mappedComments,
-            }
-          }
-          return prevPost
+      if (error) {
+        toast({
+          variant: 'destructive',
+          title: t('error'),
+          description: t('comments-fetch-error'),
         })
-
         return
-      })
+      }
+
+      const mappedComments: CommentDetail[] =
+        data?.map((comment) => ({
+          id: comment.id || '',
+          CONTENT: comment.CONTENT || '',
+          PUBLISHED_AT: comment.PUBLISHED_AT || '',
+          USERNAME: comment.USER?.USERNAME || '',
+          FIRST_NAME: comment.USER?.FIRST_NAME || '',
+          LAST_NAME: comment.USER?.LAST_NAME || '',
+          likes: comment.COMMENT_LIKES.map((like) => like.liker) || [],
+          author: comment.author || '',
+        })) || []
+
+      setComments(mappedComments || [])
+
+      return
+    })
   }, [postId, t])
 
   const handleCommentCreation = async (content: string): Promise<void> => {
@@ -132,15 +87,7 @@ export const usePostComments = (postId: string) => {
           likes: [],
         }
 
-        setPostDetail((prevPost) => {
-          if (prevPost) {
-            return {
-              ...prevPost,
-              comments: [...prevPost.comments, newPost],
-            }
-          }
-          return prevPost
-        })
+        setComments([newPost, ...comments])
 
         toast({
           variant: 'success',
@@ -163,15 +110,7 @@ export const usePostComments = (postId: string) => {
     }
 
     // If the deletion is successful, update the state
-    setPostDetail((prevPost) => {
-      if (prevPost) {
-        return {
-          ...prevPost,
-          comments: prevPost.comments.filter((comment) => comment.id !== commentId),
-        }
-      }
-      return prevPost
-    })
+    setComments((prevComment) => prevComment.filter((comment) => comment.id !== commentId))
 
     toast({
       variant: 'success',
@@ -196,23 +135,17 @@ export const usePostComments = (postId: string) => {
           return
         }
 
-        setPostDetail((prevPost) => {
-          if (prevPost) {
-            return {
-              ...prevPost,
-              comments: prevPost.comments.map((comment) => {
-                if (comment.id === commentId) {
-                  return {
-                    ...comment,
-                    likes: [...comment.likes, userId],
-                  }
-                }
-                return comment
-              }),
+        setComments((prevComments) =>
+          prevComments.map((comment) => {
+            if (comment.id === commentId) {
+              return {
+                ...comment,
+                likes: [...comment.likes, userId],
+              }
             }
-          }
-          return prevPost
-        })
+            return comment
+          }),
+        )
       })
   }
 
@@ -233,28 +166,22 @@ export const usePostComments = (postId: string) => {
           return
         }
 
-        setPostDetail((prevPost) => {
-          if (prevPost) {
-            return {
-              ...prevPost,
-              comments: prevPost.comments.map((comment) => {
-                if (comment.id === commentId) {
-                  return {
-                    ...comment,
-                    likes: comment.likes.filter((like) => like !== userId),
-                  }
-                }
-                return comment
-              }),
+        setComments((prevComments) =>
+          prevComments.map((comment) => {
+            if (comment.id === commentId) {
+              return {
+                ...comment,
+                likes: comment.likes.filter((like) => like !== userId),
+              }
             }
-          }
-          return prevPost
-        })
+            return comment
+          }),
+        )
       })
   }
 
   const handleLikeClick = (commentId: string) => () => {
-    const isLiked = postDetail?.comments.find((comment) => comment.id === commentId)?.likes.includes(userId)
+    const isLiked = comments.find((comment) => comment.id === commentId)?.likes.includes(userId)
 
     if (isLiked) {
       unLikeComment(commentId)
@@ -264,5 +191,5 @@ export const usePostComments = (postId: string) => {
     return likeComment(commentId)
   }
 
-  return { postDetail, handleCommentCreation, removeComment, handleLikeClick }
+  return { comments, handleCommentCreation, removeComment, handleLikeClick }
 }
