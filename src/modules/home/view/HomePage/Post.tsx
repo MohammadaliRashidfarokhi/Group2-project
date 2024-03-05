@@ -1,6 +1,6 @@
 import { Card, CardContent } from '@/lib/shadcn-components/ui/card.tsx'
 import { commentIcon, profilePlaceholder } from '@/static/images.ts'
-import { PostDetail } from '@/model/post.ts'
+import { Post as IPost, PostDetail } from '@/model/post.ts'
 import { HeartFilledIcon, TrashIcon } from '@radix-ui/react-icons'
 import { useState } from 'react'
 import {
@@ -16,11 +16,11 @@ import { Link } from 'react-router-dom'
 import { APP_ROUTES } from '@/config/router/routes.ts'
 import { useTranslation } from '@/locales/i18n.ts'
 import { cx } from 'class-variance-authority'
-import * as dayjs from 'dayjs'
+import dayjs from 'dayjs'
 
 type Props = {
   isLikedByCurrentUser?: boolean
-  data: PostDetail
+  data: IPost | PostDetail
   onRemove?: () => void
   onLikeClick?: () => void
 }
@@ -88,7 +88,7 @@ export const Post = (props: Props) => {
             <Link to={APP_ROUTES.comments(data.id)}>
               <span className={'flex flex-row gap-1 cursor-pointer'}>
                 <img src={commentIcon} alt="Comments" />
-                <span>{data.comments}</span>
+                <span>{Array.isArray(data.comments) ? data.comments.length : data.comments}</span>
               </span>
             </Link>
           </div>

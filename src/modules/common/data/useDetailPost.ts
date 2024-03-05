@@ -1,12 +1,12 @@
 import { supabase } from '@/config/supabase/supabaseClient'
 import { useEffect, useState } from 'react'
-import { PostDetail } from '@/model/post.ts'
+import { Post } from '@/model/post.ts'
 import { useToast } from '@/lib/shadcn-components/ui/use-toast.ts'
 import { useTranslation } from '@/locales/i18n.ts'
 
-export const useDetailPost = (postId: string): PostDetail | undefined => {
+export const useDetailPost = (postId: string): Post | undefined => {
   const { t } = useTranslation('toasts')
-  const [post, setPost] = useState<PostDetail>()
+  const [post, setPost] = useState<Post>()
   const { toast } = useToast()
 
   useEffect(() => {
@@ -30,7 +30,7 @@ export const useDetailPost = (postId: string): PostDetail | undefined => {
         return
       }
 
-      const postDetail: PostDetail = {
+      const postDetail: Post = {
         id: data?.id || '',
         CONTENT: data?.CONTENT || '',
         PUBLISHED_AT: data?.PUBLISHED_AT || '',
