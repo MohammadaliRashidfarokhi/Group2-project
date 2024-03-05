@@ -92,7 +92,9 @@ export const Post = (props: Props) => {
               </span>
             </Link>
           </div>
-          <div className={'text-gray-400 text-sm'}>{dayjs(new Date(data.PUBLISHED_AT)).format('YYYY-MM-DD h:m')}</div>
+          <div className={'text-gray-400 text-sm'}>
+            {dayjs(new Date(data.PUBLISHED_AT)).format('YYYY-MM-DD h:m').toString()}
+          </div>
         </div>
       </CardContent>
     </Card>
