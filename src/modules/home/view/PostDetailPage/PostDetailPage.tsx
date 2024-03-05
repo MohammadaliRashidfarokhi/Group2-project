@@ -1,7 +1,5 @@
 import { backArrow } from '@/static/images'
 import { Link, useParams } from 'react-router-dom'
-import { useDetailPost } from '../../data/useDetailPost'
-import { usePostComments } from '../../data/usePostComments'
 import { Post } from '../HomePage/Post'
 import { Comment } from './Comment'
 import { APP_ROUTES } from '@/config/router/routes.ts'
@@ -12,7 +10,9 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { useTranslation } from '@/locales/i18n.ts'
-import { FormTextArea } from '@/components/form/FormTextArea.tsx'
+import { useDetailPost } from '@/modules/common/data/useDetailPost.ts'
+import { usePostComments } from '@/modules/common/data/usePostComments.ts'
+import { FormTextArea } from '@/modules/common/components/form/FormTextArea.tsx'
 
 const schema = yup.object().shape({
   content: yup.string().required('required-field'),

@@ -2,13 +2,13 @@ import { supabase } from '@/config/supabase/supabaseClient.ts'
 import { Button } from '@/lib/shadcn-components/ui/button.tsx'
 import { Link, useNavigate } from 'react-router-dom'
 import { APP_ROUTES } from '@/config/router/routes.ts'
-import { FormInput } from '@/components/form/FormInput.tsx'
 import { useRegisterForm } from './utils/useRegisterForm'
 import { socialLogo } from '@/static/images.ts'
 import { Tables } from '@/model/dbTypes.ts'
 import { useToast } from '@/lib/shadcn-components/ui/use-toast.ts'
 import { mapSupabaseAuthError } from '@/utils/supabaseErrorMappers.ts'
 import { useTranslation } from '@/locales/i18n.ts'
+import { FormInput } from '@/modules/common/components/form/FormInput.tsx'
 
 export const RegisterPage = () => {
   const { t } = useTranslation(['forms', 'toasts'])

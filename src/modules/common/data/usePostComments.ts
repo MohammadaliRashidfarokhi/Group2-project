@@ -3,8 +3,8 @@ import { supabase } from '@/config/supabase/supabaseClient.ts'
 import { CommentDetail } from '@/model/comment'
 import { useToast } from '@/lib/shadcn-components/ui/use-toast.ts'
 import { userStore } from '@/store/authStore.ts'
-import { useUserData } from '@/data/useUserData.ts'
 import { useTranslation } from '@/locales/i18n.ts'
+import { useUserData } from '@/modules/common/data/useUserData.ts'
 
 export const usePostComments = (postId: string) => {
   const { t } = useTranslation('toasts')
@@ -160,7 +160,7 @@ export const usePostComments = (postId: string) => {
           toast({
             variant: 'destructive',
             title: t('error'),
-            description: t('unlike-comment-error'),
+            description: t('like-comment-error'),
           })
           return
         }

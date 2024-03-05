@@ -17,6 +17,9 @@
   "write-post": "Write a post",
   "write-post-placeholder": "What's popping...",
   "send": "Send",
+  "save": "Save",
+  "cancel": "Cancel",
+  "close": "Close",
 
   "required-field": "This field is required",
   "invalid-email": "Invalid email",
@@ -25,5 +28,8 @@
   "invalid-name": "Invalid name",
   "invalid-surname": "Invalid surname",
   "field-too-short": "This field is too short",
-  "field-too-long": "This field is too long"
+  "field-too-long": "This field is too long",
+
+  "edit-profile": "Edit profile",
+  "edit-profile-placeholder": "Make changes to your profile here. Click save when you're done."
 }

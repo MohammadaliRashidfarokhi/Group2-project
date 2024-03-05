@@ -17,6 +17,9 @@
   "write-post": "Skriva ett inlägg",
   "write-post-placeholder": "Vad händer...",
   "send": "Skicka",
+  "save": "Spara",
+  "cancel": "Avbryt",
+  "close": "Stäng",
 
   "required-field": "Detta fält är obligatoriskt",
   "invalid-email": "Ogiltig e-postadress",
@@ -25,5 +28,9 @@
   "invalid-name": "Ogiltigt förnamn",
   "invalid-surname": "Ogiltigt efternamn",
   "field-too-short": "Detta fält är för kort",
-  "field-too-long": "Detta fält är för långt"
+  "field-too-long": "Detta fält är för långt",
+
+
+  "edit-profile": "Redigera profil",
+  "edit-profile-placeholder": "Gör ändringar i din profil här. Klicka på spara när du är klar."
 }

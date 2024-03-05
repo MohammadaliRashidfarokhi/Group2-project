@@ -1,7 +1,7 @@
 import { socialLogo } from '@/static/images'
 import { supabase } from '@/config/supabase/supabaseClient.ts'
 import { Link, useLocation } from 'react-router-dom'
-import ReactCountryFlag from "react-country-flag"
+import ReactCountryFlag from 'react-country-flag'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,7 +11,7 @@ import {
 import { useTranslation } from '@/locales/i18n.ts'
 import { GearIcon, HomeIcon, MagnifyingGlassIcon, PersonIcon } from '@radix-ui/react-icons'
 import { APP_ROUTES } from '@/config/router/routes.ts'
-import { HeaderLink } from '@/components/header/HeaderLink.tsx'
+import { HeaderLink } from '@/modules/common/components/header/HeaderLink.tsx'
 
 export const Header = () => {
   const { t, i18n } = useTranslation()
@@ -67,7 +67,11 @@ export const Header = () => {
               }}
             >
               {i18n.language === 'en-US' ? 'Swedish' : 'English'}
-              <ReactCountryFlag svg title={i18n.language === 'en-US' ? 'Swedish' : 'English'} countryCode={i18n.language === 'en-US' ? 'SE' : 'GB'} />
+              <ReactCountryFlag
+                svg
+                title={i18n.language === 'en-US' ? 'Swedish' : 'English'}
+                countryCode={i18n.language === 'en-US' ? 'SE' : 'GB'}
+              />
             </DropdownMenuItem>
             <DropdownMenuItem className={'cursor-pointer'} onClick={handleLogout}>
               {t('logout')}

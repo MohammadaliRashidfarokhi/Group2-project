@@ -41,7 +41,7 @@ export const Post = (props: Props) => {
   }
 
   return (
-    <Card>
+    <Card className={'w-full'}>
       <CardContent className={'text-white relative px-7 py-5 flex flex-col gap-2'}>
         {onRemove && (
           <AlertDialog open={showConfirmation}>
