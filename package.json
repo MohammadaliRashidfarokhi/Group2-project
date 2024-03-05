@@ -22,7 +22,6 @@
     "@tanstack/react-query": "^5.18.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
-    "dayjs": "^1.11.10",
     "font-awesome": "^4.7.0",
     "i18next": "^23.9.0",
     "lucide-react": "^0.315.0",

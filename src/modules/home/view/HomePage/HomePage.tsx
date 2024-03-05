@@ -29,7 +29,6 @@ export const HomePage = () => {
               data={post}
               onRemove={post.author === userId ? removePost(post.id) : undefined}
               onLikeClick={handleLikeClick(post)}
-              isLikedByCurrentUser={post.likes.includes(userId)}
             />
           ))}
         {posts.length === 0 && (

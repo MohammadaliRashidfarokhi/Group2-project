@@ -14,12 +14,11 @@ export const Layout = (props: Props) => {
   return (
     <main className="flex w-full h-full overflow-hidden overflow-y-scroll justify-center">
       <div
-        className={cn('container w-full md:w-[500px] md:py-10 flex px-4 md:px-0 flex-col', {
+        className={cn('container w-full md:w-[500px] md:py-10 flex px-4 md:px-0', {
           'md:w-[700px]': variant === 'full',
         })}
       >
         <Outlet />
-        <div className={'min-h-4 w-full'} />
       </div>
     </main>
   )

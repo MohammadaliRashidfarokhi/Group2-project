@@ -90,7 +90,6 @@ export const usePostComments = (postId: string) => {
         setComments([newPost, ...comments])
 
         toast({
-          variant: 'success',
           title: t('success'),
           description: t('comment-create-success'),
         })
