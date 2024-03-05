@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '@/config/supabase/supabaseClient.ts'
-import { PostDetail } from '@/model/post.ts'
+import { Post } from '@/model/post.ts'
 import { useToast } from '@/lib/shadcn-components/ui/use-toast.ts'
 import { useTranslation } from '@/locales/i18n.ts'
 import { useUserData } from '@/modules/common/data/useUserData.ts'
 
 export const useUserPosts = (currentUserId: string, followerIds?: string[]) => {
   const { t } = useTranslation('toasts')
-  const [posts, setPosts] = useState<PostDetail[]>([])
+  const [posts, setPosts] = useState<Post[]>([])
   const { toast } = useToast()
 
   const { user } = useUserData(currentUserId)
@@ -35,7 +35,7 @@ export const useUserPosts = (currentUserId: string, followerIds?: string[]) => {
         return
       }
 
-      const mappedPosts: PostDetail[] =
+      const mappedPosts: Post[] =
         data?.map((post) => ({
           id: post.id || '',
           CONTENT: post.CONTENT || '',
@@ -70,7 +70,7 @@ export const useUserPosts = (currentUserId: string, followerIds?: string[]) => {
           return
         }
 
-        const newPost: PostDetail = {
+        const newPost: Post = {
           id: data?.[0].id || '',
           CONTENT: data?.[0].CONTENT || '',
           PUBLISHED_AT: data?.[0].PUBLISHED_AT || '',
@@ -85,6 +85,7 @@ export const useUserPosts = (currentUserId: string, followerIds?: string[]) => {
         setPosts([newPost, ...posts])
 
         toast({
+          variant: 'success',
           title: t('success'),
           description: t('post-create-success'),
         })
@@ -175,7 +176,7 @@ export const useUserPosts = (currentUserId: string, followerIds?: string[]) => {
       })
   }
 
-  const handleLikeClick = (post: PostDetail) => () => {
+  const handleLikeClick = (post: Post) => () => {
     if (post.likes.includes(currentUserId)) {
       handlePostUnlike(post.id)
       return
