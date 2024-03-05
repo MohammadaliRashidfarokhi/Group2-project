@@ -1,6 +1,7 @@
 import { Card, CardContent } from '@/lib/shadcn-components/ui/card.tsx'
-import { commentIcon, dotsIcon, heartIcon, profilePlaceholder } from '@/static/images.ts'
+import { commentIcon, profilePlaceholder } from '@/static/images.ts'
 import { PostDetail } from '@/model/post.ts'
+import { HeartFilledIcon, TrashIcon } from '@radix-ui/react-icons'
 import { useState } from 'react'
 import {
   AlertDialog,
@@ -13,85 +14,85 @@ import {
 import { Button } from '@/lib/shadcn-components/ui/button.tsx'
 import { Link } from 'react-router-dom'
 import { APP_ROUTES } from '@/config/router/routes.ts'
+import { useTranslation } from '@/locales/i18n.ts'
+import { cx } from 'class-variance-authority'
+import * as dayjs from 'dayjs'
 
 type Props = {
+  isLikedByCurrentUser?: boolean
   data: PostDetail
   onRemove?: () => void
   onLikeClick?: () => void
 }
 
 export const Post = (props: Props) => {
-  const { data, onRemove, onLikeClick } = props
+  const { data, onRemove, onLikeClick, isLikedByCurrentUser = false } = props
   const [showConfirmation, setShowConfirmation] = useState(false)
+  const { t } = useTranslation()
 
   const handleRemove = () => {
-    // Show the confirmation dialog
     setShowConfirmation(true)
   }
 
   const confirmRemove = () => {
-    // Remove post and close the confirmation dialog
     onRemove?.()
     setShowConfirmation(false)
   }
 
   const cancelRemove = () => {
-    // Cancel the removal and close the confirmation dialog
     setShowConfirmation(false)
   }
 
   return (
-    <Card className={'w-full'}>
-      <CardContent className={'text-white relative px-7 py-5 flex flex-col gap-2'}>
+    <Card>
+      <CardContent className={'text-white relative px-6 py-4 flex flex-col gap-2'}>
         {onRemove && (
           <AlertDialog open={showConfirmation}>
             <AlertDialogTrigger>
-              <img
-                src={dotsIcon}
-                className={'top-6 right-6 absolute cursor-pointer p-2'}
-                alt="More"
-                onClick={handleRemove}
-              />
+              <TrashIcon className={'top-7 right-5 absolute w-5 h-5'} onClick={handleRemove} />
             </AlertDialogTrigger>
             <AlertDialogContent>
-              <AlertDialogHeader>Do You Want to remove this post?</AlertDialogHeader>
-              <AlertDialogDescription>
-                This action cannot be undone. This will permanently delete your post.
-              </AlertDialogDescription>
+              <AlertDialogHeader>{t('delete-post')}</AlertDialogHeader>
+              <AlertDialogDescription>{t('delete-post-description')}</AlertDialogDescription>
               <AlertDialogFooter>
                 <Button onClick={cancelRemove} variant={'secondary'}>
-                  Cancel
+                  {t('cancel')}
                 </Button>
                 <Button onClick={confirmRemove} variant={'destructive'}>
-                  Remove
+                  {t('delete')}
                 </Button>
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
         )}
 
-        <div className={'flex flex-row gap-2'}>
+        <Link to={APP_ROUTES.user(data.author)} className={'flex flex-row gap-2 w-fit'}>
           <img src={profilePlaceholder} className={'w-10'} alt="user" />
           <div className={'flex flex-col'}>
             <div className={'font-bold'}>{`${data.FIRST_NAME} ${data.LAST_NAME}`}</div>
             <div className={'text-muted-foreground'}>@{data.USERNAME}</div>
           </div>
-        </div>
+        </Link>
 
         <span>{data.CONTENT}</span>
 
-        <div className={'flex flex-row gap-3.5 mt-2'}>
-          <span className={'flex flex-row gap-1 cursor-pointer'} onClick={onLikeClick}>
-            <img className={'text-gray-500 hover:text-white'} src={heartIcon} alt="Likes" />
-            <span>{data.likes.length}</span>
-          </span>
-
-          <Link to={APP_ROUTES.comments(data.id)}>
-            <span className={'flex flex-row gap-1 cursor-pointer'}>
-              <img src={commentIcon} alt="Comments" />
-              <span>{data.comments}</span>
+        <div className={'flex flex-row justify-between items-end'}>
+          <div className={'flex flex-row gap-3.5 mt-2'}>
+            <span className={'flex flex-row gap-1 cursor-pointer items-center'} onClick={onLikeClick}>
+              <HeartFilledIcon
+                className={cx('w-5 h-5 text-gray-400 hover:text-red-500', { 'text-red-500': isLikedByCurrentUser })}
+              />
+              <span>{data.likes.length}</span>
             </span>
-          </Link>
+
+            <Link to={APP_ROUTES.comments(data.id)}>
+              <span className={'flex flex-row gap-1 cursor-pointer'}>
+                <img src={commentIcon} alt="Comments" />
+                <span>{data.comments}</span>
+              </span>
+            </Link>
+          </div>
+          <div className={'text-gray-400 text-sm'}>{dayjs(data.PUBLISHED_AT).format('YYYY-MM-DD h:m')}</div>
         </div>
       </CardContent>
     </Card>

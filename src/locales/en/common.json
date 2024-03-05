@@ -16,5 +16,11 @@
   "follow": "Follow",
   "following": "Following",
 
-  "followers": "Followers"
+  "followers": "Followers",
+
+  "delete-post": "Do you want to remove this post?",
+  "delete-post-description" : "This action cannot be undone. This will permanently delete your post.",
+
+  "cancel": "Cancel",
+  "delete": "Delete"
 }
