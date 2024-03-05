@@ -1,6 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom'
 import { APP_ROUTES } from '@/config/router/routes.ts'
-import { LayoutWithHeader, LayoutWithHeaderCompact } from '@/components/layout/Layout.tsx'
 import { UserRedirect } from '@/config/router/UserRedirect.tsx'
 import { LoginPage } from '@/modules/auth/view/LoginPage/LoginPage.tsx'
 import { HomePage } from '@/modules/home/view/HomePage/HomePage.tsx'
@@ -12,6 +11,7 @@ import { PostDetailPage } from '@/modules/home/view/PostDetailPage/PostDetailPag
 import { SearchPage } from '@/modules/search/view/SearchPage/SearchPage.tsx'
 import { ProfilePage } from '@/modules/profile/view/ProfilePage/ProfilePage.tsx'
 import { ProfileFollow } from '@/modules/profile/view/ProfileFollow/ProfileFollow.tsx'
+import { LayoutWithHeader, LayoutWithHeaderCompact } from '@/modules/common/components/layout/Layout.tsx'
 
 export const router = createBrowserRouter([
   {

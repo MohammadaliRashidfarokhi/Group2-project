@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 import * as yup from 'yup'
-import { FormTextArea } from '@/components/form/FormTextArea.tsx'
+import { FormTextArea } from '@/modules/common/components/form/FormTextArea.tsx'
 
 const schema = yup.object().shape({
   content: yup.string().required('required-field'),
@@ -26,14 +26,14 @@ export const WritePost = (props: Props) => {
   })
 
   return (
-    <Card>
+    <Card className={'w-full'}>
       <form onSubmit={handleSubmitForm}>
         <CardHeader className={'py-3'}>
           <h3 className={'text-white text-2xl font-bold'}>{t('write-post')}</h3>
         </CardHeader>
         <CardContent className={'text-white pb-2.5'}>
           <FormTextArea
-            className={'bg-black min-h-12 text-md p-0 border-none ring-offset-black'}
+            className={'bg-black min-h-12 text-md border-none ring-offset-black'}
             placeholder={t('write-post-placeholder')}
             {...register('content')}
             error={formState.errors.content?.message}

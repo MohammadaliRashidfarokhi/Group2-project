@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '@/config/supabase/supabaseClient.ts'
 import { PostDetail } from '@/model/post.ts'
-import { useUserData } from '@/data/useUserData.ts'
 import { useToast } from '@/lib/shadcn-components/ui/use-toast.ts'
 import { useTranslation } from '@/locales/i18n.ts'
+import { useUserData } from '@/modules/common/data/useUserData.ts'
 
 export const useUserPosts = (currentUserId: string, followerIds?: string[]) => {
   const { t } = useTranslation('toasts')
