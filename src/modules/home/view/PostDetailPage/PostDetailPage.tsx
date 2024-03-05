@@ -37,7 +37,7 @@ export const PostDetailPage = () => {
   }
 
   return (
-    <div className="w-full flex flex-col gap-1.5">
+    <div className="w-full flex flex-col gap-3.5">
       <div className="w-full flex items-center pb-2.5">
         <Link to={APP_ROUTES.home} className="cursor-pointer">
           <img src={backArrow} className="w-4 h-4" alt="back arrow" />
@@ -47,16 +47,15 @@ export const PostDetailPage = () => {
 
       <Post data={post} />
 
-      <div className="flex flex-col w-full gap-2.5">
-        {comments?.map((comment) => (
-          <Comment
-            key={comment.id}
-            data={comment}
-            onRemove={comment.author === session?.user.id ? removeComment(comment.id) : undefined}
-            onLikeClick={handleLikeClick(comment.id)}
-          />
-        ))}
-      </div>
+      {comments?.map((comment) => (
+        <Comment
+          key={comment.id}
+          data={comment}
+          onRemove={comment.author === session?.user.id ? removeComment(comment.id) : undefined}
+          onLikeClick={handleLikeClick(comment.id)}
+          isLikedByCurrentUser={comment.likes.includes(session?.user.id || '')}
+        />
+      ))}
 
       <Card>
         <form onSubmit={handleSubmitForm}>
