@@ -1,10 +1,10 @@
 import { Post } from '@/modules/home/view/HomePage/Post.tsx'
-import { useUserPosts } from '@/modules/home/data/useUserPosts.ts'
 import { WritePost } from '@/modules/home/view/HomePage/WritePost.tsx'
 import { userStore } from '@/store/authStore.ts'
 import { useTranslation } from '@/locales/i18n.ts'
 import { useUserFollowers } from '@/modules/common/data/useUserFollowers.ts'
 import { useMemo } from 'react'
+import { useUserPosts } from '@/modules/common/data/useUserPosts.ts'
 
 export const HomePage = () => {
   const { t } = useTranslation()
@@ -17,9 +17,11 @@ export const HomePage = () => {
   const { posts, handlePostCreation, removePost, handleLikeClick } = useUserPosts(userId, followingIds)
 
   return (
-    <div className={'container w-full'}>
-      <div className={'flex flex-col gap-7'}>
-        <WritePost onSubmit={handlePostCreation} />
+    <div className={'w-full flex flex-col'}>
+      <WritePost onSubmit={handlePostCreation} />
+
+      <div className={'flex flex-col gap-3.5 font-semibold mt-7'}>
+        <span className={'text-white'}>{t('posts')}</span>
         {posts.length > 0 &&
           posts.map((post) => (
             <Post

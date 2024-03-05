@@ -15,7 +15,7 @@ export const SearchPage = () => {
   const users = useFilteredUsers(searchValue)
 
   return (
-    <div className="container mx-auto text-white flex flex-col gap-8">
+    <div className="text-white flex flex-col gap-8 w-full">
       <div className="flex gap-3">
         <MagnifyingGlassIcon className="w-10 h-10" />
         <Input

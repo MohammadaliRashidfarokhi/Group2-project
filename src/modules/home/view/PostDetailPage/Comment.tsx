@@ -39,7 +39,7 @@ export const Comment = (props: Props) => {
   }
 
   return (
-    <Card className="flex-grow bg-transparent" style={{ background: 'transparent', border: 'none' }}>
+    <Card className="flex-grow bg-transparent">
       <CardContent className={'text-white relative px-7 py-5 flex flex-col gap-2'}>
         {onRemove && (
           <AlertDialog open={showConfirmation}>

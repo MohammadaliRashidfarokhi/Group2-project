@@ -2,12 +2,12 @@ import { supabase } from '@/config/supabase/supabaseClient.ts'
 import { Button } from '@/lib/shadcn-components/ui/button.tsx'
 import { Link, useNavigate } from 'react-router-dom'
 import { APP_ROUTES } from '@/config/router/routes.ts'
-import { FormInput } from '@/components/form/FormInput.tsx'
 import { useLoginForm } from '@/modules/auth/view/LoginPage/utils/useLoginForm.ts'
 import { socialLogo } from '@/static/images.ts'
 import { mapSupabaseAuthError } from '@/utils/supabaseErrorMappers.ts'
 import { useToast } from '@/lib/shadcn-components/ui/use-toast.ts'
 import { useTranslation } from '@/locales/i18n.ts'
+import { FormInput } from '@/modules/common/components/form/FormInput.tsx'
 
 export const LoginPage = () => {
   const { t } = useTranslation(['forms', 'toasts'])
