@@ -16,5 +16,10 @@
   "follow": "Följ",
   "following": "Följer",
 
-  "followers": "Följare"
+  "followers": "Följare",
+  "delete-post": "Vill du verkligen radera inlägget?",
+  "delete-post-description" : "Detta kommer att radera inlägget permanent och kan inte ångras.",
+
+  "cancel": "Avbryt",
+  "delete": "Ta bort"
 }
