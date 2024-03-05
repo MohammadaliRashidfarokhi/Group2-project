@@ -16,7 +16,7 @@ import { Link } from 'react-router-dom'
 import { APP_ROUTES } from '@/config/router/routes.ts'
 import { useTranslation } from '@/locales/i18n.ts'
 import { cx } from 'class-variance-authority'
-import * as dayjs from 'dayjs'
+import dayjs from 'dayjs'
 
 type Props = {
   data: PostDetail
@@ -92,9 +92,7 @@ export const Post = (props: Props) => {
               </span>
             </Link>
           </div>
-          <div className={'text-gray-400 text-sm'}>
-            {dayjs(new Date(data.PUBLISHED_AT)).format('YYYY-MM-DD h:m').toString()}
-          </div>
+          <div className={'text-gray-400 text-sm'}>{dayjs(data.PUBLISHED_AT).format('YYYY-MM-DD h:m')}</div>
         </div>
       </CardContent>
     </Card>
