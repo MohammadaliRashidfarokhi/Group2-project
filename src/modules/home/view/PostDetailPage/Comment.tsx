@@ -66,11 +66,13 @@ export const Comment = (props: Props) => {
           </AlertDialog>
         )}
 
-        <Link to={APP_ROUTES.user(data.author)} className={'flex flex-row gap-2 w-fit'}>
-          <img src={profilePlaceholder} className={'w-10'} alt="user" />
-          <div className={'flex flex-col'}>
-            <div className={'font-bold'}>{`${data.FIRST_NAME} ${data.LAST_NAME}`}</div>
-            <div className={'text-muted-foreground'}>@{data.USERNAME}</div>
+        <Link to={APP_ROUTES.user(data.author)}>
+          <div className={'flex flex-row gap-2 w-fit'}>
+            <img src={profilePlaceholder} className={'w-10'} alt="user" />
+            <div className={'flex flex-col'}>
+              <div className={'font-bold'}>{`${data.FIRST_NAME} ${data.LAST_NAME}`}</div>
+              <div className={'text-muted-foreground'}>@{data.USERNAME}</div>
+            </div>
           </div>
         </Link>
 
