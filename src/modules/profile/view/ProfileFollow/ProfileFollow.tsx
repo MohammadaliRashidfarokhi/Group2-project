@@ -18,7 +18,7 @@ export const ProfileFollow = () => {
 
   const { followersMap, handleFollowButtonClick } = useUserFollowers(String(id), currentUserId)
 
-  const { posts } = useUserPosts(String(id))
+  const { posts, handleLikeClick } = useUserPosts(String(id))
 
   return (
     <div className={'w-full flex flex-col'}>
@@ -58,7 +58,12 @@ export const ProfileFollow = () => {
 
         <div className={'flex flex-col gap-3.5'}>
           {posts.map((post) => (
-            <Post key={post.id} data={post} />
+            <Post
+              key={post.id}
+              data={post}
+              onLikeClick={handleLikeClick(post)}
+              isLikedByCurrentUser={post.likes.some((like) => like === currentUserId)}
+            />
           ))}
           {posts.length === 0 && (
             <div className={'flex flex-col gap-3.5 text-white mt-10'}>
