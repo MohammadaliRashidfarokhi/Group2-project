@@ -100,7 +100,12 @@ export const ProfilePage = () => {
 
           <div className={'flex flex-col gap-3.5'}>
             {posts.map((post) => (
-              <Post key={post.id} data={post} onLikeClick={handleLikeClick(post)} onRemove={removePost(post.id)}               isLikedByCurrentUser={post.likes.includes(userId)}
+              <Post
+                key={post.id}
+                data={post}
+                onLikeClick={handleLikeClick(post)}
+                onRemove={removePost(post.id)}
+                isLikedByCurrentUser={post.likes.some((like) => like === userId)}
               />
             ))}
             {posts.length === 0 && (

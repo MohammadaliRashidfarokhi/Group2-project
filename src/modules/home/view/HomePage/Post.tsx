@@ -16,13 +16,13 @@ import { Link } from 'react-router-dom'
 import { APP_ROUTES } from '@/config/router/routes.ts'
 import { useTranslation } from '@/locales/i18n.ts'
 import { cx } from 'class-variance-authority'
-import * as dayjs from 'dayjs'
+import dayjs from 'dayjs'
 
 type Props = {
-  isLikedByCurrentUser?: boolean
   data: PostDetail
   onRemove?: () => void
   onLikeClick?: () => void
+  isLikedByCurrentUser?: boolean
 }
 
 export const Post = (props: Props) => {
@@ -66,13 +66,13 @@ export const Post = (props: Props) => {
           </AlertDialog>
         )}
 
-        <Link to={APP_ROUTES.user(data.author)} className={'flex flex-row gap-2 w-fit'}>
+        <div className={'flex flex-row gap-2'}>
           <img src={profilePlaceholder} className={'w-10'} alt="user" />
           <div className={'flex flex-col'}>
             <div className={'font-bold'}>{`${data.FIRST_NAME} ${data.LAST_NAME}`}</div>
             <div className={'text-muted-foreground'}>@{data.USERNAME}</div>
           </div>
-        </Link>
+        </div>
 
         <span>{data.CONTENT}</span>
 
